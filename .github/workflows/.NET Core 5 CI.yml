@@ -7,12 +7,18 @@ on:
       - '**.gitignore'
       - '**/README.md'
       - '**.dockerignore'
+      - '**/stylecop.props'
+      - '**/stylecop.ruleset'
+      - '**/stylecop.json'
   pull_request:
     branches: [ main ]
     paths-ignore:
       - '**.gitignore'
       - '**/README.md'
       - '**.dockerignore'
+      - '**/stylecop.props'
+      - '**/stylecop.ruleset'
+      - '**/stylecop.json'
 jobs:
   build:
     runs-on: ${{ matrix.os }} 
