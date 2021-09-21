@@ -6,18 +6,20 @@ on:
     paths-ignore:
       - '**.gitignore'
       - '**/README.md'
+      - '**.dockerignore'
   pull_request:
     branches: [ main ]
     paths-ignore:
       - '**.gitignore'
       - '**/README.md'
+      - '**.dockerignore'
 jobs:
   build:
     runs-on: ${{ matrix.os }} 
     defaults:
       run:
         shell: bash
-        working-directory: ../Breakpoint/Q3-Concept
+        working-directory: ../Breakpoint/Q3-Concept.Server
     strategy:
       matrix: 
         os: [ubuntu-20.04, windows-2019]
