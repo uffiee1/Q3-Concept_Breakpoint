@@ -45,6 +45,9 @@
       <HashCode>AAAAAAAAAAAggAAAAAAAAAQAAAAAAAAAAAAAAIAAAAA=</HashCode>
       <FileName>ComponentDataModel.cs</FileName>
     </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="meters" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Model.MeterBasisModel">
     <Position X="5.5" Y="1.25" Width="2.75" />
