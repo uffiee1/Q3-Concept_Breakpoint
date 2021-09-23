@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataModel
 {
-    public class ProductionDataDataModel
+    public class ProductionDataModel
     {
         // start date . end date, startt time, endtime,
         // coming from parent productionline board and port
@@ -14,6 +14,7 @@ namespace DataModel
         public int ID { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        public int Count { get; set; }
         public ComponentDataModel Component1 { get; set; }
         public ComponentDataModel Component2 { get; set; }
         public List<MonitoringDataModel> MonitoringData { get; set; }

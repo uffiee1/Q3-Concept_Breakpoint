@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\thiso\\source\\repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\Q3-Concept.Server\\Q3-Concept.Server.csproj": {}
+    "C:\\Users\\thiso\\source\\repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\DataModel\\Model.csproj": {}
   },
   "projects": {
-    "C:\\Users\\thiso\\source\\repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\Q3-Concept.Server\\Q3-Concept.Server.csproj": {
+    "C:\\Users\\thiso\\source\\repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\DataModel\\Model.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\thiso\\source\\repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\Q3-Concept.Server\\Q3-Concept.Server.csproj",
-        "projectName": "Q3-Concept.Server",
-        "projectPath": "C:\\Users\\thiso\\source\\repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\Q3-Concept.Server\\Q3-Concept.Server.csproj",
+        "projectUniqueName": "C:\\Users\\thiso\\source\\repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\DataModel\\Model.csproj",
+        "projectName": "Model",
+        "projectPath": "C:\\Users\\thiso\\source\\repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\DataModel\\Model.csproj",
         "packagesPath": "C:\\Users\\thiso\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\thiso\\source\\repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\Q3-Concept.Server\\obj\\",
+        "outputPath": "C:\\Users\\thiso\\source\\repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\DataModel\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -45,16 +45,6 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "dependencies": {
-            "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
-              "target": "Package",
-              "version": "[1.11.1, )"
-            },
-            "Swashbuckle.AspNetCore": {
-              "target": "Package",
-              "version": "[5.6.3, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
@@ -66,9 +56,6 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

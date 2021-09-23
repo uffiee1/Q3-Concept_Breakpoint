@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\thiso\\Source\\Repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\DataModel\\DataModel.csproj": {}
+    "C:\\Users\\thiso\\source\\repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\DataModel\\DataModel.csproj": {}
   },
   "projects": {
-    "C:\\Users\\thiso\\Source\\Repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\DataModel\\DataModel.csproj": {
+    "C:\\Users\\thiso\\source\\repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\DataModel\\DataModel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\thiso\\Source\\Repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\DataModel\\DataModel.csproj",
+        "projectUniqueName": "C:\\Users\\thiso\\source\\repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\DataModel\\DataModel.csproj",
         "projectName": "DataModel",
-        "projectPath": "C:\\Users\\thiso\\Source\\Repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\DataModel\\DataModel.csproj",
+        "projectPath": "C:\\Users\\thiso\\source\\repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\DataModel\\DataModel.csproj",
         "packagesPath": "C:\\Users\\thiso\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\thiso\\Source\\Repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\DataModel\\obj\\",
+        "outputPath": "C:\\Users\\thiso\\source\\repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\DataModel\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

@@ -10,5 +10,6 @@ namespace DataModel
     {
         public int Id { get; set; }
         public DateTime TimeStamp { get; set; }
+        public double ShortTime { get; set; }
     }
 }
