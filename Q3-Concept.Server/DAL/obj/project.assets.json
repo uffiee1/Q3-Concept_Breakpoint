@@ -275,6 +275,16 @@
             "rid": "win"
           }
         }
+      },
+      "Model/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/Model.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Model.dll": {}
+        }
       }
     }
   },
@@ -831,10 +841,16 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "Model/1.0.0": {
+      "type": "project",
+      "path": "../DataModel/Model.csproj",
+      "msbuildProject": "../DataModel/Model.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "Model >= 1.0.0",
       "MySql.Data >= 8.0.26"
     ]
   },
@@ -872,7 +888,11 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\thiso\\Source\\Repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\DataModel\\Model.csproj": {
+              "projectPath": "C:\\Users\\thiso\\Source\\Repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\DataModel\\Model.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
