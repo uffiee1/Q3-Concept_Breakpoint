@@ -13,8 +13,7 @@ namespace Model
         public string Side { get; set; }
         public int Board { get; set; }
         public int port { get; set; }
-        public List<MachineModel> machines { get; set; }
-        public List<ProductionDataModel> ProductionData { get; set; }
+      
 
     }
 }

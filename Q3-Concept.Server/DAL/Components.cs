@@ -14,44 +14,40 @@ namespace DAL
         //id naam omschrijving 
         private readonly DalAcces _dalaccess = new DalAcces();
 
-        public List <ComponentDataModel> GetAllComponents()
+        public ComponentDataModel GetComponent(int id)
         {
-            List<ComponentDataModel> componentlist = new List<ComponentDataModel>();
-            string query = "SELECT * FROM product";
+            ComponentDataModel components = new ComponentDataModel();
+
+            string query = "SELECT `id`, `naam` as `name`, `omschrijving` as `description` FROM `treeview` WHERE  `id` = @id";
 
             _dalaccess.conn.Open();
             MySqlCommand command = new MySqlCommand(query, _dalaccess.conn);
+            command.Parameters.Add(new MySqlParameter("@id", id));
+
             MySqlDataReader reader = command.ExecuteReader();
             try
             {
-                //read through all the data
                 while (reader.Read())
                 {
-                    //create productlist
-                    //DataModel.ComponentDataModel listofcomponents = new DataModel.ComponentDataModel
-                    //{
-                    //    ID = reader.GetInt32("IdUser"),
-                    //    Name = reader.GetString("Name"),
-
-            //MySqlCommand command = new MySqlCommand(query, _dalaccess.conn);                    //    Description = reader.GetString(""),
-                    //    meters = reader.GetString(""),
-
-                    //};
-                    //// save uitlening to the list
-                    //orderList.Add(order);
+                    ComponentDataModel componentdata = new ComponentDataModel()
+                    {
+                        ID = reader.GetInt32("id"),
+                        Name = reader.GetString("name"),
+                        Description = reader.GetString("description")
+                    };
+                   components = componentdata;
                 }
+
+                return components;
             }
             catch
             {
-                Console.WriteLine("kan de query niet uitvoeren! LOL");
+                throw;
             }
             finally
             {
                 _dalaccess.conn.Close();
             }
-
-            return componentlist;
-            throw new NotImplementedException();
         }
 
     }

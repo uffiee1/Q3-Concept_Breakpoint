@@ -862,11 +862,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\thiso\\Source\\Repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\DAL\\DAL.csproj",
+      "projectUniqueName": "C:\\Users\\thiso\\source\\repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\DAL\\DAL.csproj",
       "projectName": "DAL",
-      "projectPath": "C:\\Users\\thiso\\Source\\Repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\DAL\\DAL.csproj",
+      "projectPath": "C:\\Users\\thiso\\source\\repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\DAL\\DAL.csproj",
       "packagesPath": "C:\\Users\\thiso\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\thiso\\Source\\Repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\DAL\\obj\\",
+      "outputPath": "C:\\Users\\thiso\\source\\repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\DAL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -889,8 +889,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\thiso\\Source\\Repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\DataModel\\Model.csproj": {
-              "projectPath": "C:\\Users\\thiso\\Source\\Repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\DataModel\\Model.csproj"
+            "C:\\Users\\thiso\\source\\repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\DataModel\\Model.csproj": {
+              "projectPath": "C:\\Users\\thiso\\source\\repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\DataModel\\Model.csproj"
             }
           }
         }

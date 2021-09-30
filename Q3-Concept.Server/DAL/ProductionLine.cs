@@ -11,14 +11,7 @@ namespace DAL
     public class ProductionLine
     {
         private readonly DalAcces _dalaccess = new DalAcces();
-
-
-        //public List<ProductionLineModel> GetProductionLines(int board, int port)
-        //{
-
-        //}
-        //list of machines
-
+       
         public List<ProductionLineModel> GetProductionLines()
         {
             List<ProductionLineModel> productionlines = new List<ProductionLineModel>();
@@ -46,11 +39,7 @@ namespace DAL
                     };
                     productionlines.Add(production);
                 }
-                foreach (ProductionLineModel productionline in productionlines)
-                {
-                   productionline.machines = GetProdructionLineMachines(productionline);
-                    
-                }
+          
                
                 return productionlines;
             }
@@ -90,7 +79,6 @@ namespace DAL
                     };
                     productionlinemodel = production;
                 }
-                productionlinemodel.machines = GetProdructionLineMachines(productionlinemodel);
                 return productionlinemodel;
             }
             catch
@@ -102,61 +90,5 @@ namespace DAL
                 _dalaccess.conn.Close();
             }
         }
-
-        //machines ophalen
-        private List<MachineModel> GetProdructionLineMachines(ProductionLineModel productionline)
-        {
-            List<MachineModel> machines = new List<MachineModel>();
-
-            string query = "SELECT `id`, `naam` as `name`, `omschrijving` as `description` FROM `treeview` WHERE  `parent` = @id";
-
-            _dalaccess.conn.Open();
-            MySqlCommand command = new MySqlCommand(query, _dalaccess.conn);
-            command.Parameters.Add(new MySqlParameter("@id", productionline.ID));
-           
-            MySqlDataReader reader = command.ExecuteReader();
-            try
-            {
-                while (reader.Read())
-                {
-                    MachineModel machinedata = new MachineModel()
-                    {
-                        ID = reader.GetInt32("id"),
-                        Name = reader.GetString("name"),
-                        Description = reader.GetString("side")
-                    };
-                    machines.Add(machinedata);
-                }
-                return machines;
-            }
-            catch
-            {
-                throw;
-            }
-            finally
-            {
-                _dalaccess.conn.Close();
-            }
-        }
-        //list of components
-        //private ProductionLineModel GetAllComponents(ProductionLineModel productionline)
-        //{
-           
-        //    try
-        //    {
-        //        return
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //        throw;
-        //    }
-        //    finally
-        //    {
-        //        _dalaccess.conn.Close();
-        //    }
-        //}
-        //board and port linkage
-        //production line sides a side b side etc
     }
 }
