@@ -1,44 +1,67 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { SidebarData } from './SidebarData';
+import { sidebar_machine_info } from './sidebar_machine_info'
+import { SideBarMachines} from './SidebarMachines'
 import './Sidebar.css';
 
+// const SideBarMachines = () => {
+//     const [Si]
+// }
+
 function Sidebar() {
-  const [sidebar, setSidebar] = useState(false);
+    const [SidebarMachines, setMachines] = useState([
+      {
+        machineName: "Machine 12", 
+      },
+      {
+        machineName: "Machine 13", 
+      },
+      {
+        machineName: "Machine 14", 
+      }
+    ]);
 
-  const showSidebar = () => setSidebar(!sidebar);
+    const [sidebar] = useState(false)
 
-  return (
-    <>
-        <div className='sidebar'>
-          <Link to='#' className='menu-bars'>
-          </Link>
-        </div>
-        <nav className={sidebar ? 'side-menu active' : 'side-menu'}>
-          <ul className='side-menu-items'  onClick={showSidebar}>
+    return (
 
-    
-
-            <li className='sidebar-toggle'>
-              <Link to='' className='menu-bars'>
-                
-              </Link>
-            </li>
-            {SidebarData.map((item, index) => {
-              return (
-                <li key={index} className={item.cName}>
-                  <Link to={item.path}>
-                    <span>{item.title}</span>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-    </>
-  );
+        <>
+            <div className='sidebar'>
+                <Link to='#' className='menu-bars'>
+                </Link>
+            </div>
+            <nav className={sidebar ? 'side-menu active' : 'side-menu'}>
+                <ul className='side-menu-items'>
+                  {/* <SidebarMachines Machines= {SidebarMachines} /> */}
+                </ul>
+            </nav>
+        </>
+    );
 }
 
 export default Sidebar
 
+//     <div>
+//         <div className = 'sidebar' >
+//         <Link to = '#' className = 'menu-bars' >
+//             </Link> </div> 
+//             <nav className = { sidebar ? 'side-menu active' : 'side-menu' }>
+//         <ul className = 'side-menu-items'>
+//         <li> 
+//             {
+//             SidebarData.map((item, index) => { 
+//                 <span key = { index }>
+//                     <h1> { item.title } </h1> </
+//                 span >
+//             })
+//         } <
+//         /li> < /
+//         ul >
 
+//         <
+//         /nav> 
+//         </div>
+//     );
+// }
+
+// export default Sidebar

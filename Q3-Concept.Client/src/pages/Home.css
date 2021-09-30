@@ -1,5 +1,6 @@
-.asd{
-position: absolute;
-top: 10vh;
-left: 10vw;
+.asd {
+    display: flex;
+    position: absolute;
+    top: 10vh;
+    left: 10vw;
 }

@@ -1,42 +1,50 @@
 import React from 'react'
 import './Home.css'
-
 import {
     XYPlot,
     XAxis,
-    YAxis,
     HorizontalGridLines,
     VerticalGridLines,
-    LineSeries,
-    HorizontalBarSeries,
-    HorizontalBarSeriesCanvas
-
-  } from 'react-vis';
-import { Colorize } from '@material-ui/icons';
+    HorizontalBarSeries 
+} from 'react-vis';
 
 function Home() {
 
-   const BarSeries = HorizontalBarSeries
+    const BarSeries = HorizontalBarSeries
 
-    
+
     return (
-<div className='asd' >
+        <div className='asd' >
+
+            <div>
+                <XYPlot width={300} height={300} stackBy="x">
+                    <VerticalGridLines />
+                    <HorizontalGridLines />
+                    <XAxis />
+                    <BarSeries data={[{ y: 1, x: 5 }]} color="green" />
+                    <BarSeries data={[{ y: 1, x: 2 }]} color="purple" />
+                    <BarSeries data={[{ y: 1, x: 7 }]} color="orange" />
+                    <BarSeries data={[{ y: 1, x: 9 }]} color="red" />
+                </XYPlot>
+            </div>
+
+            <div>
+                <div>
+                    <XYPlot width={300} height={300} stackBy="x">
+                        <VerticalGridLines />
+                        <HorizontalGridLines />
+                        <XAxis />
+                        <BarSeries data={[{ y: 1, x: 5 }]} color="green" />
+                        <BarSeries data={[{ y: 1, x: 2 }]} color="purple" />
+                        <BarSeries data={[{ y: 1, x: 7 }]} color="orange" />
+                        <BarSeries data={[{ y: 1, x: 9 }]} color="red" />
+                    </XYPlot>
+                </div>
+
+            </div>
 
 
-<div>
-        <XYPlot width={300} height={300} stackBy="x">
-          <VerticalGridLines />
-          <HorizontalGridLines />
-          <XAxis />
-          <BarSeries data={[{y: 1, x: 5}] } color="green" />
-          <BarSeries data={[{y: 1, x: 2}]} color="purple" />
-          <BarSeries data={[{y: 1, x: 7}]} color="orange"/>
-          <BarSeries data={[{y: 1, x: 9}]} color="red"/>
-        </XYPlot>
-      </div>
-
-
-{/* 
+            {/* 
 <XYPlot width={300} height={300} stackBy="x">
 <HorizontalGridLines style={{stroke: '#B7E9ED'}} />
          
@@ -51,8 +59,8 @@ function Home() {
         />
         </XYPlot> */}
 
-    
-{/*     
+
+            {/*     
 <XYPlot width={300} height={300} color="red">
       <HorizontalGridLines style={{stroke: '#B7E9ED'}} />
       
@@ -75,17 +83,16 @@ function Home() {
         }}
       />
       
-
     </XYPlot>
      */}
-    
 
-</div>
+
+        </div>
 
 
     )
-    
-    
+
+
 }
 
 export default Home
