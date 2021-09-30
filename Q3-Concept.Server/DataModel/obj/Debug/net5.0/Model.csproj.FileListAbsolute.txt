@@ -1,0 +1,11 @@
+C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DataModel\bin\Debug\net5.0\Model.deps.json
+C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DataModel\bin\Debug\net5.0\Model.dll
+C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DataModel\bin\Debug\net5.0\ref\Model.dll
+C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DataModel\bin\Debug\net5.0\Model.pdb
+C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DataModel\obj\Debug\net5.0\Model.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DataModel\obj\Debug\net5.0\Model.AssemblyInfoInputs.cache
+C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DataModel\obj\Debug\net5.0\Model.AssemblyInfo.cs
+C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DataModel\obj\Debug\net5.0\Model.csproj.CoreCompileInputs.cache
+C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DataModel\obj\Debug\net5.0\Model.dll
+C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DataModel\obj\Debug\net5.0\ref\Model.dll
+C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DataModel\obj\Debug\net5.0\Model.pdb

@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using Model;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,9 +14,9 @@ namespace DAL
         //id naam omschrijving 
         private readonly DalAcces _dalaccess = new DalAcces();
 
-        public List<DataModel.ComponentDataModel> GetAllComponents()
+        public List <ComponentDataModel> GetAllComponents()
         {
-            List<DataModel.ComponentDataModel> componentlist = new List<DataModel.ComponentDataModel>();
+            List<ComponentDataModel> componentlist = new List<ComponentDataModel>();
             string query = "SELECT * FROM product";
 
             _dalaccess.conn.Open();
@@ -31,7 +32,8 @@ namespace DAL
                     //{
                     //    ID = reader.GetInt32("IdUser"),
                     //    Name = reader.GetString("Name"),
-                    //    Description = reader.GetString(""),
+
+            //MySqlCommand command = new MySqlCommand(query, _dalaccess.conn);                    //    Description = reader.GetString(""),
                     //    meters = reader.GetString(""),
 
                     //};

@@ -1,0 +1,15 @@
+C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DAL\bin\Debug\net5.0\DAL.deps.json
+C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DAL\bin\Debug\net5.0\DAL.dll
+C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DAL\bin\Debug\net5.0\ref\DAL.dll
+C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DAL\bin\Debug\net5.0\DAL.pdb
+C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DAL\bin\Debug\net5.0\Model.dll
+C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DAL\bin\Debug\net5.0\Model.pdb
+C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DAL\obj\Debug\net5.0\DAL.csproj.AssemblyReference.cache
+C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DAL\obj\Debug\net5.0\DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DAL\obj\Debug\net5.0\DAL.AssemblyInfoInputs.cache
+C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DAL\obj\Debug\net5.0\DAL.AssemblyInfo.cs
+C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DAL\obj\Debug\net5.0\DAL.csproj.CoreCompileInputs.cache
+C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DAL\obj\Debug\net5.0\DAL.csproj.CopyComplete
+C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DAL\obj\Debug\net5.0\DAL.dll
+C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DAL\obj\Debug\net5.0\ref\DAL.dll
+C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DAL\obj\Debug\net5.0\DAL.pdb
