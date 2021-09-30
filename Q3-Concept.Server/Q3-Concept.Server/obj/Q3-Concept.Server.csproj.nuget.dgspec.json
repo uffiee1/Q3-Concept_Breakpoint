@@ -1,24 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ufuk\\Desktop\\Q3-Concept.Server\\Q3-Concept.Server\\Q3-Concept.Server.csproj": {}
+    "C:\\Users\\thiso\\Source\\Repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\Q3-Concept.Server\\Q3-Concept.Server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ufuk\\Desktop\\Q3-Concept.Server\\Q3-Concept.Server\\Q3-Concept.Server.csproj": {
+    "C:\\Users\\thiso\\Source\\Repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\Q3-Concept.Server\\Q3-Concept.Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ufuk\\Desktop\\Q3-Concept.Server\\Q3-Concept.Server\\Q3-Concept.Server.csproj",
+        "projectUniqueName": "C:\\Users\\thiso\\Source\\Repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\Q3-Concept.Server\\Q3-Concept.Server.csproj",
         "projectName": "Q3-Concept.Server",
-        "projectPath": "C:\\Users\\Ufuk\\Desktop\\Q3-Concept.Server\\Q3-Concept.Server\\Q3-Concept.Server.csproj",
-        "packagesPath": "C:\\Users\\Ufuk\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ufuk\\Desktop\\Q3-Concept.Server\\Q3-Concept.Server\\obj\\",
+        "projectPath": "C:\\Users\\thiso\\Source\\Repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\Q3-Concept.Server\\Q3-Concept.Server.csproj",
+        "packagesPath": "C:\\Users\\thiso\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\thiso\\Source\\Repos\\Q3-Concept_Breakpoint\\Q3-Concept.Server\\Q3-Concept.Server\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
           "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\Ufuk\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\thiso\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
@@ -27,7 +27,8 @@
           "net5.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {}
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
@@ -72,7 +73,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.300\\RuntimeIdentifierGraph.json"
         }
       }
     }
