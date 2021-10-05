@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Logic;
+using Model;
+using Microsoft.AspNetCore.Mvc;
 using Q3_Concept.Server.Models;
 using System;
 using System.Collections.Generic;
@@ -11,20 +13,26 @@ namespace Q3_Concept.Server.Controllers
     [Route("[controller]")]
     public class ProductionLineController : ControllerBase
     {
+        List<Model.StatusModel> statuses;
+
         [HttpGet]
         public ProductionLine Get()
         {
+            
+
+            StatusBusiness b = new StatusBusiness();
             return new ProductionLine()
             {
                 Name = "A1",
-                Id = 1, 
+                Id = 1,
                 Side = "A",
-                Statuses = new Status[]
-                {
-                    new Status{EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description="On" },
-                    new Status{EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description="Off" },
-                    new Status{EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description="On" },
-                },
+                Statuses = b.setStatus().ToArray(),
+                //new Status[]
+                //{
+                //    new Status{EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description="On" },
+                //    new Status{EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description="Off" },
+                //    new Status{EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description="On" },
+                //},
                 Components = new Component[]
                 {
                     new Component{Name = "BAal", Id=2}
@@ -44,24 +52,24 @@ namespace Q3_Concept.Server.Controllers
                     Name = "A1",
                     Id = 1,
                     Side = "A",
-                    Statuses = new Status[]
-                {
-                    new Status { EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description = "On" },
-                    new Status { EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description = "Off" },
-                    new Status { EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description = "On" },
-                }
-                },
-                new ProductionLine()
-                {
-                    Name = "A1",
-                    Id = 1,
-                    Side = "A",
-                    Statuses = new Status[]
-                {
-                    new Status { EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description = "On" },
-                    new Status { EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description = "Off" },
-                    new Status { EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description = "On" },
-                }
+                //    Statuses = new Status[]
+                //{
+                //    new Status { EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description = "On" },
+                //    new Status { EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description = "Off" },
+                //    new Status { EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description = "On" },
+                //}
+                //},
+                //new ProductionLine()
+                //{
+                //    Name = "A1",
+                //    Id = 1,
+                //    Side = "A",
+                //    Statuses = new Status[]
+                //{
+                //    new Status { EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description = "On" },
+                //    new Status { EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description = "Off" },
+                //    new Status { EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description = "On" },
+                //}
                 }
             };
         }

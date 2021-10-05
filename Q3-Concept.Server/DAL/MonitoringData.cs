@@ -11,7 +11,7 @@ namespace DAL
 {
     public class MonitoringData
     {
-        private readonly DalAcces _dalaccess;
+        private readonly DalAcces _dalaccess = new DalAcces();
 
         public List<MonitoringDataModel> GetMonitoritingData(DateTime datetimeStart, DateTime datetimeEnd , int board, int port)
         {
@@ -20,36 +20,42 @@ namespace DAL
             string query = "SELECT id, timestamp, shot_time FROM `monitoring_data_202009` WHERE `timestamp` between @datetimestart and @datetimeend AND port = @port AND board = @board";
 
             _dalaccess.conn.Open();
-            MySqlCommand command = new MySqlCommand(query, _dalaccess.conn);
-            command.Parameters.Add(new MySqlParameter("@port", port ));
-            command.Parameters.Add(new MySqlParameter("@board", board));
-            command.Parameters.Add(new MySqlParameter("@datetimestart", datetimeStart));
-            command.Parameters.Add(new MySqlParameter("@datetimeend", datetimeEnd));
+            using (_dalaccess.conn)
+            {
+                _dalaccess.conn.Open();
+                MySqlCommand command = new MySqlCommand(query, _dalaccess.conn);
+                command.Parameters.Add(new MySqlParameter("@port", port));
+                command.Parameters.Add(new MySqlParameter("@board", board));
+                command.Parameters.Add(new MySqlParameter("@datetimestart", datetimeStart));
+                command.Parameters.Add(new MySqlParameter("@datetimeend", datetimeEnd));
 
-            MySqlDataReader reader = command.ExecuteReader();
-            try
-            {
-                while (reader.Read())
+                MySqlDataReader reader = command.ExecuteReader();
+                try
                 {
-                    MonitoringDataModel machinedata = new MonitoringDataModel()
+                    while (reader.Read())
                     {
-                        Id = reader.GetInt32("id"),
-                        TimeStamp = reader.GetDateTime("timestamp"),
-                        ShortTime = reader.GetDouble("shot_time")
-                    };
-                    monitoringsdata.Add(machinedata);
+                        MonitoringDataModel machinedata = new MonitoringDataModel()
+                        {
+                            Id = reader.GetInt32("id"),
+                            TimeStamp = reader.GetDateTime("timestamp"),
+                            ShortTime = reader.GetDouble("shot_time")
+                        };
+                        monitoringsdata.Add(machinedata);
+                    }
+
+                    return monitoringsdata;
                 }
-                
-                return monitoringsdata;
-            }
-            catch
-            {
-                throw;
-            }
-            finally
-            {
-                _dalaccess.conn.Close();
-            }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    _dalaccess.conn.Close();
+                }
+            };
+            
+          
 
         }
     }

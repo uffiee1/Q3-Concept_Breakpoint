@@ -11,5 +11,6 @@ namespace Model
         public int Id { get; set; }
         public DateTime TimeStamp { get; set; }
         public double ShortTime { get; set; }
+        public StatusModel Status { get; set; }
     }
 }
