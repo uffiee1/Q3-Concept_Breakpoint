@@ -9,7 +9,7 @@ namespace Q3_Concept.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class MachineController : ControllerBase
+    public class ProductionLineController : ControllerBase
     {
         [HttpGet]
         public ProductionLine Get()
@@ -17,7 +17,7 @@ namespace Q3_Concept.Server.Controllers
             return new ProductionLine()
             {
                 Name = "A1",
-                Id = 1,
+                Id = 1, 
                 Side = "A",
                 Statuses = new Status[]
                 {
@@ -34,6 +34,7 @@ namespace Q3_Concept.Server.Controllers
         }
 
         [HttpGet]
+        [Route("ProductionLineDetails")]
         public IEnumerable<ProductionLine> GetAll(DateTime StartTime, DateTime EndTime)
         {
             //logica aanroepen
