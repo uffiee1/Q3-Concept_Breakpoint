@@ -1,11 +1,12 @@
-import { sidebar_machine_info } from './sidebar_machine_info'
-import {PropTypes} from 'react'
+import SidebarMachineInfo  from './SidebarMachineInfo'
 
-const SidebarMachines = ({Machines}) => {
+const SidebarMachines = ({ Machines }) => {
   return (
-    <li>
-      {Machines.map((Machine) => (Machine))}
-    </li>
+    <>
+      {Machines.map((Machine) => (
+        <SidebarMachineInfo key={Machine.id} machine={Machine} />
+        ))}
+    </>
   )
 
 }
@@ -16,11 +17,3 @@ SidebarMachines.defaultProps={
 }
 
 export default SidebarMachines
-
-// {SidebarData.map((Machine, index) => {
-//   return (
-//       <li>
-
-//       </li>
-//   );
-// })}

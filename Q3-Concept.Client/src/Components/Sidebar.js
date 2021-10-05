@@ -1,23 +1,35 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { sidebar_machine_info } from './sidebar_machine_info'
-import { SideBarMachines} from './SidebarMachines'
 import './Sidebar.css';
+import SideBarMachines from './SidebarMachines'
 
-// const SideBarMachines = () => {
-//     const [Si]
-// }
 
 function Sidebar() {
-    const [SidebarMachines, setMachines] = useState([
+  //Temp dummy array
+    const [machinelist, setMachines] = useState([
       {
-        machineName: "Machine 12", 
+        id: 1,
+        machineName: "Machine 11",
+        path: '/',
+        status: 'active',
       },
       {
-        machineName: "Machine 13", 
+        id: 2,
+        machineName: "Machine 12",
+        path: '/',
+        status: 'inactive'
       },
       {
-        machineName: "Machine 14", 
+        id: 3,
+        machineName: "Machine 13",
+        path: '/',
+        status: 'maintenance'
+      },
+      {
+        id: 4,
+        machineName: "Machine 14",
+        path: '/',
+        status: 'requires-maintance'
       }
     ]);
 
@@ -30,38 +42,14 @@ function Sidebar() {
                 <Link to='#' className='menu-bars'>
                 </Link>
             </div>
-            <nav className={sidebar ? 'side-menu active' : 'side-menu'}>
-                <ul className='side-menu-items'>
-                  {/* <SidebarMachines Machines= {SidebarMachines} /> */}
-                </ul>
+            <nav className = 'side-menu'>
+              <ul className = 'side-menu-items'>
+                <SideBarMachines Machines= {machinelist}/>
+              </ul>
+              
             </nav>
         </>
     );
 }
 
 export default Sidebar
-
-//     <div>
-//         <div className = 'sidebar' >
-//         <Link to = '#' className = 'menu-bars' >
-//             </Link> </div> 
-//             <nav className = { sidebar ? 'side-menu active' : 'side-menu' }>
-//         <ul className = 'side-menu-items'>
-//         <li> 
-//             {
-//             SidebarData.map((item, index) => { 
-//                 <span key = { index }>
-//                     <h1> { item.title } </h1> </
-//                 span >
-//             })
-//         } <
-//         /li> < /
-//         ul >
-
-//         <
-//         /nav> 
-//         </div>
-//     );
-// }
-
-// export default Sidebar
