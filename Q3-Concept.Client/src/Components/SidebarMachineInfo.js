@@ -1,10 +1,9 @@
 import React from 'react'
-import './Sidebar_machine_info.scss'
-import PropTypes from 'prop-types'
+import './SidebarMachineInfo.scss'
 import { Link } from 'react-router-dom';
 
 
-const Sidebar_machine_info = ({machine}) => {
+const SidebarMachineInfo = ({machine}) => {
     return (
         <div class={`MachineCard ${machine.status}`}>
             <Link to={machine.path} class='link'>
@@ -16,4 +15,4 @@ const Sidebar_machine_info = ({machine}) => {
 }
 
 
-export default Sidebar_machine_info
+export default SidebarMachineInfo

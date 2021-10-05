@@ -1,11 +1,10 @@
-import Sidebar_machine_info  from './Sidebar_machine_info'
-import {PropTypes} from 'react'
+import SidebarMachineInfo  from './SidebarMachineInfo'
 
 const SidebarMachines = ({ Machines }) => {
   return (
     <>
       {Machines.map((Machine) => (
-        <Sidebar_machine_info key={Machine.id} machine={Machine} />
+        <SidebarMachineInfo key={Machine.id} machine={Machine} />
         ))}
     </>
   )
