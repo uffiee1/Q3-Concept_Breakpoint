@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { sidebar_machine_info } from './sidebar_machine_info'
 import './Sidebar.css';
 import SideBarMachines from './SidebarMachines'
 
@@ -10,15 +9,27 @@ function Sidebar() {
     const [machinelist, setMachines] = useState([
       {
         id: 1,
-        machineName: "Machine 11", 
+        machineName: "Machine 11",
+        path: '/',
+        status: 'active',
       },
       {
         id: 2,
-        machineName: "Machine 12", 
+        machineName: "Machine 12",
+        path: '/',
+        status: 'inactive'
       },
       {
         id: 3,
-        machineName: "Machine 13", 
+        machineName: "Machine 13",
+        path: '/',
+        status: 'maintenance'
+      },
+      {
+        id: 4,
+        machineName: "Machine 14",
+        path: '/',
+        status: 'requires-maintance'
       }
     ]);
 
