@@ -1,6 +1,4 @@
-.asd {
+.container {
     display: flex;
-    position: absolute;
-    top: 10vh;
-    left: 10vw;
-}
+    justify-content:center;
+  }
