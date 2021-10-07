@@ -1,4 +1,4 @@
-import './HomeGraphCard.css'
+import './HomeGraphCard.scss'
 
 import HomeGraphCard from "./HomeGraphCard"
 
@@ -7,7 +7,7 @@ function GraphCards({ Cards }) {
         <div className="row">
             {Cards.map((Card) => (
                 <div className="column">
-                    <HomeGraphCard />
+                    <HomeGraphCard key={Card.id} />
                 </div>
             ))}
         </div>

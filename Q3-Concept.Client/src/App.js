@@ -1,8 +1,3 @@
-
-// import logo from './logo.svg';
-
-import './App.css';
-
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 
 import Home from './pages/Home';
@@ -11,7 +6,7 @@ import Sidebar from './Components/Sidebar';
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <Router>
         <Sidebar />
         <Switch>

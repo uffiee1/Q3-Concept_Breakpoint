@@ -1,3 +1,5 @@
+@import 'StatusCollors';
+
 * {
     box-sizing: border-box;
   }
@@ -10,7 +12,7 @@
   }
   
 .row {
-  margin: 0 -30px;
+  margin: 0 -3px;
 }
 
   /* Clear floats after the columns */
@@ -29,16 +31,48 @@
     }
   }
   
-  .card {
+  // .card {
+  //   min-width: 15rem;
+  //   max-width: calc(12.5rem + 13vw);
+  //   background: rgb(235, 45, 45);
+  //   border-radius: 0.75em;
+    
+  //   box-shadow: 0 0.25em 0.6em #0005, 0 0.65em 1em #0004;
+  //   transition: transform 270ms ease;
+  //   position: relative;
+  // }
+
+
+
+  .card{
     min-width: 15rem;
     max-width: calc(12.5rem + 13vw);
-    background: rgb(235, 45, 45);
+    background: $MachineStatus-Maintenace;
     border-radius: 0.75em;
     
     box-shadow: 0 0.25em 0.6em #0005, 0 0.65em 1em #0004;
     transition: transform 270ms ease;
     position: relative;
+
+    &.active{
+        background-color: $MachineStatus-Active;
+    }
+    
+    &.inactive{
+        background-color: $MachineStatus-Inactive;
+    }
+    
+    &.maintenance{
+        background-color: $MachineStatus-Maintenace;
+    }
+
+    &.requires-maintance{
+        background-color: $MachineStatus-RequiresMaintance;
+    }
   }
+  
+  
+  
   
   .card::before {
     display: flex;

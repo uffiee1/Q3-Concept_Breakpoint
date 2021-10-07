@@ -1,4 +1,4 @@
-import './HomeGraphCard.css';
+import './HomeGraphCard.scss';
 
 import {
     HorizontalBarSeries,

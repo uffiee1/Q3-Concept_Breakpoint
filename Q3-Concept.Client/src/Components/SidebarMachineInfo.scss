@@ -4,7 +4,10 @@
     border: 1px solid black;
     border-radius: 10px;
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+
+    padding-left: 10px;
+    padding-right: 10px;
 
     &.active{
         background-color: $MachineStatus-Active;
