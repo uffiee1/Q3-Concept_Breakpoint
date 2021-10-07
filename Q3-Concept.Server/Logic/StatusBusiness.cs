@@ -14,12 +14,13 @@ namespace Logic
 
         public List<StatusModel> setStatus()
         {
-            return ConvertToStatusModels(monitoringDataModels = moniDAL.GetMonitoritingData(DateTime.Parse("2020-09-01 00:00:00"), DateTime.Parse("2020-09-01 10:25:00"), 30, 2));
+            return ConvertToStatus(monitoringDataModels = moniDAL.GetMonitoritingData(new DateTime(2001, 09, 1, 0, 0, 0), new DateTime(2077, 09, 30, 1, 0,0),1, 22));
         }
 
         public List<StatusModel> ConvertToStatusModels(List<MonitoringDataModel> monitoringDataModels)//monitoring datamodels -> statusses
         {
 
+            List<Model.StatusModel> statuses = new List<StatusModel>();
 
             StatusModel status = new StatusModel();
 
@@ -60,14 +61,14 @@ namespace Logic
 
 
         //delete this
-        public List<StatusModel> ConvertToStatus(List<MonitoringDataModel> monitoringDataModels)
+        public List<StatusModel> ConvertToStatus(List<MonitoringDataModel> monitoringDataModels)//on heeft zelfde eind en starttijd
         {
             Nullable<DateTime> startTime = null;
             string status;
             List<StatusModel> statuses2 = new List<StatusModel>();
             bool previousstatus = true;
 
-            for (int i = 1; i <= monitoringDataModels.Count; i++)
+            for (int i = 1; i < monitoringDataModels.Count; i++)
             {
                 if (startTime == null) startTime = monitoringDataModels[i].TimeStamp;
 
@@ -85,11 +86,7 @@ namespace Logic
                     startTime = null;
                 }
             }
-            
-
-
-
-            return statuses2;
+           return statuses2;
         }
 
     }
