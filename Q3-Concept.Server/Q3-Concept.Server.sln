@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "DataModel\Model.csproj", "{A36958D3-719F-49CB-938F-051AD60088FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic", "Logic\Logic.csproj", "{F57C679A-FA66-4E29-9ADF-BAD9DA3E2DBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logic", "Logic\Logic.csproj", "{F57C679A-FA66-4E29-9ADF-BAD9DA3E2DBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Q3DALUnitTest", "Q3DALUnitTest\Q3DALUnitTest.csproj", "{245EFB93-5E6D-47AB-BCCA-D3C680028731}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{F57C679A-FA66-4E29-9ADF-BAD9DA3E2DBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F57C679A-FA66-4E29-9ADF-BAD9DA3E2DBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F57C679A-FA66-4E29-9ADF-BAD9DA3E2DBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{245EFB93-5E6D-47AB-BCCA-D3C680028731}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{245EFB93-5E6D-47AB-BCCA-D3C680028731}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{245EFB93-5E6D-47AB-BCCA-D3C680028731}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{245EFB93-5E6D-47AB-BCCA-D3C680028731}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
