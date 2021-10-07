@@ -14,7 +14,7 @@ namespace Logic
 
         public List<StatusModel> setStatus()
         {
-            return ConvertToStatus(monitoringDataModels = moniDAL.GetMonitoritingData(new DateTime(2001, 09, 1, 0, 0, 0), new DateTime(2077, 09, 30, 1, 0,0),1, 22));
+            return ConvertToStatus(monitoringDataModels = moniDAL.GetMonitoritingData(new DateTime(2001, 09, 1, 0, 0, 0), new DateTime(2077, 09, 30, 1, 0, 0), 1, 22));
         }
 
         public List<StatusModel> ConvertToStatusModels(List<MonitoringDataModel> monitoringDataModels)//monitoring datamodels -> statusses
@@ -61,32 +61,40 @@ namespace Logic
 
 
         //delete this
-        public List<StatusModel> ConvertToStatus(List<MonitoringDataModel> monitoringDataModels)//on heeft zelfde eind en starttijd
+        public List<StatusModel> ConvertToStatus(List<MonitoringDataModel> monitoringDataModels)//off heeft maar een entry (langere tijd dan margin) dus start en eindtijd zijn hetzlfde
         {
-            Nullable<DateTime> startTime = null;
             string status;
             List<StatusModel> statuses2 = new List<StatusModel>();
-            bool previousstatus = true;
+
+            Nullable<bool> previousStatus = null;
+            Nullable<DateTime> startTime = monitoringDataModels[0].TimeStamp;
+
 
             for (int i = 1; i < monitoringDataModels.Count; i++)
             {
-                if (startTime == null) startTime = monitoringDataModels[i].TimeStamp;
 
-                bool active = (monitoringDataModels[i].TimeStamp - monitoringDataModels[i - 1].TimeStamp).TotalSeconds < offMargin;
-                if (active != previousstatus)
+                bool currentStatus = (monitoringDataModels[i].TimeStamp - monitoringDataModels[i - 1].TimeStamp).TotalSeconds < offMargin;//verschile te groot of niet
+
+                if (previousStatus == null) { previousStatus = currentStatus; }
+                
+                
+                if (currentStatus != previousStatus)//anders dan vorige entry
                 {
-                    status = active ? "on" : "off";
-                    statuses2.Add(new StatusModel()
+                    status = currentStatus? "on" : "off";//endtime eerste entry die niet te lang duurt na status maakt status
+                    statuses2.Add(new StatusModel()//status maken bij eerste entry die niet overeenkomt werkt bij off maar niet bij on//doe bij laatste die niet overeenkomt
                     {
-                        EndTime = monitoringDataModels[i].TimeStamp,
+                        EndTime = monitoringDataModels[i-1].TimeStamp,
                         Description = status,
                         StartTime = (DateTime)startTime
                     });
-                    previousstatus = active;
-                    startTime = null;
+
+                    //setup volgende status
+                    previousStatus = currentStatus;
+                    startTime = monitoringDataModels[i-1].TimeStamp;
+
                 }
             }
-           return statuses2;
+            return statuses2;
         }
 
     }
