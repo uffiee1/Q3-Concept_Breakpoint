@@ -14,15 +14,33 @@ namespace DAL
         //id naam omschrijving 
         private readonly DalAcces _dalaccess = new DalAcces();
 
+        public bool  getall()
+        {
+            using (MySqlConnection conn = new MySqlConnection())
+            {
+                string query = "SELECT * FROM treeview";
+
+                MySqlCommand command = new MySqlCommand(query, _dalaccess.Conn);
+                _dalaccess.Conn.Open();
+                command.ExecuteNonQuery();
+
+                _dalaccess.Conn.Close();
+                return true;
+            }
+        }
         public ComponentDataModel GetComponent(int id)
         {
             ComponentDataModel components = new ComponentDataModel();
 
-            string query = "SELECT `id`, `naam` as `name`, `omschrijving` as `description` FROM `treeview` WHERE  `id` = @id";
+            string query = "SELECT id, naam as name, omschrijving as description FROM treeview WHERE id = @id";
+            using _dalaccess.Conn()
+            {
 
-            _dalaccess.conn.Open();
-            MySqlCommand command = new MySqlCommand(query, _dalaccess.conn);
+            }
+                _dalaccess.Conn.Open();
+            MySqlCommand command = new MySqlCommand(query, _dalaccess.Conn);
             command.Parameters.Add(new MySqlParameter("@id", id));
+            command.ExecuteNonQuery();
 
             MySqlDataReader reader = command.ExecuteReader();
             try
@@ -46,7 +64,7 @@ namespace DAL
             }
             finally
             {
-                _dalaccess.conn.Close();
+                _dalaccess.Conn.Close();
             }
         }
 

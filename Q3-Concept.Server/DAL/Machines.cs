@@ -19,8 +19,8 @@ namespace DAL
 
             string query = "SELECT `id`, `naam` as `name`, `omschrijving` as `description` FROM `treeview` WHERE  `parent` = @id";
 
-            _dalaccess.conn.Open();
-            MySqlCommand command = new MySqlCommand(query, _dalaccess.conn);
+            _dalaccess.Conn.Open();
+            MySqlCommand command = new MySqlCommand(query, _dalaccess.Conn);
             command.Parameters.Add(new MySqlParameter("@id", productionline.ID));
 
             MySqlDataReader reader = command.ExecuteReader();
@@ -45,7 +45,7 @@ namespace DAL
             }
             finally
             {
-                _dalaccess.conn.Close();
+                _dalaccess.Conn.Close();
             }
         }
     }
