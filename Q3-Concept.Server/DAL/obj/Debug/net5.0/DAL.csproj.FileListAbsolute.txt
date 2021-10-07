@@ -13,3 +13,18 @@ C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DAL\obj\Debu
 C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DAL\obj\Debug\net5.0\DAL.dll
 C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DAL\obj\Debug\net5.0\ref\DAL.dll
 C:\Users\thiso\Source\Repos\Q3-Concept_Breakpoint\Q3-Concept.Server\DAL\obj\Debug\net5.0\DAL.pdb
+C:\Users\nickg\Desktop\semester 3 proftaak\Breakpoint\Q3-Concept.Server\DAL\bin\Debug\net5.0\DAL.deps.json
+C:\Users\nickg\Desktop\semester 3 proftaak\Breakpoint\Q3-Concept.Server\DAL\bin\Debug\net5.0\DAL.dll
+C:\Users\nickg\Desktop\semester 3 proftaak\Breakpoint\Q3-Concept.Server\DAL\bin\Debug\net5.0\ref\DAL.dll
+C:\Users\nickg\Desktop\semester 3 proftaak\Breakpoint\Q3-Concept.Server\DAL\bin\Debug\net5.0\DAL.pdb
+C:\Users\nickg\Desktop\semester 3 proftaak\Breakpoint\Q3-Concept.Server\DAL\bin\Debug\net5.0\Model.dll
+C:\Users\nickg\Desktop\semester 3 proftaak\Breakpoint\Q3-Concept.Server\DAL\bin\Debug\net5.0\Model.pdb
+C:\Users\nickg\Desktop\semester 3 proftaak\Breakpoint\Q3-Concept.Server\DAL\obj\Debug\net5.0\DAL.csprojAssemblyReference.cache
+C:\Users\nickg\Desktop\semester 3 proftaak\Breakpoint\Q3-Concept.Server\DAL\obj\Debug\net5.0\DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\nickg\Desktop\semester 3 proftaak\Breakpoint\Q3-Concept.Server\DAL\obj\Debug\net5.0\DAL.AssemblyInfoInputs.cache
+C:\Users\nickg\Desktop\semester 3 proftaak\Breakpoint\Q3-Concept.Server\DAL\obj\Debug\net5.0\DAL.AssemblyInfo.cs
+C:\Users\nickg\Desktop\semester 3 proftaak\Breakpoint\Q3-Concept.Server\DAL\obj\Debug\net5.0\DAL.csproj.CoreCompileInputs.cache
+C:\Users\nickg\Desktop\semester 3 proftaak\Breakpoint\Q3-Concept.Server\DAL\obj\Debug\net5.0\DAL.csproj.CopyComplete
+C:\Users\nickg\Desktop\semester 3 proftaak\Breakpoint\Q3-Concept.Server\DAL\obj\Debug\net5.0\DAL.dll
+C:\Users\nickg\Desktop\semester 3 proftaak\Breakpoint\Q3-Concept.Server\DAL\obj\Debug\net5.0\ref\DAL.dll
+C:\Users\nickg\Desktop\semester 3 proftaak\Breakpoint\Q3-Concept.Server\DAL\obj\Debug\net5.0\DAL.pdb

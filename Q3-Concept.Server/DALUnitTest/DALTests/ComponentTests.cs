@@ -5,7 +5,7 @@ using DAL;
 namespace DALUnitTest
 {
     [TestClass]
-    public class TestComponent
+    public class ComponentTests
     {
         private readonly Components  _dalComponents = new Components();
         [TestMethod]
