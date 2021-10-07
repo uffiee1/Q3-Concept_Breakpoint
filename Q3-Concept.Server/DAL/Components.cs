@@ -13,60 +13,52 @@ namespace DAL
     {
         //id naam omschrijving 
         private readonly DalAcces _dalaccess = new DalAcces();
+        private const string MyConnectionString = "Server=192.168.15.54;Uid=dbi419727;Database=dbi419727;Pwd=test;SslMode=none;";
 
-        public bool  getall()
-        {
-            using (MySqlConnection conn = new MySqlConnection())
-            {
-                string query = "SELECT * FROM treeview";
-
-                MySqlCommand command = new MySqlCommand(query, _dalaccess.Conn);
-                _dalaccess.Conn.Open();
-                command.ExecuteNonQuery();
-
-                _dalaccess.Conn.Close();
-                return true;
-            }
-        }
+        
         public ComponentDataModel GetComponent(int id)
         {
             ComponentDataModel components = new ComponentDataModel();
 
             string query = "SELECT id, naam as name, omschrijving as description FROM treeview WHERE id = @id";
-            using _dalaccess.Conn()
+            using (MySqlConnection conn = new MySqlConnection(MyConnectionString))
             {
+                int test = (int)_dalaccess.Connection.State;
+                
+                 _dalaccess.Connection.Open();
 
-            }
-                _dalaccess.Conn.Open();
-            MySqlCommand command = new MySqlCommand(query, _dalaccess.Conn);
-            command.Parameters.Add(new MySqlParameter("@id", id));
-            command.ExecuteNonQuery();
+                MySqlCommand command = new MySqlCommand(query, _dalaccess.Connection);
+                command.Parameters.Add(new MySqlParameter("@id", id));
+                command.ExecuteNonQuery();
 
-            MySqlDataReader reader = command.ExecuteReader();
-            try
-            {
-                while (reader.Read())
+                MySqlDataReader reader = command.ExecuteReader();
+                try
                 {
-                    ComponentDataModel componentdata = new ComponentDataModel()
+                    while (reader.Read())
                     {
-                        ID = reader.GetInt32("id"),
-                        Name = reader.GetString("name"),
-                        Description = reader.GetString("description")
-                    };
-                   components = componentdata;
-                }
+                        ComponentDataModel componentdata = new ComponentDataModel()
+                        {
+                            ID = reader.GetInt32("id"),
+                            Name = reader.GetString("name"),
+                            Description = reader.GetString("description")
+                        };
+                        components = componentdata;
+                    }
 
-                return components;
+                    return components;
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    _dalaccess.Connection.Close();
+                }
             }
-            catch
-            {
-                throw;
-            }
-            finally
-            {
-                _dalaccess.Conn.Close();
-            }
+
         }
 
     }
+
 }

@@ -19,8 +19,8 @@ namespace DAL
 
             string query = "SELECT id, timestamp, shot_time FROM `monitoring_data_202009` WHERE `timestamp` between @datetimestart and @datetimeend AND port = @port AND board = @board";
 
-            _dalaccess.Conn.Open();
-            MySqlCommand command = new MySqlCommand(query, _dalaccess.Conn);
+            _dalaccess.Connection.Open();
+            MySqlCommand command = new MySqlCommand(query, _dalaccess.Connection);
             command.Parameters.Add(new MySqlParameter("@port", port ));
             command.Parameters.Add(new MySqlParameter("@board", board));
             command.Parameters.Add(new MySqlParameter("@datetimestart", datetimeStart));
@@ -48,7 +48,7 @@ namespace DAL
             }
             finally
             {
-                _dalaccess.Conn.Close();
+                _dalaccess.Connection.Close();
             }
 
         }

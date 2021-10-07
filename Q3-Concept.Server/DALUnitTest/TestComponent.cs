@@ -11,12 +11,17 @@ namespace DALUnitTest
         [TestMethod]
         public void GetGoodComponent()
         {
-            ComponentDataModel component = new ComponentDataModel();
+            ComponentDataModel component = new ComponentDataModel()
+            {
+                ID = 276,
+                Name = "41301",
+                Description="Deksel 173 4V"
+            };
 
-            ComponentDataModel testcomponent = _dalComponents.GetComponent(247);
+            ComponentDataModel testcomponent = _dalComponents.GetComponent(276);
             //Model.ComponentDataModel component = new Model.ComponentDataModel() { }
             Assert.IsNotNull(testcomponent);
-            Assert.AreEqual(component, testcomponent);
+            Assert.AreEqual(component.Description, testcomponent.Description);
         }
     }
 }

@@ -25,8 +25,8 @@ namespace DAL
                                  "mmp.`name` != \"\" AND " +
                          "tp.`naam` = mmp.`name`";
 
-                _dalaccess.Conn.Open();
-            MySqlCommand command = new MySqlCommand(query, _dalaccess.Conn);
+                _dalaccess.Connection.Open();
+            MySqlCommand command = new MySqlCommand(query, _dalaccess.Connection);
             MySqlDataReader reader = command.ExecuteReader();
                 try
                 {
@@ -51,7 +51,7 @@ namespace DAL
             }
             finally
             {
-                _dalaccess.Conn.Close();
+                _dalaccess.Connection.Close();
             }
         }
         public ProductionLineModel GetProductionLine(int board, int port)
@@ -64,8 +64,8 @@ namespace DAL
                     " WHERE tp.`parent` = tg.`id` AND" +
                     "tp.`naam` = (SELECT `name` FROM `machine_monitoring_poorten` WHERE `port` = @port AND `board = @board)";
 
-            _dalaccess.Conn.Open();
-            MySqlCommand command = new MySqlCommand(query, _dalaccess.Conn);
+            _dalaccess.Connection.Open();
+            MySqlCommand command = new MySqlCommand(query, _dalaccess.Connection);
             command.Parameters.Add(new MySqlParameter("@port", port));
             command.Parameters.Add(new MySqlParameter("@baord", board));
             MySqlDataReader reader = command.ExecuteReader();
@@ -89,7 +89,7 @@ namespace DAL
             }
             finally
             {
-                _dalaccess.Conn.Close();
+                _dalaccess.Connection.Close();
             }
         }
     }
