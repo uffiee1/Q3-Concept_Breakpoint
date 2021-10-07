@@ -19,7 +19,6 @@ namespace DAL
 
             string query = "SELECT id, timestamp, shot_time FROM `monitoring_data_202009` WHERE `timestamp` between @datetimestart and @datetimeend AND port = @port AND board = @board";
 
-            _dalaccess.conn.Open();
             using (_dalaccess.conn)
             {
                 _dalaccess.conn.Open();
