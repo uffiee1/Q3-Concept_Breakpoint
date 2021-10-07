@@ -1,17 +1,22 @@
+
 // import logo from './logo.svg';
-import React from 'react';
+
 import './App.css';
-import Sidebar from './Components/Sidebar';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+
 import Home from './pages/Home';
+import React from 'react';
+import Sidebar from './Components/Sidebar';
 
 function App() {
   return (
     <div className="App">
-     <Router>
+      <Router>
         <Sidebar />
         <Switch>
           <Route path='/' exact component={Home} />
+          <Route path='/home' exact component={Home} />
         </Switch>
       </Router>
     </div>
