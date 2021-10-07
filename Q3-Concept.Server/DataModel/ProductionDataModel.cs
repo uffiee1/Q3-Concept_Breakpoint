@@ -12,11 +12,8 @@ namespace Model
         // coming from parent productionline board and port
         //check for 2 component maybe connectied
         public int ID { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public int Count { get; set; }
         public ComponentDataModel Component1 { get; set; }
         public ComponentDataModel Component2 { get; set; }
-        public List<MonitoringDataModel> MonitoringData { get; set; }
+        public List<MonitoringDataModel> MonitoringDatas { get; set; }
     }
 }
