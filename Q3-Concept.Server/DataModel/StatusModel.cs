@@ -8,8 +8,10 @@ namespace Model
 {
     public class StatusModel
     {
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
         public string Description { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime End__Time { get; set; }
+        public double Duration { get; set; }
+        public int Entries { get; set; }
     }
 }

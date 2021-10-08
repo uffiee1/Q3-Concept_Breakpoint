@@ -18,8 +18,6 @@ namespace Q3_Concept.Server.Controllers
         [HttpGet]
         public ProductionLine Get()
         {
-            
-
             StatusBusiness b = new StatusBusiness();
             return new ProductionLine()
             {

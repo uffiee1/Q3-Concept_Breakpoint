@@ -36,7 +36,7 @@ namespace Logic
                 if (difference.TotalSeconds > offMargin)
                 {
                     //adds the endtime and puts the new status in to the list
-                    status.EndTime = monitoringDataModels[i - 1].TimeStamp;
+                    status.End__Time = monitoringDataModels[i - 1].TimeStamp;
                     statuses.Add(status);
 
                     //checks if it is not the last point of data. If not create a new status 
@@ -50,7 +50,7 @@ namespace Logic
                 //if it is the last point of data. add an endtime
                 if (i == monitoringDataModels.Count)
                 {
-                    status.EndTime = monitoringDataModels[i].TimeStamp;
+                    status.End__Time = monitoringDataModels[i].TimeStamp;
                     statuses.Add(status);
                 }
             }
@@ -59,43 +59,41 @@ namespace Logic
         }
 
 
-
-        //delete this
-        public List<StatusModel> ConvertToStatus(List<MonitoringDataModel> monitoringDataModels)//off heeft maar een entry (langere tijd dan margin) dus start en eindtijd zijn hetzlfde
+        public List<StatusModel> ConvertToStatus(List<MonitoringDataModel> monitoringDataModels)//werkt
         {
-            string status;
+            string status="";
             List<StatusModel> statuses2 = new List<StatusModel>();
+            DateTime startTime = monitoringDataModels[0].TimeStamp;
+            int entries = 0;
+            bool previousStatus = ((monitoringDataModels[0].TimeStamp - monitoringDataModels[1].TimeStamp).TotalSeconds < offMargin);
 
-            Nullable<bool> previousStatus = null;
-            Nullable<DateTime> startTime = monitoringDataModels[0].TimeStamp;
-
-
-            for (int i = 1; i < monitoringDataModels.Count; i++)
+            for (int i = 1; i < monitoringDataModels.Count; i++)//loop door monitoring data
             {
+                bool currentStatus = (monitoringDataModels[i].TimeStamp - monitoringDataModels[i - 1].TimeStamp).TotalSeconds < offMargin;//bepaald of verschil te groot is
 
-                bool currentStatus = (monitoringDataModels[i].TimeStamp - monitoringDataModels[i - 1].TimeStamp).TotalSeconds < offMargin;//verschile te groot of niet
-
-                if (previousStatus == null) { previousStatus = currentStatus; }
-                
-                
-                if (currentStatus != previousStatus)//anders dan vorige entry
+                if (currentStatus != previousStatus||i==monitoringDataModels.Count)//anders dan vorige entry -> nieuwe status
                 {
-                    status = currentStatus? "on" : "off";//endtime eerste entry die niet te lang duurt na status maakt status
-                    statuses2.Add(new StatusModel()//status maken bij eerste entry die niet overeenkomt werkt bij off maar niet bij on//doe bij laatste die niet overeenkomt
-                    {
-                        EndTime = monitoringDataModels[i-1].TimeStamp,
-                        Description = status,
-                        StartTime = (DateTime)startTime
-                    });
+                    status = !currentStatus ? "on" : "off";
+                    
+                    statuses2.Add(CreatestatusModel(startTime, monitoringDataModels[i - 1].TimeStamp, status, entries, (monitoringDataModels[i - 1].TimeStamp - startTime).TotalSeconds));
 
                     //setup volgende status
                     previousStatus = currentStatus;
-                    startTime = monitoringDataModels[i-1].TimeStamp;
-
+                    startTime = monitoringDataModels[i-1].TimeStamp;//timestamp van vorige entry
+                    entries = 0;
                 }
+                entries++;
             }
+
+            statuses2.Add(CreatestatusModel(startTime, monitoringDataModels[monitoringDataModels.Count-1].TimeStamp, status, entries, (monitoringDataModels[monitoringDataModels.Count - 1].TimeStamp - startTime).TotalSeconds));//final status
+
             return statuses2;
         }
 
+
+        StatusModel CreatestatusModel(DateTime startTime, DateTime endTime, string description,  int entries, double duration)
+        {
+            return new StatusModel() { StartTime = startTime, End__Time = endTime, Description = description, Entries = entries, Duration = duration };
+        }
     }
 }
