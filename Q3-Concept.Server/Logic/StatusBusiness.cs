@@ -12,9 +12,9 @@ namespace Logic
         List<MonitoringDataModel> monitoringDataModels;
         int offMargin = 500;
 
-        public List<StatusModel> setStatus()
+        public List<StatusModel> setStatus(DateTime startDate, DateTime endDate, int board, int port)
         {
-            return ConvertToStatus(monitoringDataModels = moniDAL.GetMonitoritingData(new DateTime(2001, 09, 1, 0, 0, 0), new DateTime(2077, 09, 30, 1, 0, 0), 1, 22));
+            return ConvertToStatus(monitoringDataModels = moniDAL.GetMonitoritingData(startDate, endDate, board, port));
         }
 
         public List<StatusModel> ConvertToStatusModels(List<MonitoringDataModel> monitoringDataModels)//monitoring datamodels -> statusses
@@ -65,11 +65,13 @@ namespace Logic
             List<StatusModel> statuses2 = new List<StatusModel>();
             DateTime startTime = monitoringDataModels[0].TimeStamp;
             int entries = 0;
+            bool currentStatus = true;
             bool previousStatus = ((monitoringDataModels[0].TimeStamp - monitoringDataModels[1].TimeStamp).TotalSeconds < offMargin);
+
 
             for (int i = 1; i < monitoringDataModels.Count; i++)//loop door monitoring data
             {
-                bool currentStatus = (monitoringDataModels[i].TimeStamp - monitoringDataModels[i - 1].TimeStamp).TotalSeconds < offMargin;//bepaald of verschil te groot is
+                currentStatus = (monitoringDataModels[i].TimeStamp - monitoringDataModels[i - 1].TimeStamp).TotalSeconds < offMargin;//bepaald of verschil te groot is
 
                 if (currentStatus != previousStatus||i==monitoringDataModels.Count)//anders dan vorige entry -> nieuwe status
                 {
@@ -84,6 +86,9 @@ namespace Logic
                 }
                 entries++;
             }
+            //haal weg
+            currentStatus = (monitoringDataModels[monitoringDataModels.Count-1].TimeStamp - monitoringDataModels[monitoringDataModels.Count - 2].TimeStamp).TotalSeconds < offMargin;//bepaald of verschil te groot is
+            status = !currentStatus ? "on" : "off";
 
             statuses2.Add(CreatestatusModel(startTime, monitoringDataModels[monitoringDataModels.Count-1].TimeStamp, status, entries, (monitoringDataModels[monitoringDataModels.Count - 1].TimeStamp - startTime).TotalSeconds));//final status
 
