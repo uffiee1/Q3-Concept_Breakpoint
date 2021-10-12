@@ -1,0 +1,48 @@
+@import 'StatusCollors';
+
+.MachineCard{
+    border: 1px solid black;
+    border-radius: 10px;
+    display: block;
+    margin-bottom: 10px;
+
+    padding-left: 10px;
+    padding-right: 10px;
+
+    &.active{
+        background-color: $MachineStatus-Active;
+    }
+    
+    &.inactive{
+        background-color: $MachineStatus-Inactive;
+    }
+    
+    &.maintenance{
+        background-color: $MachineStatus-Maintenace;
+    }
+
+    &.requires-maintance{
+        background-color: $MachineStatus-RequiresMaintance;
+    }
+    
+
+}
+
+a:link{
+    color: black;
+    text-decoration: none;    
+}
+
+a:visited{
+    color: black;
+    text-decoration: none;
+}
+
+a:hover{
+    color: darkblue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+
+
