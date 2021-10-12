@@ -9,3 +9,6 @@ namespace DAL
         public MySqlConnection Connection = new MySqlConnection(MyConnectionString);
     }
 }
+
+
+

@@ -15,8 +15,7 @@ namespace DAL
         public List<ProductionLineModel> GetProductionLines()
         {
             List<ProductionLineModel> productionlines = new List<ProductionLineModel>();
-           
-                string query = "SELECT DISTINCT tp.`id`, tp.`naam` as `name`,  tg.`omschrijving` as `side`"+
+            string query = "SELECT DISTINCT tp.`id`, tp.`naam` as `name`,  tg.`omschrijving` as `side`"+
                      "FROM `treeview` tp, "+
                          " `treeview` tg, " +
                              " `machine_monitoring_poorten` mmp " +
@@ -25,25 +24,24 @@ namespace DAL
                                  "mmp.`name` != \"\" AND " +
                          "tp.`naam` = mmp.`name`";
 
-                _dalaccess.Connection.Open();
-            MySqlCommand command = new MySqlCommand(query, _dalaccess.Connection);
+                _dalaccess.conn.Open();
+            MySqlCommand command = new MySqlCommand(query, _dalaccess.conn);
             MySqlDataReader reader = command.ExecuteReader();
-                try
+            try
+            {
+                while (reader.Read())
                 {
-                    while (reader.Read())
+                    ProductionLineModel production = new ProductionLineModel()
                     {
-                        ProductionLineModel production = new ProductionLineModel()
-                        {
-                            ID = reader.GetInt32("id"),
-                            Name = reader.GetString("name"),
-                            Side = reader.GetString("side")
-                        };
-                        productionlines.Add(production);
-                    }
-
-
-                    return productionlines;
-                
+                        ID = reader.GetInt32("id"),
+                        Name = reader.GetString("name"),
+                        Side = reader.GetString("side")
+                    };
+                    productionlines.Add(production);
+                }
+          
+               
+                return productionlines;
             }
             catch
             {
@@ -51,7 +49,7 @@ namespace DAL
             }
             finally
             {
-                _dalaccess.Connection.Close();
+                _dalaccess.conn.Close();
             }
         }
         public ProductionLineModel GetProductionLine(int board, int port)
@@ -64,8 +62,8 @@ namespace DAL
                     " WHERE tp.`parent` = tg.`id` AND" +
                     "tp.`naam` = (SELECT `name` FROM `machine_monitoring_poorten` WHERE `port` = @port AND `board = @board)";
 
-            _dalaccess.Connection.Open();
-            MySqlCommand command = new MySqlCommand(query, _dalaccess.Connection);
+            _dalaccess.conn.Open();
+            MySqlCommand command = new MySqlCommand(query, _dalaccess.conn);
             command.Parameters.Add(new MySqlParameter("@port", port));
             command.Parameters.Add(new MySqlParameter("@baord", board));
             MySqlDataReader reader = command.ExecuteReader();
@@ -89,7 +87,7 @@ namespace DAL
             }
             finally
             {
-                _dalaccess.Connection.Close();
+                _dalaccess.conn.Close();
             }
         }
     }
