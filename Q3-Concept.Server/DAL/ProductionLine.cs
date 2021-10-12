@@ -11,10 +11,11 @@ namespace DAL
     public class ProductionLine
     {
         private readonly DalAcces _dalaccess = new DalAcces();
-       
+        private const string _connection = "Server=192.168.15.54;Uid=dbi419727;Database=dbi419727;Pwd=test;SslMode=none;";
         public List<ProductionLineModel> GetProductionLines()
         {
             List<ProductionLineModel> productionlines = new List<ProductionLineModel>();
+
             string query = "SELECT DISTINCT tp.`id`, tp.`naam` as `name`,  tg.`omschrijving` as `side`"+
                      "FROM `treeview` tp, "+
                          " `treeview` tg, " +
@@ -23,34 +24,37 @@ namespace DAL
                                 " mmp.`name` IS NOT null AND " +
                                  "mmp.`name` != \"\" AND " +
                          "tp.`naam` = mmp.`name`";
-
-                _dalaccess.conn.Open();
-            MySqlCommand command = new MySqlCommand(query, _dalaccess.conn);
-            MySqlDataReader reader = command.ExecuteReader();
-            try
+            using(MySqlConnection connection = new MySqlConnection(_connection))
             {
-                while (reader.Read())
+                connection.Open();
+                MySqlCommand command = new MySqlCommand(query, connection);
+                MySqlDataReader reader = command.ExecuteReader();
+                try
                 {
-                    ProductionLineModel production = new ProductionLineModel()
+                    while (reader.Read())
                     {
-                        ID = reader.GetInt32("id"),
-                        Name = reader.GetString("name"),
-                        Side = reader.GetString("side")
-                    };
-                    productionlines.Add(production);
+                        ProductionLineModel production = new ProductionLineModel()
+                        {
+                            ID = reader.GetInt32("id"),
+                            Name = reader.GetString("name"),
+                            Side = reader.GetString("side")
+                        };
+                        productionlines.Add(production);
+                    }
+
+
+                    return productionlines;
                 }
-          
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
                
-                return productionlines;
-            }
-            catch
-            {
-                throw;
-            }
-            finally
-            {
-                _dalaccess.conn.Close();
-            }
         }
         public ProductionLineModel GetProductionLine(int board, int port)
         {
@@ -62,32 +66,36 @@ namespace DAL
                     " WHERE tp.`parent` = tg.`id` AND" +
                     "tp.`naam` = (SELECT `name` FROM `machine_monitoring_poorten` WHERE `port` = @port AND `board = @board)";
 
-            _dalaccess.conn.Open();
-            MySqlCommand command = new MySqlCommand(query, _dalaccess.conn);
-            command.Parameters.Add(new MySqlParameter("@port", port));
-            command.Parameters.Add(new MySqlParameter("@baord", board));
-            MySqlDataReader reader = command.ExecuteReader();
-            try
+
+            using (MySqlConnection connection = new MySqlConnection(_connection))
             {
-                while (reader.Read())
+                connection.Open();
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.Add(new MySqlParameter("@port", port));
+                command.Parameters.Add(new MySqlParameter("@baord", board));
+                MySqlDataReader reader = command.ExecuteReader();
+                try
                 {
-                    ProductionLineModel production = new ProductionLineModel()
+                    while (reader.Read())
                     {
-                        ID = reader.GetInt32("id"),
-                        Name = reader.GetString("name"),
-                        Side = reader.GetString("side")
-                    };
-                    productionlinemodel = production;
+                        ProductionLineModel production = new ProductionLineModel()
+                        {
+                            ID = reader.GetInt32("id"),
+                            Name = reader.GetString("name"),
+                            Side = reader.GetString("side")
+                        };
+                        productionlinemodel = production;
+                    }
+                    return productionlinemodel;
                 }
-                return productionlinemodel;
-            }
-            catch
-            {
-                throw;
-            }
-            finally
-            {
-                _dalaccess.conn.Close();
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    connection.Close();
+                }
             }
         }
     }

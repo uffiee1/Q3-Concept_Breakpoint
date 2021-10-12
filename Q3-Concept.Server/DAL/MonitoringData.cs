@@ -12,17 +12,17 @@ namespace DAL
     public class MonitoringData
     {
         private readonly DalAcces _dalaccess = new DalAcces();
-
+        private const string _connection = "Server=192.168.15.54;Uid=dbi419727;Database=dbi419727;Pwd=test;SslMode=none;";
         public List<MonitoringDataModel> GetMonitoritingData(DateTime datetimeStart, DateTime datetimeEnd , int board, int port)
         {
             List<MonitoringDataModel> monitoringsdata = new List<MonitoringDataModel>();
 
             string query = "SELECT id, timestamp, shot_time FROM `monitoring_data_202009` WHERE `timestamp` between @datetimestart and @datetimeend AND port = @port AND board = @board";
 
-            using (_dalaccess.conn) 
+            using (MySqlConnection connection = new MySqlConnection(_connection)) 
             {
-                _dalaccess.conn.Open();
-                MySqlCommand command = new MySqlCommand(query, _dalaccess.conn);
+                connection.Open();
+                MySqlCommand command = new MySqlCommand(query, connection);
                 command.Parameters.Add(new MySqlParameter("@port", port));
                 command.Parameters.Add(new MySqlParameter("@board", board));
                 command.Parameters.Add(new MySqlParameter("@datetimestart", datetimeStart));
@@ -50,7 +50,7 @@ namespace DAL
                 }
                 finally
                 {
-                    _dalaccess.conn.Close();
+                    connection.Close();
                 }
             };
             

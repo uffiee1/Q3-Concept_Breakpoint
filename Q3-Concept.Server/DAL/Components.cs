@@ -13,40 +13,42 @@ namespace DAL
     {
         //id naam omschrijving 
         private readonly DalAcces _dalaccess = new DalAcces();
+        private const string _connection = "Server=192.168.15.54;Uid=dbi419727;Database=dbi419727;Pwd=test;SslMode=none;";
 
         public ComponentDataModel GetComponent(int id)
         {
             ComponentDataModel components = new ComponentDataModel();
 
             string query = "SELECT `id`, `naam` as `name`, `omschrijving` as `description` FROM `treeview` WHERE  `id` = @id";
-
-            _dalaccess.conn.Open();
-            MySqlCommand command = new MySqlCommand(query, _dalaccess.conn);
-            command.Parameters.Add(new MySqlParameter("@id", id));
-
-            MySqlDataReader reader = command.ExecuteReader();
-            try
+            using (MySqlConnection Connection = new MySqlConnection(_connection))
             {
-                while (reader.Read())
+                MySqlCommand command = new MySqlCommand(query, Connection);
+                command.Parameters.Add(new MySqlParameter("@id", id));
+
+                MySqlDataReader reader = command.ExecuteReader();
+                try
                 {
-                    ComponentDataModel componentdata = new ComponentDataModel()
+                    while (reader.Read())
                     {
-                        ID = reader.GetInt32("id"),
-                        Name = reader.GetString("name"),
-                        Description = reader.GetString("description")
-                    };
-                   components = componentdata;
-                }
+                        ComponentDataModel componentdata = new ComponentDataModel()
+                        {
+                            ID = reader.GetInt32("id"),
+                            Name = reader.GetString("name"),
+                            Description = reader.GetString("description")
+                        };
+                        components = componentdata;
+                    }
 
-                return components;
-            }
-            catch
-            {
-                throw;
-            }
-            finally
-            {
-                _dalaccess.conn.Close();
+                    return components;
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    Connection.Close();
+                }
             }
         }
 

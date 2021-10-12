@@ -13,40 +13,44 @@ namespace DAL
         //id naam omschrijving 
 
         private readonly DalAcces _dalaccess;
+        private const string _connection = "Server=192.168.15.54;Uid=dbi419727;Database=dbi419727;Pwd=test;SslMode=none;";
         private List<MachineModel> GetMachines(ProductionLineModel productionline)
         {
             List<MachineModel> machines = new List<MachineModel>();
 
             string query = "SELECT `id`, `naam` as `name`, `omschrijving` as `description` FROM `treeview` WHERE  `parent` = @id";
-
-            _dalaccess.conn.Open();
-            MySqlCommand command = new MySqlCommand(query, _dalaccess.conn);
-            command.Parameters.Add(new MySqlParameter("@id", productionline.ID));
-
-            MySqlDataReader reader = command.ExecuteReader();
-            try
+            using (MySqlConnection connection = new MySqlConnection(_connection))
             {
-                while (reader.Read())
+                connection.Open();
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.Add(new MySqlParameter("@id", productionline.ID));
+
+                MySqlDataReader reader = command.ExecuteReader();
+                try
                 {
-                    MachineModel machinedata = new MachineModel()
+                    while (reader.Read())
                     {
-                        ID = reader.GetInt32("id"),
-                        Name = reader.GetString("name"),
-                        Description = reader.GetString("description")
-                    };
-                    machines.Add(machinedata);
-                }
+                        MachineModel machinedata = new MachineModel()
+                        {
+                            ID = reader.GetInt32("id"),
+                            Name = reader.GetString("name"),
+                            Description = reader.GetString("description")
+                        };
+                        machines.Add(machinedata);
+                    }
 
-                return machines;
+                    return machines;
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    connection.Close();
+                }
             }
-            catch
-            {
-                throw;
-            }
-            finally
-            {
-                _dalaccess.conn.Close();
-            }
+          
         }
     }
 }
