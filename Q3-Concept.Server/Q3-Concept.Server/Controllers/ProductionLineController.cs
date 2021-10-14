@@ -19,30 +19,19 @@ namespace Q3_Concept.Server.Controllers
         [HttpGet]
         public ProductionLine Get(DateTime StartTime, DateTime EndTime, int board, int port)
         {
-            //if (StartTime == null)
-            //    StartTime = new DateTime(1980, 01, 01);
-            //if (EndTime == null)
-            //    EndTime = new DateTime();
-
-            //moniDAL.GetMonitoritingData(, new DateTime(2077, 09, 30, 1, 0, 0), 1, 22));
             StatusBusiness b = new StatusBusiness();
+            ProductionLineModel productionLine = b.GetProductionLine(board, port);
+
             return new ProductionLine()
             {
-                Name = "A1",
-                Id = 1,
+                Name = productionLine.Name,
+                Id = productionLine.port,
                 Side = new DateTime(2001, 09, 1, 0, 0, 0).ToString(),
                 Statuses = b.setStatus(StartTime, EndTime, board, port).ToArray(),
-                //new Status[]
-                //{
-                //    new Status{EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description="On" },
-                //    new Status{EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description="Off" },
-                //    new Status{EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description="On" },
-                //},
                 Components = new Component[]
                 {
                     new Component{Name = "BAal", Id=2}
                 }
-
             };
         }
 
@@ -51,36 +40,29 @@ namespace Q3_Concept.Server.Controllers
         public IEnumerable<ProductionLine> GetAll(DateTime StartTime, DateTime EndTime)
         {
             //List<ProductionLine> dbProdctionLines = productionLine.GetProductionLines();
+            StatusBusiness b = new StatusBusiness();
+            List<ProductionLineModel> productionLinesDB = b.GetProductionLines();
 
+            List<ProductionLine> productionLines = new List<ProductionLine>();
 
+            foreach (ProductionLineModel productionLine in productionLinesDB)
+            {
+                productionLines.Add(
+                    new ProductionLine()
+                    {
+                        Name = productionLine.Name,
+                        Id = productionLine.ID,
+                        Side = new DateTime(2001, 09, 1, 0, 0, 0).ToString(),
+                        Statuses = b.setStatus(StartTime, EndTime, productionLine.Board, productionLine.port).ToArray(),
+                        Components = new Component[]
+                        {
+                            new Component{Name = "BAal", Id=2}
+                        }
+                    }
+                );
+            }
 
-            //logica aanroepen
-            return new ProductionLine[] {
-                new ProductionLine()
-                {
-                    Name = "A1",
-                    Id = 1,
-                    Side = "A",
-                //    Statuses = new Status[]
-                //{
-                //    new Status { EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description = "On" },
-                //    new Status { EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description = "Off" },
-                //    new Status { EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description = "On" },
-                //}
-                //},
-                //new ProductionLine()
-                //{
-                //    Name = "A1",
-                //    Id = 1,
-                //    Side = "A",
-                //    Statuses = new Status[]
-                //{
-                //    new Status { EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description = "On" },
-                //    new Status { EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description = "Off" },
-                //    new Status { EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description = "On" },
-                //}
-                }
-            };
+            return productionLines;
         }
     }
 }
