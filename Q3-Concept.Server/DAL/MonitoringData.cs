@@ -12,7 +12,9 @@ namespace DAL
     public class MonitoringData
     {
         private readonly DalAcces _dalaccess = new DalAcces();
-        private const string _connection = "Server=192.168.15.54;Uid=dbi419727;Database=dbi419727;Pwd=test;SslMode=none;";
+        //private const string _connection = "Server=192.168.15.54;Uid=dbi419727;Database=dbi419727;Pwd=test;SslMode=none;";
+        private const string _connection = "Server=localhost;Uid=bp;Database=breakpointDB;Pwd=test;port=3307;SslMode=none;";
+
         public List<MonitoringDataModel> GetMonitoritingData(DateTime datetimeStart, DateTime datetimeEnd , int board, int port)
         {
             List<MonitoringDataModel> monitoringsdata = new List<MonitoringDataModel>();
