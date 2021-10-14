@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DataModel.MachineModel">
+    <Position X="10.25" Y="2.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAggAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MachineModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataModel.MonitoringDataModel">
+    <Position X="11" Y="6.25" Width="4.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAACAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MonitoringDataModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataModel.ProductionDataModel">
+    <Position X="15.75" Y="2.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAQgAAMAAAAAAAAABEAAAAA=</HashCode>
+      <FileName>ProductionDataModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Component2" />
+      <Property Name="Component1" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="MonitoringData" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="DataModel.ProductionLineModel">
+    <Position X="6.75" Y="4.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAggAAAAAAAAAQAAAAAAAgAAAAAACAAAAA=</HashCode>
+      <FileName>ProductionLineModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="machines" />
+      <Property Name="ProductionData" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="DataModel.ComponentDataModel">
+    <Position X="17.5" Y="6" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAggAAAAAAAAAQAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>ComponentDataModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="meters" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Model.MeterBasisModel">
+    <Position X="5.5" Y="1.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAggAAIAAAAAAQAAAAAACAgAAAgAIAAAAA=</HashCode>
+      <FileName>MeterBasisModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="meters" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Model.MeterRegristrationModel">
+    <Position X="5.75" Y="7.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAQCABAAAAAAAAAgA=</HashCode>
+      <FileName>MeterRegristrationModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
