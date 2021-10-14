@@ -5,6 +5,7 @@ import React from 'react';
 import Sidebar from './Components/Sidebar';
 import TopBar from './Components/TopBar';
 
+
 import './App.css'
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
     <div className = "app">
       <Router>
       <TopBar />
-        <Sidebar />
+        
         <Switch>
           <Route path='/' exact component={Home} />
           <Route path='/home' exact component={Home} />
