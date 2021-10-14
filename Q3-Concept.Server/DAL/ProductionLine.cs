@@ -16,7 +16,7 @@ namespace DAL
         {
             List<ProductionLineModel> productionlines = new List<ProductionLineModel>();
 
-            string query = "SELECT DISTINCT tp.`id`, tp.`naam` as `name`,  tg.`omschrijving` as `side`"+
+            string query = "SELECT DISTINCT tp.`id`, tp.`naam` as `name`, mmp.`port`, mmp.`board`,  tg.`omschrijving` as `side`" +
                      "FROM `treeview` tp, "+
                          " `treeview` tg, " +
                              " `machine_monitoring_poorten` mmp " +
@@ -37,7 +37,9 @@ namespace DAL
                         {
                             ID = reader.GetInt32("id"),
                             Name = reader.GetString("name"),
-                            Side = reader.GetString("side")
+                            Side = reader.GetString("side"),
+                            port = reader.GetInt32("port"),
+                            Board = reader.GetInt32("board")
                         };
                         productionlines.Add(production);
                     }
@@ -60,7 +62,7 @@ namespace DAL
         {
             ProductionLineModel productionlinemodel = new ProductionLineModel();
 
-            string query = "SELECT DISTINCT tp.`id`, tp.`naam` as `name`,  tg.`omschrijving` as `side`" +
+            string query = "SELECT DISTINCT tp.`id`, tp.`naam` as `name`, tg.`omschrijving` as `side`" +
                             " FROM `treeview` tp," +
                             "`treeview` tg" +
                     " WHERE tp.`parent` = tg.`id` AND" +
@@ -82,7 +84,9 @@ namespace DAL
                         {
                             ID = reader.GetInt32("id"),
                             Name = reader.GetString("name"),
-                            Side = reader.GetString("side")
+                            Side = reader.GetString("side"),
+                            port = port,
+                            Board = board,
                         };
                         productionlinemodel = production;
                     }
