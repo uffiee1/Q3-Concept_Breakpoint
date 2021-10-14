@@ -14,17 +14,24 @@ namespace Q3_Concept.Server.Controllers
     public class ProductionLineController : ControllerBase
     {
         List<Model.StatusModel> statuses;
+        //List<DAL.ProductionLine> productionLine;
 
         [HttpGet]
-        public ProductionLine Get()
+        public ProductionLine Get(DateTime StartTime, DateTime EndTime, int board, int port)
         {
+            //if (StartTime == null)
+            //    StartTime = new DateTime(1980, 01, 01);
+            //if (EndTime == null)
+            //    EndTime = new DateTime();
+
+            //moniDAL.GetMonitoritingData(, new DateTime(2077, 09, 30, 1, 0, 0), 1, 22));
             StatusBusiness b = new StatusBusiness();
             return new ProductionLine()
             {
                 Name = "A1",
                 Id = 1,
-                Side = "A",
-                Statuses = b.setStatus().ToArray(),
+                Side = new DateTime(2001, 09, 1, 0, 0, 0).ToString(),
+                Statuses = b.setStatus(StartTime, EndTime, board, port).ToArray(),
                 //new Status[]
                 //{
                 //    new Status{EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description="On" },
@@ -43,6 +50,10 @@ namespace Q3_Concept.Server.Controllers
         [Route("ProductionLineDetails")]
         public IEnumerable<ProductionLine> GetAll(DateTime StartTime, DateTime EndTime)
         {
+            //List<ProductionLine> dbProdctionLines = productionLine.GetProductionLines();
+
+
+
             //logica aanroepen
             return new ProductionLine[] {
                 new ProductionLine()
