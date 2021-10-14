@@ -8,11 +8,12 @@
     float: left;
     width: 25%;
     padding: 0 10px;
-    display: table;
+    display: inline-table;
   }
   
 .row {
   margin: 0 -3px;
+  display: inline-block;
 }
 
   /* Clear floats after the columns */
@@ -71,11 +72,7 @@
     }
   }
   
-  
-  
-  
   .card::before {
-    display: flex;
     inset: 0;
     isolation: isolate;
     mix-blend-mode: color;

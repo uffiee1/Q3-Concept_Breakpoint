@@ -35,17 +35,11 @@ function Sidebar() {
   ]);
 
   return (
-    <>
-      <div className='sidebar'>
-        <Link to='#' className='menu-bars'>
-        </Link>
-      </div>
-        <div className='side-menu'>
-          <ul className='side-menu-items'>
+    <div className='side-menu'>
+        <ul className='side-menu-items'>
             <SideBarMachines Machines={machinelist} />
-          </ul>
-        </div>
-    </>
+        </ul>
+    </div>
   );
 }
 

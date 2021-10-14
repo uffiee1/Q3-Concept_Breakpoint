@@ -1,36 +1,21 @@
-.sidebar {
-    background-color: #c3c4ca;
-    height: 80px;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-  }
-  
-  .menu-bars {
-    margin-left: 20rem;
-    font-size: 20rem;
-    background: none;
-  }
-  
-  .container{
-    align-items: stretch;
-  }
 
   .side-menu {
     background-color: #d4d5d6;
-    height: 100%;
-    width:auto;
-    position: absolute;
+    height: 100vw;
+    width: 15%;
+    display: inline-block;
     padding-left: 10px;
     padding-right: 10px;
+    margin-right: 10px;
+
+    vertical-align: top;
   }
   
   .side-text {
     align-items: center;
     padding: 8px 0px 8px 16px;
     padding-left: 10px;
-
-
+    text-align: center;
   }
   
   .side-text a {
@@ -43,6 +28,7 @@
     align-items: center;
     padding: 0 16px;
     border-radius: 4px;
+    text-align: center;
 
     
   }
@@ -53,4 +39,6 @@
   
   .side-menu-items {
     display: inline;
+    text-align: center;
+    word-wrap: break-word;
   }
