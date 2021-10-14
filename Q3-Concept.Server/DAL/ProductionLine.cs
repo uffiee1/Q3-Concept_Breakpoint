@@ -65,8 +65,8 @@ namespace DAL
             string query = "SELECT DISTINCT tp.`id`, tp.`naam` as `name`, tg.`omschrijving` as `side`" +
                             " FROM `treeview` tp," +
                             "`treeview` tg" +
-                    " WHERE tp.`parent` = tg.`id` AND" +
-                    "tp.`naam` = (SELECT `name` FROM `machine_monitoring_poorten` WHERE `port` = @port AND `board = @board)";
+                    " WHERE tp.`parent` = tg.`id` AND " +
+                    "tp.`naam` = (SELECT `name` FROM `machine_monitoring_poorten` WHERE `port` = @port AND `board` = @board)";
 
 
             using (MySqlConnection connection = new MySqlConnection(_connection))
@@ -74,7 +74,7 @@ namespace DAL
                 connection.Open();
                 MySqlCommand command = new MySqlCommand(query, connection);
                 command.Parameters.Add(new MySqlParameter("@port", port));
-                command.Parameters.Add(new MySqlParameter("@baord", board));
+                command.Parameters.Add(new MySqlParameter("@board", board));
                 MySqlDataReader reader = command.ExecuteReader();
                 try
                 {
