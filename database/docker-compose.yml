@@ -1,0 +1,36 @@
+version: '3.4'
+ 
+services:
+  flyway:
+      image: flyway/flyway
+      container_name: BPFlyway
+      command: -url=jdbc:mysql://host.docker.internal:3307/breakpointDB -user=user -password=root -connectRetries=60 migrate
+      volumes:
+        - .:/flyway/sql/migrations
+      depends_on:
+        - db
+
+  db:
+    image: mysql:latest
+    container_name: breakpointDBcontainer
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'root'
+      MYSQL_DATABASE: 'breakpointDB'
+      MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+      - "3307:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: BPPhpmyadmindb
+    links:
+      - db
+    environment:
+      PMA_HOST: db
+    restart: always
+    ports:
+      - 8080:80
+# docker run --rm -v $PWD/flyway:/flyway/sql flyway/flyway \-url=jdbc:mysql://host.docker.internal:3306/busplanDB \-user=user -password=root \-locations=filesystem:/flyway/sql/migrations \migrate
+# docker run --rm -v $PWD/flyway:/flyway/sql flyway/flyway \-url=jdbc:mysql://host.docker.internal:3306/busplanDB \-user=user -password=root \-locations=filesystem:/flyway/sql/testdata \migrate
