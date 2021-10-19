@@ -37,6 +37,8 @@ services:
     restart: always
     ports:
       - 8080:80
+    networks:
+      - mynetwork
 
   Q3-Backend:
     image: ${DOCKER_REGISTRY-}q3backend
