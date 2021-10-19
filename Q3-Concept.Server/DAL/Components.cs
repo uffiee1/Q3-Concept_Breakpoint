@@ -10,16 +10,23 @@ namespace DAL
 {
     public class Components
     {
-        public ComponentDataModel GetComponent(int id)
+        public List<ComponentDataModel> GetComponents()
         {
-            ComponentDataModel components = new ComponentDataModel();
+            List<ComponentDataModel> components = new List<ComponentDataModel>();
 
-            string query = "SELECT `id`, `naam` as `name`, `omschrijving` as `description` FROM `treeview` WHERE  `id` = @id";
+            string query = "(" +
+                           "SELECT tv.`id`, tv.`omschrijving` as `name`, tp.`omschrijving` as `description` " +
+                           "FROM `production_data` pd, `treeview` tv, `treeview` tp " +
+                           "WHERE pd.treeview2_id = tv.id AND tv.parent = tp.id) " +
+                           "UNION " +
+                           "(" +
+                           "SELECT tv.`id`, tv.`omschrijving` as `name`, tp.`omschrijving` as `description` " +
+                           "FROM `production_data` pd, `treeview` tv, `treeview` tp " +
+                           "WHERE pd.treeview_id = tv.id AND tv.parent = tp.id)";
             using (MySqlConnection connection = new MySqlConnection(DalAcces.Conn))
             {
+                connection.Open();
                 MySqlCommand command = new MySqlCommand(query, connection);
-                command.Parameters.Add(new MySqlParameter("@id", id));
-
                 MySqlDataReader reader = command.ExecuteReader();
                 try
                 {
@@ -31,7 +38,8 @@ namespace DAL
                             Name = reader.GetString("name"),
                             Description = reader.GetString("description")
                         };
-                        components = componentdata;
+                        // components = componentdata;
+                        components.Add(componentdata);
                     }
 
                     return components;
