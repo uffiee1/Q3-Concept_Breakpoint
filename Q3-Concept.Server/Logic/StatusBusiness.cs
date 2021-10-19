@@ -14,12 +14,13 @@ namespace Logic
 
         public List<StatusModel> setStatus(DateTime startDate, DateTime endDate, int board, int port)
         {
-            return ConvertToStatus(_monitoringDataModels = _moniDAL.GetMonitoritingData(startDate, endDate, board, port));
+            return ConvertToStatus(_moniDAL.GetMonitoritingData(startDate, endDate, board, port), endDate, startDate);
         }
 
         // werkt
-        public List<StatusModel> ConvertToStatus(List<MonitoringDataModel> monitoringDataModels)
+        public List<StatusModel> ConvertToStatus(List<MonitoringDataModel> monitoringDataModels, DateTime endDate, DateTime startDate)
         {
+            // werkt
             if (monitoringDataModels.Count <= 0)
             {
                 return new List<StatusModel>();
@@ -30,7 +31,8 @@ namespace Logic
             DateTime startTime = monitoringDataModels[0].TimeStamp;
             int entries = 0;
             bool currentStatus = true;
-            bool previousStatus = (monitoringDataModels[0].TimeStamp - monitoringDataModels[1].TimeStamp).TotalSeconds < _offMargin;
+            bool previousStatus = (monitoringDataModels[0].TimeStamp - monitoringDataModels[1].TimeStamp).TotalSeconds <
+                                  _offMargin;
 
             // loop door monitoring data
             for (int i = 1; i < monitoringDataModels.Count; i++)
@@ -42,25 +44,35 @@ namespace Logic
                 if (currentStatus != previousStatus || i == monitoringDataModels.Count)
                 {
                     status = !currentStatus ? "on" : "off";
+
                     statuses.Add(CreatestatusModel(startTime, monitoringDataModels[i - 1].TimeStamp, status, entries, (monitoringDataModels[i - 1].TimeStamp - startTime).TotalSeconds));
 
                     // setup volgende status
                     previousStatus = currentStatus;
-
                     // timestamp van vorige entry
                     startTime = monitoringDataModels[i - 1].TimeStamp;
                     entries = 0;
                 }
                 entries++;
+
+                if (i >= monitoringDataModels.Count - 1)
+                {
+                    status = currentStatus ? "on" : "off";
+                    statuses.Add(CreatestatusModel(startTime, monitoringDataModels[i - 1].TimeStamp, status, entries, (monitoringDataModels[i - 1].TimeStamp - startTime).TotalSeconds));
+                }
             }
 
-            // haal weg
-            // bepaald of verschil te groot is
-            currentStatus = (monitoringDataModels[monitoringDataModels.Count - 1].TimeStamp - monitoringDataModels[monitoringDataModels.Count - 2].TimeStamp).TotalSeconds < _offMargin;
-            status = !currentStatus ? "on" : "off";
+            if (statuses[statuses.Count - 1].End__Time <= endDate.AddSeconds(_offMargin * -1))
+            {
+                // final status
+                statuses.Add(CreatestatusModel(statuses[statuses.Count - 1].End__Time, endDate, "off", 1, (endDate - statuses[statuses.Count - 1].End__Time).TotalSeconds));
+            }
 
-            // final status
-            statuses.Add(CreatestatusModel(startTime, monitoringDataModels[monitoringDataModels.Count - 1].TimeStamp, status, entries, (monitoringDataModels[monitoringDataModels.Count - 1].TimeStamp - startTime).TotalSeconds));
+            if (statuses[0].StartTime.AddSeconds(_offMargin * -1) >= startDate)
+            {
+                // final status
+                statuses.Insert(0, CreatestatusModel(startDate, statuses[0].StartTime, "off", 1, (statuses[0].StartTime - startDate).TotalSeconds));
+            }
 
             return statuses;
         }
