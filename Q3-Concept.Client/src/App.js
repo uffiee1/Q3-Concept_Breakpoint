@@ -5,9 +5,6 @@ import React from 'react';
 import Sidebar from './Components/Sidebar';
 import TopBar from './Components/TopBar';
 
-
-import './App.css'
-
 function App() {
   return (
     <div className = "app">

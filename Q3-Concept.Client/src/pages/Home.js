@@ -1,10 +1,11 @@
 import './Home.css'
 
-import GraphCards from '../Components/GraphCards';
+import GraphCardList from '../Components/GraphCardList';
 import React from 'react'
 import { useState, useEffect } from 'react';
-import Sidebar from '../Components/Sidebar'
-import Axios from 'Axios'
+import Sidebar from '../Components/Sidebar';
+import axios from "axios";
+import { Variables } from '../Components/ApiUrls';
 
 function Home() {
     const [cards] = useState([
@@ -23,26 +24,30 @@ function Home() {
         }
     ]);
 
-    const [productionline, setproductionlines] = useState([])
+    const [productionlines, setproductionlines] = useState([])
 
     async function getAllLines(){
         try {
-            const apirequest = await axios.get('/ProductionLine/ProductionLineDetails');
-            console.log(response);
+            const apirequest = await axios.get(Variables.GetAllProductionLinesUrl);
+            return apirequest.data;
           } catch (error) {
             console.error(error);
           }
     }
 
+    async function getLines(){
+        setproductionlines(await getAllLines());
+    }
+
     useEffect(() =>{
-        getAllLines();
+        getLines();
     })
 
     return (
     <div>
         <Sidebar />
         <div className = 'container'>
-            <GraphCards Cards={cards} />
+            <GraphCardList Cards={cards} />
         </div>
     </div>
 

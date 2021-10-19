@@ -1,9 +1,9 @@
-import './Sidebar.css';
+import '../css/Sidebar.css';
 
 import React, { useState } from 'react';
 
 import { Link } from 'react-router-dom';
-import SideBarMachines from './SidebarMachines'
+import SidebarMachineList from './SidebarMachineList';
 
 function Sidebar() {
   //Temp dummy array
@@ -37,7 +37,7 @@ function Sidebar() {
   return (
     <div className='side-menu'>
         <ul className='side-menu-items'>
-            <SideBarMachines Machines={machinelist} />
+            <SidebarMachineList Machines={machinelist} />
         </ul>
     </div>
   );

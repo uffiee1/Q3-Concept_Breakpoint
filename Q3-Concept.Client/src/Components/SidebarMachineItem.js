@@ -1,9 +1,9 @@
-import './SidebarMachineInfo.scss'
+import '../css/SidebarMachineInfo.scss'
 
 import { Link } from 'react-router-dom';
 import React from 'react'
 
-function SidebarMachineInfo({ machine }) {
+function SidebarMachineItem({ machine }) {
     return (
         <div class={`MachineCard ${machine.status}`}>
             <Link to={machine.path} class='link'>
@@ -14,4 +14,4 @@ function SidebarMachineInfo({ machine }) {
 
 }
 
-export default SidebarMachineInfo
+export default SidebarMachineItem

@@ -1,8 +1,8 @@
-import './HomeGraphCard.scss'
+import '../css/HomeGraphCard.scss'
 
 import HomeGraphCard from "./HomeGraphCard"
 
-function GraphCards({ Cards }) {
+function GraphCardList({ Cards }) {
     return (
         <div className="row">
             {Cards.map((Card) => (
@@ -14,4 +14,4 @@ function GraphCards({ Cards }) {
     )
 }
 
-export default GraphCards
+export default GraphCardList
