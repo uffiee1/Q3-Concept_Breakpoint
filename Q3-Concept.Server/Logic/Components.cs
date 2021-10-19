@@ -13,5 +13,11 @@ namespace Logic
             DAL.Components comp = new DAL.Components();
             return comp.GetComponents();
         }
+
+        public List<Model.MachineHistory> GetMachineHistory(int id)
+        {
+            DAL.Components comp = new DAL.Components();
+            return comp.GetComHistory(id);
+        }
     }
 }

@@ -17,10 +17,26 @@ namespace Q3_Concept.Server.Controllers
         private Logic.Components _c = new Components();
 
         [HttpGet]
-        [Route("ProductionLineDetails")]
-        public IEnumerable<Model.ComponentDataModel> GetAll()
+        [Route("ComponentHistory")]
+        public IEnumerable<Component> GetAll()
         {
-            return _c.GetComponents();
+            List<ComponentDataModel> components = _c.GetComponents();
+            List<Component> comComponents = new List<Component>();
+
+            foreach (ComponentDataModel component in components)
+            {
+                comComponents.Add(
+                    new Component()
+                    {
+                        Name = component.Name,
+                        Id = component.ID,
+                        Description = component.Description,
+                        MachineHistory = _c.GetMachineHistory(component.ID)
+                    }
+                );
+            }
+
+            return comComponents;
         }
     }
 }
