@@ -6,19 +6,18 @@ import {
     XYPlot
 } from 'react-vis';
 
-import statuscolors from "../css/StatusCollors.scss";
-
 function GetCollor(status){
     switch(status){
         case 'on':
-            return(statuscolors.on)
+            return('green')
         case 'off':
-            return(statuscolors.off)
+            return('red')
         case 'requiresmaintance':
-            return(statuscolors.requiresmaintance)
+            return('orange')
         default:
-            return(statuscolors.undefined)        
+            return('grey')        
     }
+    //if you change the colors make sure to change them in statuscollors.scss as well
 }
 
 function BarItem({statusarray}) {
@@ -29,7 +28,7 @@ function BarItem({statusarray}) {
                 <HorizontalGridLines />
                 <XAxis />
                 {statusarray.map((item) => (
-                    <HorizontalBarSeries data={[{ y: 1, x: item.duration }]} color = {String(GetCollor(item.description))}/>
+                    <HorizontalBarSeries data={[{ y: 1, x: item.duration }]} stroke = 'black' color = {GetCollor(item.description)}/>
                 ))}
             </XYPlot>
         )
@@ -41,7 +40,7 @@ function BarItem({statusarray}) {
                 <VerticalGridLines />
                 <HorizontalGridLines />
                 <XAxis />
-                <HorizontalBarSeries data = {[{y: 1, x: 86400}]} color = {`${GetCollor()}`}/>
+                <HorizontalBarSeries data = {[{y: 1, x: 86400}]} stroke = 'black' color = {GetCollor()}/>
             </XYPlot>
         )
     }
