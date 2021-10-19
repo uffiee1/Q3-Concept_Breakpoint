@@ -1,28 +1,23 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using Model;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Model;
+using MySql.Data.MySqlClient;
 
 namespace DAL
 {
     public class Components
     {
-        //id naam omschrijving 
-        private readonly DalAcces _dalaccess = new DalAcces();
-        private const string _connection = "Server=192.168.15.54;Uid=dbi419727;Database=dbi419727;Pwd=test;SslMode=none;";
-
         public ComponentDataModel GetComponent(int id)
         {
             ComponentDataModel components = new ComponentDataModel();
 
             string query = "SELECT `id`, `naam` as `name`, `omschrijving` as `description` FROM `treeview` WHERE  `id` = @id";
-            using (MySqlConnection Connection = new MySqlConnection(_connection))
+            using (MySqlConnection connection = new MySqlConnection(DalAcces.Conn))
             {
-                MySqlCommand command = new MySqlCommand(query, Connection);
+                MySqlCommand command = new MySqlCommand(query, connection);
                 command.Parameters.Add(new MySqlParameter("@id", id));
 
                 MySqlDataReader reader = command.ExecuteReader();
@@ -47,10 +42,9 @@ namespace DAL
                 }
                 finally
                 {
-                    Connection.Close();
+                    connection.Close();
                 }
             }
         }
-
     }
 }

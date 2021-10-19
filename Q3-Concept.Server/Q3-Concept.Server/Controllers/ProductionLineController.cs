@@ -1,11 +1,11 @@
-﻿using Logic;
-using Model;
-using Microsoft.AspNetCore.Mvc;
-using Q3_Concept.Server.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Logic;
+using Microsoft.AspNetCore.Mvc;
+using Model;
+using Q3_Concept.Server.Models;
 
 namespace Q3_Concept.Server.Controllers
 {
@@ -13,11 +13,11 @@ namespace Q3_Concept.Server.Controllers
     [Route("[controller]")]
     public class ProductionLineController : ControllerBase
     {
-        List<Model.StatusModel> statuses;
-        //List<DAL.ProductionLine> productionLine;
+        private readonly List<Model.StatusModel> _statuses;
 
+        // List<DAL.ProductionLine> productionLine;
         [HttpGet]
-        public ProductionLine Get(DateTime StartTime, DateTime EndTime, int board, int port)
+        public ProductionLine Get(DateTime startTime, DateTime endTime, int board, int port)
         {
             StatusBusiness b = new StatusBusiness();
             ProductionLineModel productionLine = b.GetProductionLine(board, port);
@@ -27,19 +27,19 @@ namespace Q3_Concept.Server.Controllers
                 Name = productionLine.Name,
                 Id = productionLine.port,
                 Side = new DateTime(2001, 09, 1, 0, 0, 0).ToString(),
-                Statuses = b.setStatus(StartTime, EndTime, board, port).ToArray(),
+                Statuses = b.setStatus(startTime, endTime, board, port).ToArray(),
                 Components = new Component[]
                 {
-                    new Component{Name = "BAal", Id=2}
+                    new Component { Name = "BAal", Id = 2 }
                 }
             };
         }
 
         [HttpGet]
         [Route("ProductionLineDetails")]
-        public IEnumerable<ProductionLine> GetAll(DateTime StartTime, DateTime EndTime)
+        public IEnumerable<ProductionLine> GetAll(DateTime startTime, DateTime endTime)
         {
-            //List<ProductionLine> dbProdctionLines = productionLine.GetProductionLines();
+            // List<ProductionLine> dbProdctionLines = productionLine.GetProductionLines();
             StatusBusiness b = new StatusBusiness();
             List<ProductionLineModel> productionLinesDB = b.GetProductionLines();
 
@@ -53,10 +53,10 @@ namespace Q3_Concept.Server.Controllers
                         Name = productionLine.Name,
                         Id = productionLine.ID,
                         Side = new DateTime(2001, 09, 1, 0, 0, 0).ToString(),
-                        Statuses = b.setStatus(StartTime, EndTime, productionLine.Board, productionLine.port).ToArray(),
+                        Statuses = b.setStatus(startTime, endTime, productionLine.Board, productionLine.port).ToArray(),
                         Components = new Component[]
                         {
-                            new Component{Name = "BAal", Id=2}
+                            new Component { Name = "BAal", Id = 2 }
                         }
                     }
                 );
