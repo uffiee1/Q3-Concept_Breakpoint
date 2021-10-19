@@ -48,18 +48,17 @@
   .card{
     min-width: 15rem;
     max-width: calc(12.5rem + 13vw);
-    background: $MachineStatus-Maintenace;
     border-radius: 0.75em;
     
     box-shadow: 0 0.25em 0.6em #0005, 0 0.65em 1em #0004;
     transition: transform 270ms ease;
     position: relative;
 
-    &.active{
+    &.on{
         background-color: $MachineStatus-Active;
     }
     
-    &.inactive{
+    &.off{
         background-color: $MachineStatus-Inactive;
     }
     
@@ -69,6 +68,10 @@
 
     &.requires-maintance{
         background-color: $MachineStatus-RequiresMaintance;
+    }
+
+    &.undefined{
+      background-color: $MachineStatus-Undefined;
     }
   }
   

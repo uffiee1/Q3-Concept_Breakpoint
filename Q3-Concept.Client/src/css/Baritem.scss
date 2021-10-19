@@ -1,0 +1,23 @@
+@import 'StatusCollors';
+
+.itemcolor{
+    &.on{
+        color: $MachineStatus-Active;
+    }
+    
+    &.off{
+        color: $MachineStatus-Inactive;
+    }
+    
+    &.maintenance{
+        color: $MachineStatus-Maintenace;
+    }
+
+    &.requires-maintance{
+        color: $MachineStatus-RequiresMaintance;
+    }
+
+    &.undefined{
+        color: $MachineStatus-Undefined;
+    }
+}

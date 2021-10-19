@@ -7,7 +7,7 @@ function GraphCardList({ Cards }) {
         <div className="row">
             {Cards.map((Card) => (
                 <div className="column">
-                    <HomeGraphCard key={Card.id} />
+                    <HomeGraphCard key={Card.id} productionline =  {Card} />
                 </div>
             ))}
         </div>

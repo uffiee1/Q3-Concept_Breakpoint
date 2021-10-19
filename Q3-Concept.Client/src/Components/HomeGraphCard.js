@@ -8,21 +8,22 @@ import {
     XYPlot
 } from 'react-vis';
 
+import BarItem from './BarItem';
+
 const BarSeries = HorizontalBarSeries
 
-function HomeGraphCard() {
+function HomeGraphCard({productionline}) {
+    let currentStatusString = "undefined"
+
+    if(productionline.statuses.length >= 1){
+        currentStatusString = productionline.statuses[productionline.statuses.length - 1].description
+    }
+
     return (
-        <div className="card">
+        <div class = { `card ${currentStatusString}`}>
             <div className="card-body">
-                <XYPlot width={300} height={100} stackBy="x">
-                    <VerticalGridLines />
-                    <HorizontalGridLines />
-                    <XAxis />
-                    <BarSeries data={[{ y: 1, x: 5 }]} color="green" />
-                    <BarSeries data={[{ y: 1, x: 2 }]} color="purple" />
-                    <BarSeries data={[{ y: 1, x: 7 }]} color="orange" />
-                    <BarSeries data={[{ y: 1, x: 9 }]} color="red" />
-                </XYPlot>
+                <p>{productionline.name}</p>
+                <BarItem statusarray = {productionline.statuses} />
             </div>
             <p>More Info</p>
         </div>

@@ -47,7 +47,7 @@ function Home() {
     <div>
         <Sidebar productionlinearray = {productionlines}/>
         <div className = 'container'>
-            <GraphCardList Cards={cards} />
+            <GraphCardList Cards={productionlines} />
         </div>
     </div>
 
