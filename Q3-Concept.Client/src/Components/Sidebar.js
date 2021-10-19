@@ -1,13 +1,27 @@
 import '../css/Sidebar.css';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
 import SidebarMachineList from './SidebarMachineList';
 
-function Sidebar() {
-  //Temp dummy array
-  const [machinelist] = useState([
+import Home from '../pages/Home';
+
+import jQuery from 'jquery';
+
+function Sidebar({productionlinearray = machinelist}) {
+
+  return (
+    <div className='side-menu'>
+        <ul className='side-menu-items'>
+            <SidebarMachineList Machines={productionlinearray} />
+        </ul>
+    </div>
+  );
+}
+
+  //default dummy array
+  const machinelist = [
     {
       id: 1,
       machineName: "Machine 11",
@@ -32,15 +46,6 @@ function Sidebar() {
       path: '/',
       status: 'requires-maintance'
     }
-  ]);
-
-  return (
-    <div className='side-menu'>
-        <ul className='side-menu-items'>
-            <SidebarMachineList Machines={machinelist} />
-        </ul>
-    </div>
-  );
-}
+  ];
 
 export default Sidebar

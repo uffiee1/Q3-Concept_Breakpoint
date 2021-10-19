@@ -9,11 +9,11 @@
     padding-left: 10px;
     padding-right: 10px;
 
-    &.active{
+    &.on{
         background-color: $MachineStatus-Active;
     }
     
-    &.inactive{
+    &.off{
         background-color: $MachineStatus-Inactive;
     }
     
@@ -23,6 +23,10 @@
 
     &.requires-maintance{
         background-color: $MachineStatus-RequiresMaintance;
+    }
+
+    &.undefined{
+        background-color: #aaa;
     }
     
 
