@@ -9,8 +9,11 @@ namespace Model
     public class MeterRegristrationModel
     {
         public int id { get; set; }
+
         public int value { get; set; }
+
         public DateTime Date { get; set; }
+
         public int Total { get; set; }
     }
 }
