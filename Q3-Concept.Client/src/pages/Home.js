@@ -6,35 +6,16 @@ import { useState, useEffect } from 'react';
 import Sidebar from '../Components/Sidebar';
 import axios from "axios";
 import { Variables } from '../Components/ApiUrls';
-import ProductionLineDetails from '../Components/ProductionLineDetails';
 import { buttonBaseClasses } from '@mui/material';
 import { display } from '@mui/system';
 
-function Home() {
-    const [cards] = useState([
+import LoadingPopup from '../Components/LoadingPopup';
 
-        {
-            id: 1,
-        },
-        {
-            id: 2,
-        },
-        {
-            id: 3,
-        },
-        {
-            id: 4,
-        }
-    ]);
+function Home() {
 
     const [productionlines, setproductionlines] = useState([])
 
-    const[Firstproductionline, setproductionline] = useState({
-        name: "fetching line",
-        id : 0
-    })
-
-    const [ShowPopUp, togglepopup ] = useState(true);
+    const [showLoadingPopUp, setShowLoadingPopup] = useState(true);
 
     async function getAllLines(){
         try {
@@ -47,41 +28,28 @@ function Home() {
 
     async function getLines(){
         setproductionlines(await getAllLines());
+        return;
     }
 
     function WaitForProductionLines(){
-        if(productionlines.length != 0){
-            
-            togglepopup(false);
+        if(productionlines.length !== 0){
+            setShowLoadingPopup(false);
         }
         return ;
     }
-    function HandleSubmit(){
-        
-    }
 
-    function ShowPopUP(){
-        if(ShowPopUp ){
-           let popup =  document.getElementById("popup");
-           popup.style.display ="block";
-        }
-        else{
-            popup.style.display="none";
-        }
-    }
 
     useEffect(() =>{
-        getLines();
-        WaitForProductionLines();
-        ShowPopUp();
+        getLines()
+        WaitForProductionLines()
     })
 
     return (
     <div>
-        <ProductionLineDetails id="popup" productionline ={Firstproductionline}/>
+        {showLoadingPopUp ? <LoadingPopup /> : null}
         <Sidebar productionlinearray = {productionlines}/>
         <div className = 'container'>
-            <GraphCardList Cards={productionlines} />
+            {productionlines.length >= 1 ? <GraphCardList Cards={productionlines} /> : null}
         </div>
     </div>
 
