@@ -23,7 +23,6 @@ services:
       MYSQL_ROOT_PASSWORD: 'root'
     ports:
       - "3307:3306"
-
     networks:
     - mynetwork
 
@@ -41,17 +40,15 @@ services:
       - mynetwork
 
   Q3-Backend:
-    image: ${DOCKER_REGISTRY-}q3backend
+    image: ${DOCKER_REGISTRY-}q3backend 
     build:
       context: Q3-Concept.Server
       dockerfile: Q3-Concept.Server/Dockerfile
 
     environment:
       - ASPNETCORE_URLS=http://+:5000
-
     ports:
       - "5000:5000"
-
     networks:
       - mynetwork
 
