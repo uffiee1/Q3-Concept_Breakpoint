@@ -17,7 +17,30 @@ namespace Q3_Concept.Server.Controllers
         private Logic.Components _c = new Components();
 
         [HttpGet]
-        [Route("ComponentHistory")]
+        [Route("Component")]
+        public IEnumerable<Component> GetSelection(int port, int board)
+        {
+            List<ComponentDataModel> components = _c.GetComponents(port, board);
+            List<Component> comComponents = new List<Component>();
+
+            foreach (ComponentDataModel component in components)
+            {
+                comComponents.Add(
+                    new Component()
+                    {
+                        Name = component.Name,
+                        Id = component.ID,
+                        Description = component.Description,
+                        MachineHistory = _c.GetMachineHistory(component.ID)
+                    }
+                );
+            }
+
+            return comComponents;
+        }
+
+        [HttpGet]
+        [Route("ComponentsAll")]
         public IEnumerable<Component> GetAll()
         {
             List<ComponentDataModel> components = _c.GetComponents();

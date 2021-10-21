@@ -96,5 +96,63 @@ namespace DAL
                 }
             }
         }
+
+        public List<ComponentDataModel> GetComponents(int port, int board)
+        {
+            List<ComponentDataModel> components = new List<ComponentDataModel>();
+
+            string query = "( SELECT tv.`id`, " +
+                                    "tv.`omschrijving` as `name`, " +
+                                    "tp.`omschrijving` as `description` " +
+                            "FROM `production_data` pd, " +
+                                  "`treeview` tv, " +
+                                  "`treeview` tp " +
+                            "WHERE pd.treeview2_id = tv.id AND " +
+                                  "tv.parent = tp.id AND " +
+                                  "pd.port = @port AND " +
+                                  "pd.board = @board) " +
+                            "UNION( " +
+                            "SELECT tv.`id`, " +
+                                   "tv.`omschrijving` as `name`, " +
+                                   "tp.`omschrijving` as `description` " +
+                            "FROM `production_data` pd, " +
+                                 "`treeview` tv, " +
+                                 "`treeview` tp " +
+                            "WHERE pd.treeview_id = tv.id AND " +
+                                  "tv.parent = tp.id AND " +
+                                  "pd.port = @port AND " +
+                                  "pd.board = @board ) ";
+            using (MySqlConnection connection = new MySqlConnection(DalAcces.Conn))
+            {
+                connection.Open();
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.Add(new MySqlParameter("@port", port));
+                command.Parameters.Add(new MySqlParameter("@board", board));
+                MySqlDataReader reader = command.ExecuteReader();
+                try
+                {
+                    while (reader.Read())
+                    {
+                        ComponentDataModel componentdata = new ComponentDataModel()
+                        {
+                            ID = reader.GetInt32("id"),
+                            Name = reader.GetString("name"),
+                            Description = reader.GetString("description")
+                        };
+                        components.Add(componentdata);
+                    }
+
+                    return components;
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
     }
 }

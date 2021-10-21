@@ -14,6 +14,12 @@ namespace Logic
             return comp.GetComponents();
         }
 
+        public List<Model.ComponentDataModel> GetComponents(int port, int board)
+        {
+            DAL.Components comp = new DAL.Components();
+            return comp.GetComponents(port, board);
+        }
+
         public List<Model.MachineHistory> GetMachineHistory(int id)
         {
             DAL.Components comp = new DAL.Components();
