@@ -1,2 +1,1 @@
-docker-compose up
-pause
+docker-compose up --build

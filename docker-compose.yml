@@ -1,15 +1,6 @@
 version: '3.4'
  
 services:
-  # flyway:
-  #     image: flyway/flyway
-  #     container_name: BPFlyway
-  #     command: -url=jdbc:mysql://host.docker.internal:3307/breakpointDB -user=user -password=root -connectRetries=60 migrate
-  #     volumes:
-  #       - .:/flyway/sql/migrations
-  #     depends_on:
-  #       - db
-
   db:
     image: mysql:5.7
     container_name: Q3-breakpointDBcontainer
