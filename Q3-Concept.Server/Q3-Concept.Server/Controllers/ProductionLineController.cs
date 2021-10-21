@@ -60,7 +60,7 @@ namespace Q3_Concept.Server.Controllers
 
         private List<Component> GetComponents(int port, int board)
         {
-            List<ComponentDataModel> componentDalList = _dalComponenet.GetComponents(port, board);
+            List<ComponentDataModel> componentDalList = _dalComponenet.GetComponentsInProductionLine(port, board);
             List<Component> componentList = new List<Component>();
 
             foreach (ComponentDataModel component in componentDalList)

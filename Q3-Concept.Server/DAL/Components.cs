@@ -97,31 +97,11 @@ namespace DAL
             }
         }
 
-        public List<ComponentDataModel> GetComponents(int port, int board)
+        public List<ComponentDataModel> GetComponentsInProductionLine(int port, int board)
         {
             List<ComponentDataModel> componentsList = new List<ComponentDataModel>();
 
-            string query = "( SELECT tv.`id`, " +
-                                    "tv.`omschrijving` as `name`, " +
-                                    "tp.`omschrijving` as `description` " +
-                            "FROM `production_data` pd, " +
-                                  "`treeview` tv, " +
-                                  "`treeview` tp " +
-                            "WHERE pd.treeview2_id = tv.id AND " +
-                                  "tv.parent = tp.id AND " +
-                                  "pd.port = @port AND " +
-                                  "pd.board = @board) " +
-                            "UNION( " +
-                            "SELECT tv.`id`, " +
-                                   "tv.`omschrijving` as `name`, " +
-                                   "tp.`omschrijving` as `description` " +
-                            "FROM `production_data` pd, " +
-                                 "`treeview` tv, " +
-                                 "`treeview` tp " +
-                            "WHERE pd.treeview_id = tv.id AND " +
-                                  "tv.parent = tp.id AND " +
-                                  "pd.port = @port AND " +
-                                  "pd.board = @board ) ";
+            string query = "( SELECT tv.`id`, tv.`omschrijving` as `name`, tp.`omschrijving` as `description` FROM `production_data` pd, `treeview` tv, `treeview` tp WHERE pd.treeview2_id = tv.id AND tv.parent = tp.id AND pd.port = @port AND pd.board = @board ORDER BY pd.end_time DESC, pd.start_time DESC LIMIT 1) UNION( SELECT tv.`id`, tv.`omschrijving` as `name`, tp.`omschrijving` as `description` FROM `production_data` pd, `treeview` tv, `treeview` tp WHERE pd.treeview_id = tv.id AND tv.parent = tp.id AND pd.port = @port AND pd.board = @board ORDER BY pd.end_time DESC, pd.start_time DESC LIMIT 1 ) ";
             using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
             {
                 connection.Open();
