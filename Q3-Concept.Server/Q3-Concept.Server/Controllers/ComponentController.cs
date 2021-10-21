@@ -14,13 +14,13 @@ namespace Q3_Concept.Server.Controllers
     [ApiController]
     public class ComponentController : ControllerBase
     {
-        private Logic.Components _c = new Components();
+        private DAL.Components _dalComponenet = new DAL.Components();
 
         [HttpGet]
         [Route("Component")]
         public IEnumerable<Component> GetSelection(int port, int board)
         {
-            List<ComponentDataModel> components = _c.GetComponents(port, board);
+            List<ComponentDataModel> components = _dalComponenet.GetComponents(port, board);
             List<Component> comComponents = new List<Component>();
 
             foreach (ComponentDataModel component in components)
@@ -31,7 +31,7 @@ namespace Q3_Concept.Server.Controllers
                         Name = component.Name,
                         Id = component.ID,
                         Description = component.Description,
-                        MachineHistory = _c.GetMachineHistory(component.ID)
+                        MachineHistory = _dalComponenet.GetComHistory(component.ID)
                     }
                 );
             }
@@ -43,7 +43,7 @@ namespace Q3_Concept.Server.Controllers
         [Route("ComponentsAll")]
         public IEnumerable<Component> GetAll()
         {
-            List<ComponentDataModel> components = _c.GetComponents();
+            List<ComponentDataModel> components = _dalComponenet.GetComponents();
             List<Component> comComponents = new List<Component>();
 
             foreach (ComponentDataModel component in components)
@@ -54,7 +54,7 @@ namespace Q3_Concept.Server.Controllers
                         Name = component.Name,
                         Id = component.ID,
                         Description = component.Description,
-                        MachineHistory = _c.GetMachineHistory(component.ID)
+                        MachineHistory = _dalComponenet.GetComHistory(component.ID)
                     }
                 );
             }
