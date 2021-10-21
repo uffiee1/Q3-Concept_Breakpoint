@@ -13,7 +13,7 @@ namespace DAL
     {
         private readonly DalAcces _dalaccess = new DalAcces();
         //private const string _connection = "Server=192.168.15.54;Uid=dbi419727;Database=dbi419727;Pwd=test;SslMode=none;";
-        private const string _connection = "Server=localhost; port=3307; database=breakpointDB; Uid=user; pwd=root; SslMode=none;";
+        private const string _connection = "Server=Q3-breakpointDBcontainer; port=3306; database=breakpointDB; Uid=user; pwd=root;";
 
         public List<MonitoringDataModel> GetMonitoritingData(DateTime datetimeStart, DateTime datetimeEnd , int board, int port)
         {
