@@ -20,12 +20,12 @@ namespace Q3_Concept.Server.Controllers
         [Route("Component")]
         public IEnumerable<Component> GetSelection(int port, int board)
         {
-            List<ComponentDataModel> components = _dalComponenet.GetComponents(port, board);
-            List<Component> comComponents = new List<Component>();
+            List<ComponentDataModel> componentDalList = _dalComponenet.GetComponents(port, board);
+            List<Component> componentList = new List<Component>();
 
-            foreach (ComponentDataModel component in components)
+            foreach (ComponentDataModel component in componentDalList)
             {
-                comComponents.Add(
+                componentList.Add(
                     new Component()
                     {
                         Name = component.Name,
@@ -36,19 +36,19 @@ namespace Q3_Concept.Server.Controllers
                 );
             }
 
-            return comComponents;
+            return componentList;
         }
 
         [HttpGet]
         [Route("ComponentsAll")]
         public IEnumerable<Component> GetAll()
         {
-            List<ComponentDataModel> components = _dalComponenet.GetComponents();
-            List<Component> comComponents = new List<Component>();
+            List<ComponentDataModel> componentDalList = _dalComponenet.GetComponents();
+            List<Component> componentList = new List<Component>();
 
-            foreach (ComponentDataModel component in components)
+            foreach (ComponentDataModel component in componentDalList)
             {
-                comComponents.Add(
+                componentList.Add(
                     new Component()
                     {
                         Name = component.Name,
@@ -59,7 +59,7 @@ namespace Q3_Concept.Server.Controllers
                 );
             }
 
-            return comComponents;
+            return componentList;
         }
     }
 }

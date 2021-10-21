@@ -12,14 +12,14 @@ namespace DAL
     {
         public List<MachineHistory> GetComHistory(int id)
         {
-            List<MachineHistory> machineHistory = new List<MachineHistory>();
+            List<MachineHistory> machineHistoryList = new List<MachineHistory>();
 
             string query = "SELECT DISTINCT " +
                            "mmp.name, CONCAT(pd.start_date, ' ', pd.start_time) AS startDate, CONCAT(pd.end_date, ' ', pd.end_time) AS endDate " +
                            "FROM production_data pd, machine_monitoring_poorten mmp " +
                            "WHERE( pd.treeview_id = @id OR pd.treeview2_id = @id) AND pd.port = mmp.port AND pd.board = mmp.board " +
                            "ORDER BY startDate";
-            using (MySqlConnection connection = new MySqlConnection(DalAcces.Conn))
+            using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
             {
                 connection.Open();
                 MySqlCommand command = new MySqlCommand(query, connection);
@@ -31,16 +31,16 @@ namespace DAL
                     {
                         if (reader.GetString("startDate") != "0000-00-00 00:00:00" && reader.GetString("endDate") != "0000-00-00 00:00:00")
                         {
-                            MachineHistory machHistory = new MachineHistory()
+                            MachineHistory machineHistory = new MachineHistory()
                                 {
                                     Name = reader.GetString("name"),
                                     StarDate = DateTime.Parse(reader.GetString("startDate")),
                                     EndDate = DateTime.Parse(reader.GetString("endDate"))
                                 };
-                            machineHistory.Add(machHistory);
+                            machineHistoryList.Add(machineHistory);
                         }
                     }
-                    return machineHistory;
+                    return machineHistoryList;
                 }
                 catch
                 {
@@ -55,7 +55,7 @@ namespace DAL
 
         public List<ComponentDataModel> GetComponents()
         {
-            List<ComponentDataModel> components = new List<ComponentDataModel>();
+            List<ComponentDataModel> componentsList = new List<ComponentDataModel>();
 
             string query = "(" +
                            "SELECT tv.`id`, tv.`omschrijving` as `name`, tp.`omschrijving` as `description` " +
@@ -66,7 +66,7 @@ namespace DAL
                            "SELECT tv.`id`, tv.`omschrijving` as `name`, tp.`omschrijving` as `description` " +
                            "FROM `production_data` pd, `treeview` tv, `treeview` tp " +
                            "WHERE pd.treeview_id = tv.id AND tv.parent = tp.id)";
-            using (MySqlConnection connection = new MySqlConnection(DalAcces.Conn))
+            using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
             {
                 connection.Open();
                 MySqlCommand command = new MySqlCommand(query, connection);
@@ -81,10 +81,10 @@ namespace DAL
                             Name = reader.GetString("name"),
                             Description = reader.GetString("description")
                         };
-                        components.Add(componentdata);
+                        componentsList.Add(componentdata);
                     }
 
-                    return components;
+                    return componentsList;
                 }
                 catch
                 {
@@ -99,7 +99,7 @@ namespace DAL
 
         public List<ComponentDataModel> GetComponents(int port, int board)
         {
-            List<ComponentDataModel> components = new List<ComponentDataModel>();
+            List<ComponentDataModel> componentsList = new List<ComponentDataModel>();
 
             string query = "( SELECT tv.`id`, " +
                                     "tv.`omschrijving` as `name`, " +
@@ -122,7 +122,7 @@ namespace DAL
                                   "tv.parent = tp.id AND " +
                                   "pd.port = @port AND " +
                                   "pd.board = @board ) ";
-            using (MySqlConnection connection = new MySqlConnection(DalAcces.Conn))
+            using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
             {
                 connection.Open();
                 MySqlCommand command = new MySqlCommand(query, connection);
@@ -139,10 +139,10 @@ namespace DAL
                             Name = reader.GetString("name"),
                             Description = reader.GetString("description")
                         };
-                        components.Add(componentdata);
+                        componentsList.Add(componentdata);
                     }
 
-                    return components;
+                    return componentsList;
                 }
                 catch
                 {

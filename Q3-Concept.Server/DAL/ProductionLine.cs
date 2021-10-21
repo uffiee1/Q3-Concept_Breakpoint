@@ -12,7 +12,7 @@ namespace DAL
     {
         public List<ProductionLineModel> GetProductionLines()
         {
-            List<ProductionLineModel> productionlines = new List<ProductionLineModel>();
+            List<ProductionLineModel> productionlineList = new List<ProductionLineModel>();
 
             string query = "SELECT DISTINCT tp.`id`, tp.`naam` as `name`, mmp.`port`, mmp.`board`,  tg.`omschrijving` as `side`" +
                      "FROM `treeview` tp, " +
@@ -22,7 +22,7 @@ namespace DAL
                                 " mmp.`name` IS NOT null AND " +
                                  "mmp.`name` != \"\" AND " +
                          "tp.`naam` = mmp.`name`";
-            using MySqlConnection connection = new MySqlConnection(DalAcces.Conn);
+            using MySqlConnection connection = new MySqlConnection(DalConnection.Conn);
             connection.Open();
             MySqlCommand command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
@@ -30,7 +30,7 @@ namespace DAL
             {
                 while (reader.Read())
                 {
-                    ProductionLineModel production = new ProductionLineModel()
+                    ProductionLineModel productionLine = new ProductionLineModel()
                     {
                         ID = reader.GetInt32("id"),
                         Name = reader.GetString("name"),
@@ -38,10 +38,10 @@ namespace DAL
                         port = reader.GetInt32("port"),
                         Board = reader.GetInt32("board")
                     };
-                    productionlines.Add(production);
+                    productionlineList.Add(productionLine);
                 }
 
-                return productionlines;
+                return productionlineList;
             }
             catch
             {
@@ -55,7 +55,7 @@ namespace DAL
 
         public ProductionLineModel GetProductionLine(int board, int port)
         {
-            ProductionLineModel productionlinemodel = new ProductionLineModel();
+            ProductionLineModel productionLine = new ProductionLineModel();
 
             string query = "SELECT DISTINCT tp.`id`, tp.`naam` as `name`, tg.`omschrijving` as `side`" +
                             " FROM `treeview` tp," +
@@ -63,7 +63,7 @@ namespace DAL
                     " WHERE tp.`parent` = tg.`id` AND " +
                     "tp.`naam` = (SELECT `name` FROM `machine_monitoring_poorten` WHERE `port` = @port AND `board` = @board)";
 
-            using (MySqlConnection connection = new MySqlConnection(DalAcces.Conn))
+            using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
             {
                 connection.Open();
                 MySqlCommand command = new MySqlCommand(query, connection);
@@ -74,7 +74,7 @@ namespace DAL
                 {
                     while (reader.Read())
                     {
-                        ProductionLineModel production = new ProductionLineModel()
+                        productionLine = new ProductionLineModel()
                         {
                             ID = reader.GetInt32("id"),
                             Name = reader.GetString("name"),
@@ -82,9 +82,8 @@ namespace DAL
                             port = port,
                             Board = board,
                         };
-                        productionlinemodel = production;
                     }
-                    return productionlinemodel;
+                    return productionLine;
                 }
                 catch
                 {

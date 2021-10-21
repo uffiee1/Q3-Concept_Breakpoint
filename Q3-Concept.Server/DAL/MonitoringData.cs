@@ -17,7 +17,7 @@ namespace DAL
 
             string query = "SELECT id, timestamp, shot_time FROM `monitoring_data_202009` WHERE port = @port AND board = @board";
 
-            using (MySqlConnection connection = new MySqlConnection(DalAcces.Conn))
+            using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
             {
                 connection.Open();
                 MySqlCommand command = new MySqlCommand(query, connection);

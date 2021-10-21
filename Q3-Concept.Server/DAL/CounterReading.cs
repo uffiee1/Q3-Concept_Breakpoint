@@ -12,11 +12,11 @@ namespace DAL
     {
         public List<StatusModel> GetCounterReadings(int treeviewId)
         {
-            List<StatusModel> counterReadings = new List<StatusModel>();
+            List<StatusModel> calculatedStatuseList = new List<StatusModel>();
 
             string query = "SELECT * FROM `tellerstanden` WHERE treeview_id = @treeviewId";
 
-            using (MySqlConnection connection = new MySqlConnection(DalAcces.Conn))
+            using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
             {
                 connection.Open();
                 MySqlCommand command = new MySqlCommand(query, connection);
@@ -26,7 +26,7 @@ namespace DAL
                 {
                     while (reader.Read())
                     {
-                        StatusModel counterReading = new StatusModel()
+                        StatusModel calculatedStatus = new StatusModel()
                         {
                             Description = reader.GetString("waarde"),
                             StartTime = reader.GetDateTime("start_datum"),
@@ -34,10 +34,10 @@ namespace DAL
                             Duration = (reader.GetDateTime("end_datum") - reader.GetDateTime("start_datum")).TotalSeconds,
                             Entries = reader.GetInt32("totaal")
                         };
-                        counterReadings.Add(counterReading);
+                        calculatedStatuseList.Add(calculatedStatus);
                     }
 
-                    return counterReadings;
+                    return calculatedStatuseList;
                 }
                 catch
                 {
@@ -50,14 +50,14 @@ namespace DAL
             }
         }
 
-        public void InsertData(List<StatusModel> statuses, int treeviewId)
+        public void InsertData(List<StatusModel> statusList, int treeviewId)
         {
-            foreach (StatusModel status in statuses)
+            foreach (StatusModel status in statusList)
             {
                 string query = "INSERT INTO `tellerstanden`(`waarde`, `totaal`, `treeview_id`, `start_datum`, `end_datum`) " +
                                 "VALUES (@value, @total, @treeviewId, @startDate, @endDate)";
 
-                using (MySqlConnection connection = new MySqlConnection(DalAcces.Conn))
+                using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
                 {
                     connection.Open();
                     MySqlCommand command = new MySqlCommand(query, connection);
@@ -67,52 +67,32 @@ namespace DAL
                     command.Parameters.Add(new MySqlParameter("@startDate", status.StartTime));
                     command.Parameters.Add(new MySqlParameter("@endDate", status.End__Time));
                     MySqlDataReader reader = command.ExecuteReader();
-                    try
-                    {
-                    }
-                    catch
-                    {
-                        throw;
-                    }
-                    finally
-                    {
-                        connection.Close();
-                    }
+                    connection.Close();
                 }
             }
         }
 
-        public void UpdateStatuses(List<StatusModel> statuses, int treeviewId)
+        public void UpdateStatuses(List<StatusModel> statusList, int treeviewId)
         {
             {
                 string query = "DELETE FROM `tellerstanden` WHERE `treeview_id` = @treeviewId";
 
-                using (MySqlConnection connection = new MySqlConnection(DalAcces.Conn))
+                using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
                 {
                     connection.Open();
                     MySqlCommand command = new MySqlCommand(query, connection);
                     command.Parameters.Add(new MySqlParameter("@treeviewId", treeviewId));
                     MySqlDataReader reader = command.ExecuteReader();
-                    try
-                    {
-                    }
-                    catch
-                    {
-                        throw;
-                    }
-                    finally
-                    {
-                        connection.Close();
-                    }
+                    connection.Close();
                 }
             }
 
-            foreach (StatusModel status in statuses)
+            foreach (StatusModel status in statusList)
             {
                 string query = "INSERT INTO `tellerstanden`(`waarde`, `totaal`, `treeview_id`, `start_datum`, `end_datum`) " +
                                 "VALUES (@value, @total, @treeviewId, @startDate, @endDate)";
 
-                using (MySqlConnection connection = new MySqlConnection(DalAcces.Conn))
+                using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
                 {
                     connection.Open();
                     MySqlCommand command = new MySqlCommand(query, connection);
