@@ -11,11 +11,11 @@ namespace DAL
 {
     public class MonitoringData
     {
-        public List<MonitoringDataModel> GetMonitoritingData(DateTime datetimeStart, DateTime datetimeEnd, int board, int port)
+        public List<MonitoringDataModel> GetMonitoritingData(int board, int port)
         {
             List<MonitoringDataModel> monitoringsdata = new List<MonitoringDataModel>();
 
-            string query = "SELECT id, timestamp, shot_time FROM `monitoring_data_202009` WHERE `timestamp` between @datetimestart and @datetimeend AND port = @port AND board = @board";
+            string query = "SELECT id, timestamp, shot_time FROM `monitoring_data_202009` WHERE port = @port AND board = @board";
 
             using (MySqlConnection connection = new MySqlConnection(DalAcces.Conn))
             {
@@ -23,8 +23,6 @@ namespace DAL
                 MySqlCommand command = new MySqlCommand(query, connection);
                 command.Parameters.Add(new MySqlParameter("@port", port));
                 command.Parameters.Add(new MySqlParameter("@board", board));
-                command.Parameters.Add(new MySqlParameter("@datetimestart", datetimeStart));
-                command.Parameters.Add(new MySqlParameter("@datetimeend", datetimeEnd));
 
                 MySqlDataReader reader = command.ExecuteReader();
                 try

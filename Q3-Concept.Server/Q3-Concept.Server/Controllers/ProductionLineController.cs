@@ -13,8 +13,6 @@ namespace Q3_Concept.Server.Controllers
     [Route("[controller]")]
     public class ProductionLineController : ControllerBase
     {
-        private readonly List<Model.StatusModel> _statuses;
-
         // List<DAL.ProductionLine> productionLine;
         [HttpGet]
         public ProductionLine Get(DateTime startTime, DateTime endTime, int board, int port)
@@ -27,7 +25,7 @@ namespace Q3_Concept.Server.Controllers
                 Name = productionLine.Name,
                 Id = productionLine.port,
                 Side = new DateTime(2001, 09, 1, 0, 0, 0).ToString(),
-                Statuses = b.setStatus(startTime, endTime, board, port).ToArray(),
+                Statuses = b.setStatus(startTime, endTime, board, port, productionLine.ID).ToArray(),
                 Components = new Component[]
                 {
                     new Component { Name = "BAal", Id = 2 }
@@ -53,7 +51,7 @@ namespace Q3_Concept.Server.Controllers
                         Name = productionLine.Name,
                         Id = productionLine.ID,
                         Side = new DateTime(2001, 09, 1, 0, 0, 0).ToString(),
-                        Statuses = b.setStatus(startTime, endTime, productionLine.Board, productionLine.port).ToArray(),
+                        Statuses = b.setStatus(startTime, endTime, productionLine.Board, productionLine.port, productionLine.ID).ToArray(),
                         Components = new Component[]
                         {
                             new Component { Name = "BAal", Id = 2 }
