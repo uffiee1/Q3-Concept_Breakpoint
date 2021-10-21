@@ -3,7 +3,7 @@ import '../css/Sidebar.css';
 import React, { useState, useEffect } from 'react';
 import SidebarMachineList from './SidebarMachineList';
 
-function Sidebar({productionlinearray = machinelist}) {
+function Sidebar({productionlinearray}) {
 
   return (
     <div className='side-menu'>
