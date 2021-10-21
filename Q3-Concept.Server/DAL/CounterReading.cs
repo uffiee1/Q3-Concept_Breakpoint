@@ -60,14 +60,24 @@ namespace DAL
                 using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
                 {
                     connection.Open();
-                    MySqlCommand command = new MySqlCommand(query, connection);
-                    command.Parameters.Add(new MySqlParameter("@value", status.Description));
-                    command.Parameters.Add(new MySqlParameter("@total", status.Entries));
-                    command.Parameters.Add(new MySqlParameter("@treeviewId", treeviewId));
-                    command.Parameters.Add(new MySqlParameter("@startDate", status.StartTime));
-                    command.Parameters.Add(new MySqlParameter("@endDate", status.End__Time));
-                    MySqlDataReader reader = command.ExecuteReader();
-                    connection.Close();
+                    try
+                    {
+                        MySqlCommand command = new MySqlCommand(query, connection);
+                        command.Parameters.Add(new MySqlParameter("@value", status.Description));
+                        command.Parameters.Add(new MySqlParameter("@total", status.Entries));
+                        command.Parameters.Add(new MySqlParameter("@treeviewId", treeviewId));
+                        command.Parameters.Add(new MySqlParameter("@startDate", status.StartTime));
+                        command.Parameters.Add(new MySqlParameter("@endDate", status.End__Time));
+                        MySqlDataReader reader = command.ExecuteReader();
+                    }
+                    catch
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
                 }
             }
         }
@@ -79,11 +89,21 @@ namespace DAL
 
                 using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
                 {
-                    connection.Open();
-                    MySqlCommand command = new MySqlCommand(query, connection);
-                    command.Parameters.Add(new MySqlParameter("@treeviewId", treeviewId));
-                    MySqlDataReader reader = command.ExecuteReader();
-                    connection.Close();
+                    try
+                    {
+                        connection.Open();
+                        MySqlCommand command = new MySqlCommand(query, connection);
+                        command.Parameters.Add(new MySqlParameter("@treeviewId", treeviewId));
+                        MySqlDataReader reader = command.ExecuteReader();
+                    }
+                    catch
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
                 }
             }
 

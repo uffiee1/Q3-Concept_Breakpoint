@@ -12,7 +12,7 @@ namespace Logic
         private CounterReading _counterReading = new CounterReading();
 
         private DateTime _lastUpdate = new DateTime(1970, 01, 01);
-        private int _updateFrequency = 3600;
+        private int _updateFrequency = 21600;
 
         private int _machineOfflineMargin = 500;
 
@@ -26,7 +26,7 @@ namespace Logic
             }
             else
             {
-                Task.Run(() => ConvertToStatus(_moniDAL.GetMonitoritingData(board, port), endDate, startDate, treeviewId, counterReadings));
+                //ConvertToStatus(_moniDAL.GetMonitoritingData(board, port), endDate, startDate, treeviewId, counterReadings);
                 return FilterStatuses(counterReadings, startDate, endDate);
             }
         }
@@ -93,7 +93,7 @@ namespace Logic
                 if (_lastUpdate < DateTime.Now.AddSeconds(_updateFrequency * -1))
                 {
                     _lastUpdate = DateTime.Now;
-                    Task.Run(() => _counterReading.UpdateStatuses(statuses, treeviewId));
+                    _counterReading.UpdateStatuses(statuses, treeviewId);
                 }
             }
             else

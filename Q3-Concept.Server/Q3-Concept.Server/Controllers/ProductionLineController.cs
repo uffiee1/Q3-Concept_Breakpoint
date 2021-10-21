@@ -15,6 +15,7 @@ namespace Q3_Concept.Server.Controllers
     {
         private StatusBusiness _sb = new StatusBusiness();
         private DAL.ProductionLine _pd = new DAL.ProductionLine();
+        private DAL.Components _dalComponenet = new DAL.Components();
 
         // List<DAL.ProductionLine> productionLine;
         [HttpGet]
@@ -26,12 +27,9 @@ namespace Q3_Concept.Server.Controllers
             {
                 Name = productionLine.Name,
                 Id = productionLine.port,
-                Side = new DateTime(2001, 09, 1, 0, 0, 0).ToString(),
+                Side = productionLine.Side,
                 Statuses = _sb.setStatus(startTime, endTime, board, port, productionLine.ID).ToArray(),
-                Components = new Component[]
-                {
-                    new Component { Name = "BAal", Id = 2 }
-                }
+                Components = GetComponents(productionLine.port, productionLine.Board).ToArray()
             };
         }
 
@@ -50,17 +48,35 @@ namespace Q3_Concept.Server.Controllers
                     {
                         Name = productionLine.Name,
                         Id = productionLine.ID,
-                        Side = new DateTime(2001, 09, 1, 0, 0, 0).ToString(),
+                        Side = productionLine.Side,
                         Statuses = _sb.setStatus(startTime, endTime, productionLine.Board, productionLine.port, productionLine.ID).ToArray(),
-                        Components = new Component[]
-                        {
-                            new Component { Name = "BAal", Id = 2 }
-                        }
+                        Components = GetComponents(productionLine.port, productionLine.Board).ToArray()
                     }
                 );
             }
 
             return productionLines;
+        }
+
+        private List<Component> GetComponents(int port, int board)
+        {
+            List<ComponentDataModel> componentDalList = _dalComponenet.GetComponents(port, board);
+            List<Component> componentList = new List<Component>();
+
+            foreach (ComponentDataModel component in componentDalList)
+            {
+                componentList.Add(
+                    new Component()
+                    {
+                        Name = component.Name,
+                        Id = component.ID,
+                        Description = component.Description,
+                        MachineHistory = _dalComponenet.GetComHistory(component.ID)
+                    }
+                );
+            }
+
+            return componentList;
         }
     }
 }
