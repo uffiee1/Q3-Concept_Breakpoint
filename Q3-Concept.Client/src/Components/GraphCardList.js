@@ -9,16 +9,17 @@ function GraphCardList({ Cards }) {
 
     function ToggelDetailPopUp(){
         setShowDetailPopUp(!showDetailPopUp);
+        console.log("toggled")
     }
 
     return (
         <div className="row">
             {Cards.map((Card) => (
-                <div className="column">
-                    <HomeGraphCard key={Card.id} productionline =  {Card} onClick = {() => ToggelDetailPopUp()} />
+                <div className="column" onClick = {() => ToggelDetailPopUp()}>
+                    <HomeGraphCard key={Card.id} productionline =  {Card} />
                 </div>
             ))}
-            {showDetailPopUp ? <ProductionLineDetails togggle = {ToggelDetailPopUp()} /> :null}
+            {showDetailPopUp ? <ProductionLineDetails togggle = {() => ToggelDetailPopUp()} /> :null}
         </div>
     )
 }

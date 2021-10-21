@@ -8,3 +8,11 @@
   
     width: 40%;
 }
+
+.popupbody{
+    display: inline-block;
+}
+
+.close{
+    display: inline-block;
+}
