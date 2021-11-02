@@ -10,8 +10,8 @@ using Q3_Concept.Server.Models;
 
 namespace Q3_Concept.Server.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("[controller]")]
     public class ComponentController : ControllerBase
     {
         private DAL.Components _dalComponenet = new DAL.Components();
