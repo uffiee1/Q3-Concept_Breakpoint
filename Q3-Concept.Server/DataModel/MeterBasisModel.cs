@@ -22,6 +22,6 @@ namespace Model
 
         public double MaxValue { get; set; }
 
-        public List<MeterRegristrationModel> meters { get; set; }
+        public List<CounterReadingModel> meters { get; set; }
     }
 }

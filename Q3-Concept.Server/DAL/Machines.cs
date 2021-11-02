@@ -12,10 +12,10 @@ namespace DAL
     {
         private List<MachineModel> GetMachines(ProductionLineModel productionline)
         {
-            List<MachineModel> machines = new List<MachineModel>();
+            List<MachineModel> machineList = new List<MachineModel>();
 
             string query = "SELECT `id`, `naam` as `name`, `omschrijving` as `description` FROM `treeview` WHERE  `parent` = @id";
-            using (MySqlConnection connection = new MySqlConnection(DalAcces.Conn))
+            using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
             {
                 connection.Open();
                 MySqlCommand command = new MySqlCommand(query, connection);
@@ -32,10 +32,10 @@ namespace DAL
                             Name = reader.GetString("name"),
                             Description = reader.GetString("description")
                         };
-                        machines.Add(machinedata);
+                        machineList.Add(machinedata);
                     }
 
-                    return machines;
+                    return machineList;
                 }
                 catch
                 {
