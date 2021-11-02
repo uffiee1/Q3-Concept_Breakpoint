@@ -1,0 +1,8 @@
+.topbar{
+    background-color: #c3c4ca;
+    height: 80px;
+    width: 100%;
+    display: block;
+    justify-content: start;
+    align-items: center;
+}

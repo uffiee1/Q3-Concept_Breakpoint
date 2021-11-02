@@ -2,3 +2,6 @@ $MachineStatus-Active: #00e676;
 $MachineStatus-Inactive: #f44336;
 $MachineStatus-Maintenace: #ba68c8;
 $MachineStatus-RequiresMaintance: #ffb74d;
+$MachineStatus-Undefined: #aaa;
+
+//if you change the colors make sure to change them in baritem.js as well

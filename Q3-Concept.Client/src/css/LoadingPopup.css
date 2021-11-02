@@ -1,0 +1,10 @@
+.LoadingPopup{
+    display: inline-block;
+    z-index: 2;
+    position: fixed;
+    background-color: blueviolet;
+    top: 45%;
+    left: 40%;
+  
+    width: 40%;
+}

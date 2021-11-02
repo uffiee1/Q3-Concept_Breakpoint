@@ -1,11 +1,11 @@
-﻿using Logic;
-using Model;
-using Microsoft.AspNetCore.Mvc;
-using Q3_Concept.Server.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Logic;
+using Microsoft.AspNetCore.Mvc;
+using Model;
+using Q3_Concept.Server.Models;
 
 namespace Q3_Concept.Server.Controllers
 {
@@ -13,74 +13,69 @@ namespace Q3_Concept.Server.Controllers
     [Route("[controller]")]
     public class ProductionLineController : ControllerBase
     {
-        List<Model.StatusModel> statuses;
-        //List<DAL.ProductionLine> productionLine;
+        private StatusBusiness _sb = new StatusBusiness();
+        private DAL.ProductionLine _pd = new DAL.ProductionLine();
+        private DAL.Components _dalComponenet = new DAL.Components();
 
+        // List<DAL.ProductionLine> productionLine;
         [HttpGet]
-        public ProductionLine Get(DateTime StartTime, DateTime EndTime, int board, int port)
+        public ProductionLine Get(DateTime startTime, DateTime endTime, int board, int port)
         {
-            //if (StartTime == null)
-            //    StartTime = new DateTime(1980, 01, 01);
-            //if (EndTime == null)
-            //    EndTime = new DateTime();
+            ProductionLineModel productionLine = _pd.GetProductionLine(board, port);
 
-            //moniDAL.GetMonitoritingData(, new DateTime(2077, 09, 30, 1, 0, 0), 1, 22));
-            StatusBusiness b = new StatusBusiness();
             return new ProductionLine()
             {
-                Name = "A1",
-                Id = 1,
-                Side = new DateTime(2001, 09, 1, 0, 0, 0).ToString(),
-                Statuses = b.setStatus(StartTime, EndTime, board, port).ToArray(),
-                //new Status[]
-                //{
-                //    new Status{EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description="On" },
-                //    new Status{EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description="Off" },
-                //    new Status{EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description="On" },
-                //},
-                Components = new Component[]
-                {
-                    new Component{Name = "BAal", Id=2}
-                }
-
+                Name = productionLine.Name,
+                Id = productionLine.port,
+                Side = productionLine.Side,
+                Statuses = _sb.setStatus(startTime, endTime, board, port, productionLine.ID).ToArray(),
+                Components = GetComponents(productionLine.port, productionLine.Board).ToArray()
             };
         }
 
         [HttpGet]
         [Route("ProductionLineDetails")]
-        public IEnumerable<ProductionLine> GetAll(DateTime StartTime, DateTime EndTime)
+        public IEnumerable<ProductionLine> GetAll(DateTime startTime, DateTime endTime)
         {
-            //List<ProductionLine> dbProdctionLines = productionLine.GetProductionLines();
+            List<ProductionLineModel> productionLinesDB = _pd.GetProductionLines();
 
+            List<ProductionLine> productionLines = new List<ProductionLine>();
 
+            foreach (ProductionLineModel productionLine in productionLinesDB)
+            {
+                productionLines.Add(
+                    new ProductionLine()
+                    {
+                        Name = productionLine.Name,
+                        Id = productionLine.ID,
+                        Side = productionLine.Side,
+                        Statuses = _sb.setStatus(startTime, endTime, productionLine.Board, productionLine.port, productionLine.ID).ToArray(),
+                        Components = GetComponents(productionLine.port, productionLine.Board).ToArray()
+                    }
+                );
+            }
+            return productionLines;
+        }
 
-            //logica aanroepen
-            return new ProductionLine[] {
-                new ProductionLine()
-                {
-                    Name = "A1",
-                    Id = 1,
-                    Side = "A",
-                //    Statuses = new Status[]
-                //{
-                //    new Status { EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description = "On" },
-                //    new Status { EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description = "Off" },
-                //    new Status { EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description = "On" },
-                //}
-                //},
-                //new ProductionLine()
-                //{
-                //    Name = "A1",
-                //    Id = 1,
-                //    Side = "A",
-                //    Statuses = new Status[]
-                //{
-                //    new Status { EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description = "On" },
-                //    new Status { EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description = "Off" },
-                //    new Status { EndDateTime = DateTime.Now, StartDateTime = DateTime.Now, Description = "On" },
-                //}
-                }
-            };
+        private List<Component> GetComponents(int port, int board)
+        {
+            List<ComponentDataModel> componentDalList = _dalComponenet.GetComponentsInProductionLine(port, board);
+            List<Component> componentList = new List<Component>();
+
+            foreach (ComponentDataModel component in componentDalList)
+            {
+                componentList.Add(
+                    new Component()
+                    {
+                        Name = component.Name,
+                        Id = component.ID,
+                        Description = component.Description,
+                        MachineHistory = _dalComponenet.GetComHistory(component.ID)
+                    }
+                );
+            }
+
+            return componentList;
         }
     }
 }

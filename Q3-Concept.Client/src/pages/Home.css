@@ -1,3 +1,6 @@
 .container {
-    justify-content:center;
-  }
+  margin-left: 0px;
+  padding-left: 0px;
+  width: 80%;
+  display: inline-block;
+}
