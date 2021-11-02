@@ -5,9 +5,9 @@ import ProductionLineDetails from './ProductionLineDetails'
 import { useState } from 'react'
 
 function GraphCardList({ Cards }) {
-    const [showDetailPopUp , setShowDetailPopUp] = useState(false);
+    const [showDetailPopUp, setShowDetailPopUp] = useState(false);
 
-    function ToggelDetailPopUp(){
+    function ToggelDetailPopUp() {
         setShowDetailPopUp(!showDetailPopUp);
         console.log("toggled")
     }
@@ -15,11 +15,11 @@ function GraphCardList({ Cards }) {
     return (
         <div className="row">
             {Cards.map((Card) => (
-                <div className="column" onClick = {() => ToggelDetailPopUp()}>
-                    <HomeGraphCard key={Card.id} productionline =  {Card} />
+                <div className="column" onClick={() => ToggelDetailPopUp()}>
+                    <HomeGraphCard key={Card.id} productionline={Card} />
                 </div>
             ))}
-            {showDetailPopUp ? <ProductionLineDetails togggle = {() => ToggelDetailPopUp()} /> :null}
+            {showDetailPopUp ? <ProductionLineDetails togggle={() => ToggelDetailPopUp()} /> : null}
         </div>
     )
 }

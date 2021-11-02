@@ -6,7 +6,7 @@ import React from 'react'
 function SidebarMachineItem({ machine }) {
     let currentStatusString = "undefined"
 
-    if(machine.statuses.length >= 1){
+    if (machine.statuses.length >= 1) {
         currentStatusString = machine.statuses[machine.statuses.length - 1].description
     }
 
