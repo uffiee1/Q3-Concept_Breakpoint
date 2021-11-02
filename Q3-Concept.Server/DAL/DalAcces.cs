@@ -5,7 +5,7 @@ namespace DAL
 {
     public class DalAcces
     {
-        public const string MyConnectionString = "Server=192.168.15.54;Uid=dbi419727;Database=dbi419727;Pwd=test;SslMode=none;";
+        public const string MyConnectionString = "server=localhost;user id=user;database=breakpointDB;Pwd=root;port=3307;SslMode=none;";
         public MySqlConnection Connection = new MySqlConnection(MyConnectionString);
     }
 }
