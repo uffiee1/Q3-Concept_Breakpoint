@@ -11,7 +11,6 @@ namespace DAL
 {
     public class MonitoringData
     {
-        public List<MonitoringDataModel> GetMonitoritingData(int board, int port)
         {
             List<MonitoringDataModel> monitoringsdata = new List<MonitoringDataModel>();
 
