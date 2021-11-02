@@ -1,18 +1,15 @@
 import '../css/ProductionLineDetails.css';
 
-    function ProductionLineDetails({productionline}) {
-        function handleClick(){
+function ProductionLineDetails({productionline}) {
+    return (
+        <div class ="DetailPopUp">g
+            <p>bart is een legend</p>
+            <h6> {productionline.id }</h6>
+            <h6>{productionline.name}</h6>
+           
 
-        }
-        return(
-            <div class = "DetailPopUp">
-                <div class = "popupbody">
-                    <span class = "close" onClick = {handleClick}>
-                    </span>
-                    <h2>Hello World</h2>
-                </div>
-            </div>
-        )
-    }
+        </div>
+    )
+}
 
 export default ProductionLineDetails
