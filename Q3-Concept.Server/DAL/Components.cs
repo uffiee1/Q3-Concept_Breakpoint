@@ -1,30 +1,75 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using Model;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Model;
+using MySql.Data.MySqlClient;
 
 namespace DAL
 {
     public class Components
     {
-        //id naam omschrijving 
-        private readonly DalAcces _dalaccess = new DalAcces();
-        private const string _connection = "Server=192.168.15.54;Uid=dbi419727;Database=dbi419727;Pwd=test;SslMode=none;";
-
-        public ComponentDataModel GetComponent(int id)
+        public List<MachineHistory> GetComHistory(int id)
         {
-            ComponentDataModel components = new ComponentDataModel();
+            List<MachineHistory> machineHistoryList = new List<MachineHistory>();
 
-            string query = "SELECT `id`, `naam` as `name`, `omschrijving` as `description` FROM `treeview` WHERE  `id` = @id";
-            using (MySqlConnection Connection = new MySqlConnection(_connection))
+            string query = "SELECT DISTINCT " +
+                           "mmp.name, CONCAT(pd.start_date, ' ', pd.start_time) AS startDate, CONCAT(pd.end_date, ' ', pd.end_time) AS endDate " +
+                           "FROM production_data pd, machine_monitoring_poorten mmp " +
+                           "WHERE( pd.treeview_id = @id OR pd.treeview2_id = @id) AND pd.port = mmp.port AND pd.board = mmp.board " +
+                           "ORDER BY startDate";
+            using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
             {
-                MySqlCommand command = new MySqlCommand(query, Connection);
+                connection.Open();
+                MySqlCommand command = new MySqlCommand(query, connection);
                 command.Parameters.Add(new MySqlParameter("@id", id));
+                MySqlDataReader reader = command.ExecuteReader();
+                try
+                {
+                    while (reader.Read())
+                    {
+                        if (reader.GetString("startDate") != "0000-00-00 00:00:00" && reader.GetString("endDate") != "0000-00-00 00:00:00")
+                        {
+                            MachineHistory machineHistory = new MachineHistory()
+                                {
+                                    Name = reader.GetString("name"),
+                                    StarDate = DateTime.Parse(reader.GetString("startDate")),
+                                    EndDate = DateTime.Parse(reader.GetString("endDate"))
+                                };
+                            machineHistoryList.Add(machineHistory);
+                        }
+                    }
+                    return machineHistoryList;
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
 
+        public List<ComponentDataModel> GetComponents()
+        {
+            List<ComponentDataModel> componentsList = new List<ComponentDataModel>();
+
+            string query = "(" +
+                           "SELECT tv.`id`, tv.`omschrijving` as `name`, tp.`omschrijving` as `description` " +
+                           "FROM `production_data` pd, `treeview` tv, `treeview` tp " +
+                           "WHERE pd.treeview2_id = tv.id AND tv.parent = tp.id) " +
+                           "UNION " +
+                           "(" +
+                           "SELECT tv.`id`, tv.`omschrijving` as `name`, tp.`omschrijving` as `description` " +
+                           "FROM `production_data` pd, `treeview` tv, `treeview` tp " +
+                           "WHERE pd.treeview_id = tv.id AND tv.parent = tp.id)";
+            using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
+            {
+                connection.Open();
+                MySqlCommand command = new MySqlCommand(query, connection);
                 MySqlDataReader reader = command.ExecuteReader();
                 try
                 {
@@ -36,10 +81,10 @@ namespace DAL
                             Name = reader.GetString("name"),
                             Description = reader.GetString("description")
                         };
-                        components = componentdata;
+                        componentsList.Add(componentdata);
                     }
 
-                    return components;
+                    return componentsList;
                 }
                 catch
                 {
@@ -47,10 +92,47 @@ namespace DAL
                 }
                 finally
                 {
-                    Connection.Close();
+                    connection.Close();
                 }
             }
         }
 
+        public List<ComponentDataModel> GetComponentsInProductionLine(int port, int board)
+        {
+            List<ComponentDataModel> componentsList = new List<ComponentDataModel>();
+
+            string query = "( SELECT tv.`id`, tv.`omschrijving` as `name`, tp.`omschrijving` as `description` FROM `production_data` pd, `treeview` tv, `treeview` tp WHERE pd.treeview2_id = tv.id AND tv.parent = tp.id AND pd.port = @port AND pd.board = @board ORDER BY pd.end_time DESC, pd.start_time DESC LIMIT 1) UNION( SELECT tv.`id`, tv.`omschrijving` as `name`, tp.`omschrijving` as `description` FROM `production_data` pd, `treeview` tv, `treeview` tp WHERE pd.treeview_id = tv.id AND tv.parent = tp.id AND pd.port = @port AND pd.board = @board ORDER BY pd.end_time DESC, pd.start_time DESC LIMIT 1 ) ";
+            using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
+            {
+                connection.Open();
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.Add(new MySqlParameter("@port", port));
+                command.Parameters.Add(new MySqlParameter("@board", board));
+                MySqlDataReader reader = command.ExecuteReader();
+                try
+                {
+                    while (reader.Read())
+                    {
+                        ComponentDataModel componentdata = new ComponentDataModel()
+                        {
+                            ID = reader.GetInt32("id"),
+                            Name = reader.GetString("name"),
+                            Description = reader.GetString("description")
+                        };
+                        componentsList.Add(componentdata);
+                    }
+
+                    return componentsList;
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
     }
 }
