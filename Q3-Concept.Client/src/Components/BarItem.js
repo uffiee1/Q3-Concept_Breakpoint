@@ -21,29 +21,17 @@ function GetCollor(status) {
 }
 
 function BarItem({ statusarray }) {
-    if (statusarray.length >= 1) {
-        return (
-            <XYPlot width={300} height={100} stackBy="x">
-                <VerticalGridLines />
-                <HorizontalGridLines />
-                <XAxis />
-                {statusarray.map((item) => (
-                    <HorizontalBarSeries data={[{ y: 1, x: item.duration }]} stroke='black' color={GetCollor(item.description)} />
-                ))}
-            </XYPlot>
-        )
-    }
+    return (
+        <XYPlot width={300} height={100} stackBy="x">
+            <VerticalGridLines />
+            <HorizontalGridLines />
+            <XAxis />
 
-    else {
-        return (
-            <XYPlot width={300} height={100} stackBy="x">
-                <VerticalGridLines />
-                <HorizontalGridLines />
-                <XAxis />
-                <HorizontalBarSeries data={[{ y: 1, x: 86400 }]} stroke='black' color={GetCollor()} />
-            </XYPlot>
-        )
-    }
+            {statusarray.map((item) => (
+                <HorizontalBarSeries data={[{ y: 1, x: item.duration }]} stroke='black' color={GetCollor(item.description)} />
+            ))}
+        </XYPlot>
+    )
 }
 
 export default BarItem

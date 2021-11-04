@@ -26,7 +26,6 @@ function HomeGraphCard({ productionline }) {
                 <p>{productionline.name}</p>
                 <BarItem statusarray={productionline.statuses} />
             </div>
-            <p>More Info</p>
         </div>
     )
 }
