@@ -6,38 +6,34 @@ import { useState } from 'react'
 
 function GraphCardList({ Cards }) {
     const [showDetailPopUp, setShowDetailPopUp] = useState(false);
-    const [productionLine, setProductionLine] = useState([]);
+    const [productionline, setProductionLine] = useState([]);
+
+    function showPopup(line) {
+        setProductionLine(line)
+        ToggelDetailPopUp()
+    }
 
     function ToggelDetailPopUp() {
 
         setShowDetailPopUp(!showDetailPopUp);
+
+
+        console.log("toggled")
     }
-
-    // function ShowCard({ ProductionLine }) {
-    //     ProductionLine.statuses.length != 0 ?
-
-    //         <div className="column" onClick={() => ToggelDetailPopUp()}>
-    //             <HomeGraphCard key={ProductionLine.id} productionline={ProductionLine} />
-    //         </div>
-    //         :
-    //         null
-
-    // }
 
     return (
         <div className="row">
             {Cards.map((Card) => (
-                Card.statuses.length != 0 ?
-                    <div className="column" onClick={() => ToggelDetailPopUp()}>
+                Card.statuses.length !== 0 ?
+                    <div className="column" onClick={() => showPopup(Card)}>
                         <HomeGraphCard key={Card.id} productionline={Card} />
                     </div>
                     :
                     null
             ))}
-            {showDetailPopUp ? <ProductionLineDetails togggle={() => ToggelDetailPopUp()} productionline={productionLine} /> : null}
+            {showDetailPopUp ? <ProductionLineDetails togggle={() => ToggelDetailPopUp()} productionline={productionline} /> : null}
         </div>
     )
-
 }
 
 export default GraphCardList

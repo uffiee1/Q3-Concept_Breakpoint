@@ -2,12 +2,12 @@ import '../css/ProductionLineDetails.css';
 
 function ProductionLineDetails({ productionline }) {
     return (
-        <div class="DetailPopUp">g
-            <p>bart is een legend</p>
-            <h6> {productionline.id}</h6>
-            <h6>{productionline.name}</h6>
-
-
+        <div className="productionLinePopup">
+            <h1>Machine Info</h1>
+            <div>
+                <h3>{productionline.id}</h3>
+                <h5>{productionline.name}</h5>
+            </div>
         </div>
     )
 }
