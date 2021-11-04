@@ -1,10 +1,14 @@
+import { Component } from "react"
+import ComponentCard from "./ComponentCard"
+import "../css/ComponentCard.scss"
 
-
-function ComponentList({ components }) {
+function ComponentList({components}) {
     return (
-        <div>
-            {components.map((component) => (
-                <h5> {component.name}</h5>
+        <div class = "row">
+            {components.map((component)=>(
+                <div className="column" >
+                    <ComponentCard key = {component.id} ComponentName = {component.name} ComponentDescription= {component.description}/>
+                </div>
             ))}
         </div>
     )

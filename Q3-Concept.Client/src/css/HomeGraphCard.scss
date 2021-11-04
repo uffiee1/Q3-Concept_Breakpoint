@@ -4,13 +4,14 @@
   box-sizing: border-box;
 }
 
-.column {
-  float: left;
-  width: 25%;
-  padding: 0.7rem;
-  display: inline-table;
-}
-
+  .column {
+    float: left;
+    width: 25%;
+    padding: 0 10px;
+    padding-bottom: 10px;
+    display: inline-table;
+  }
+  
 .row {
   margin: 0 -3px;
   display: inline-block;
