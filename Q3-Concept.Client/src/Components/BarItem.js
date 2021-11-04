@@ -32,7 +32,7 @@ function BarItem({ statusarray }) {
     };
 
     return (
-        <XYPlot class="Bar" width={276} height={100} stackBy="x">
+        <XYPlot class="Bar" width={300} height={100} stackBy="x">
             <VerticalGridLines />
             <HorizontalGridLines />
             <XAxis tickTotal={[7]} tickFormat={tickFormatter} xDomain={[0, 30]} />
