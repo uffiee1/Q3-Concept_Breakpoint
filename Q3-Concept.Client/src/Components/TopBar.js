@@ -3,7 +3,7 @@ import '../css/TopBar.css'
 function TopBar() {
     return (
         <div className="topbar">
-            <h1> productionline</h1>
+            <h1 className="title" > productionline</h1>
         </div>
     );
 }
