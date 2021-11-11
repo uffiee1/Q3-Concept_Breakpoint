@@ -6,6 +6,9 @@ import ComponentCard from "./ComponentCard"
 function ComponentList({ components }) {
 
     const [filteredComponents, setFilteredComponents] = useState([])
+    const [notFound, setNotFound] = useState(false)
+    
+
     let searchInput = ""
 
     function filterComponentsByName(component){
@@ -18,26 +21,42 @@ function ComponentList({ components }) {
     async function filterComponentsOnChange(event){
         searchInput = event.target.value;
         console.log(searchInput)
-        setFilteredComponents(components.filter(filterComponentsByName))
+        let filtered = components.filter(filterComponentsByName)
+        if(filtered.length === 0){
+            setNotFound(true)
+        }
+        else{setNotFound(false);}
+
+        setFilteredComponents(filtered)
         return 
     }
 
     useEffect(() => {
         console.log(filteredComponents)
     }, [filteredComponents])
+
+    useEffect(() =>{
+        console.log(notFound)
+    }, [notFound])
     
     return (
         
         <div class="row">
             <div className="Searchbar">
-                <label htmlFor="search">Search by name</label>
-                <input id="searchField" type="text" onChange={filterComponentsOnChange}></input>
+                <label className="searchLabel" htmlFor="search">Search by name:</label>
+                <input className="searchField" type="text" onChange={filterComponentsOnChange}></input>
+                {notFound === true ? <label>No results found</label> : null}
             </div>
-            {components.map((component) => (
+            {filteredComponents.length >= 1 ? filteredComponents.map((component) => (
+                <div className="column" >
+                <ComponentCard key={component.id} ComponentName={component.name} ComponentDescription={component.description} />
+            </div>
+            )): components.map((component) => (
                 <div className="column" >
                     <ComponentCard key={component.id} ComponentName={component.name} ComponentDescription={component.description} />
                 </div>
             ))}
+            
         </div>
     )
 }
