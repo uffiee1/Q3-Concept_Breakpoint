@@ -6,16 +6,26 @@ import ComponentCard from "./ComponentCard"
 function ComponentList({ components }) {
 
     const [filteredComponents, setFilteredComponents] = useState([])
+    let searchInput = ""
 
+    function filterComponentsByName(component){
+        if(component.name.includes(searchInput)){
+            return true
+        }
+        return false
+    }
 
-
-    function filterComponentsOnChange(event){
-        const searchInput = event.target.value;
+    async function filterComponentsOnChange(event){
+        searchInput = event.target.value;
         console.log(searchInput)
-        setFilteredComponents(components.filter( c => c.name.includes(searchInput)))
-        console.log(filteredComponents)
+        setFilteredComponents(components.filter(filterComponentsByName))
         return 
     }
+
+    useEffect(() => {
+        console.log(filteredComponents)
+    }, [filteredComponents])
+    
     return (
         
         <div class="row">
