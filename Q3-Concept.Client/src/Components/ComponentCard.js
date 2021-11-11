@@ -1,13 +1,13 @@
 import "../css/ComponentCard.scss"
 
-function ComponentCard({ ComponentName, ComponentDescription }) {
+function ComponentCard({ ComponentName, ComponentDescription, ComponentActions }) {
     return (
         <div class="card">
             <div className="card-body">
-                <p> Name: {ComponentName}</p>
-                <p>Description: {ComponentDescription}</p>
+                <p>Naam: {ComponentName}</p>
+                <p>Beschrijving: {ComponentDescription}</p>
+                <p>Handelingen: {ComponentActions}</p>
             </div>
-
         </div>
     )
 }
