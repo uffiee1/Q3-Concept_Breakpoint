@@ -13,6 +13,8 @@ namespace Q3_Concept.Server.Models
 
         public string Description { get; set; }
 
+        public int Actions { get; set; }
+
         public List<Model.MachineHistory> MachineHistory { get; set; }
     }
 }

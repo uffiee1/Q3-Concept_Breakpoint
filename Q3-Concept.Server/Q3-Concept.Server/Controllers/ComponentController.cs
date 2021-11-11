@@ -20,41 +20,40 @@ namespace Q3_Concept.Server.Controllers
         [Route("Component")]
         public IEnumerable<Component> GetSelection(int port, int board)
         {
-            List<ComponentDataModel> componentDalList = _dalComponenet.GetComponentsInProductionLine(port, board);
-            List<Component> componentList = new List<Component>();
-
-            foreach (ComponentDataModel component in componentDalList)
-            {
-                componentList.Add(
-                    new Component()
-                    {
-                        Name = component.Name,
-                        Id = component.ID,
-                        Description = component.Description,
-                        MachineHistory = _dalComponenet.GetComHistory(component.ID)
-                    }
-                );
-            }
-
-            return componentList;
+            return ConvertComponent(_dalComponenet.GetComponentsInProductionLine(port, board));
         }
 
         [HttpGet]
         [Route("ComponentsAll")]
         public IEnumerable<Component> GetAll()
         {
-            List<ComponentDataModel> componentDalList = _dalComponenet.GetComponents();
+            return ConvertComponent(_dalComponenet.GetComponents());
+        }
+
+        private List<Component> ConvertComponent(List<ComponentDataModel> componentDalList)
+        {
             List<Component> componentList = new List<Component>();
 
             foreach (ComponentDataModel component in componentDalList)
             {
+                List<MachineHistory> machineHistories = _dalComponenet.GetComHistory(component.ID);
+                int totalActions = 0;
+
+                foreach (MachineHistory machineHistory in machineHistories)
+                {
+                    int machineActions = _dalComponenet.GetActions(machineHistory);
+                    machineHistory.Actions = machineActions;
+                    totalActions += machineActions;
+                }
+
                 componentList.Add(
                     new Component()
                     {
                         Name = component.Name,
                         Id = component.ID,
                         Description = component.Description,
-                        MachineHistory = _dalComponenet.GetComHistory(component.ID)
+                        Actions = totalActions,
+                        MachineHistory = machineHistories
                     }
                 );
             }
