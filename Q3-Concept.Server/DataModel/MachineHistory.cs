@@ -17,7 +17,5 @@ namespace Model
         public int Port { get; set; }
 
         public int Board { get; set; }
-
-        public int Actions { get; set; }
     }
 }

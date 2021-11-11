@@ -36,24 +36,14 @@ namespace Q3_Concept.Server.Controllers
 
             foreach (ComponentDataModel component in componentDalList)
             {
-                List<MachineHistory> machineHistories = _dalComponenet.GetComHistory(component.ID);
-                int totalActions = 0;
-
-                foreach (MachineHistory machineHistory in machineHistories)
-                {
-                    int machineActions = _dalComponenet.GetActions(machineHistory);
-                    machineHistory.Actions = machineActions;
-                    totalActions += machineActions;
-                }
-
                 componentList.Add(
                     new Component()
                     {
                         Name = component.Name,
                         Id = component.ID,
                         Description = component.Description,
-                        Actions = totalActions,
-                        MachineHistory = machineHistories
+                        Actions = _dalComponenet.GetActions(component.ID),
+                        MachineHistory = _dalComponenet.GetComHistory(component.ID)
                     }
                 );
             }

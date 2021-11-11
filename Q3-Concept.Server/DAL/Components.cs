@@ -137,6 +137,36 @@ namespace DAL
             }
         }
 
+        public int GetActions(int id)
+        {
+            string query = "SELECT COUNT(timestamp) as 'Actions' FROM `monitoring_data_202009` md LEFT JOIN( SELECT DISTINCT `port`, `board`, concat(start_date, 'T', start_time) as 'startDate', concat(end_date, 'T', end_time) as 'endDate' FROM `production_data` WHERE( `treeview_id` = @id OR `treeview2_id` = @id) ) AS pd ON pd.port = md.port AND pd.board = md.board AND md.timestamp BETWEEN pd.startDate AND pd.endDate";
+            using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
+            {
+                connection.Open();
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.Add(new MySqlParameter("@id", id));
+                MySqlDataReader reader = command.ExecuteReader();
+                try
+                {
+                    int actions = 0;
+                    while (reader.Read())
+                    {
+                        actions = reader.GetInt32("actions");
+                    }
+
+                    return 0;
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
         public int GetActions(MachineHistory machineHistory)
         {
             string query = "SELECT Count(`timestamp`) as 'actions' FROM `monitoring_data_202009` WHERE `port` = @port AND `board` = @board AND `timestamp` between @startDate and @endDate";
@@ -157,7 +187,7 @@ namespace DAL
                         actions = reader.GetInt32("actions");
                     }
 
-                    return actions;
+                    return 0;
                 }
                 catch
                 {
