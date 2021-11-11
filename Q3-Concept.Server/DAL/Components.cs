@@ -139,7 +139,7 @@ namespace DAL
 
         public int GetActions(int id)
         {
-            string query = "SELECT COUNT(timestamp) as 'Actions' FROM `monitoring_data_202009` md LEFT JOIN( SELECT DISTINCT `port`, `board`, concat(start_date, 'T', start_time) as 'startDate', concat(end_date, 'T', end_time) as 'endDate' FROM `production_data` WHERE( `treeview_id` = @id OR `treeview2_id` = @id) ) AS pd ON pd.port = md.port AND pd.board = md.board AND md.timestamp BETWEEN pd.startDate AND pd.endDate";
+            string query = "SELECT ROUND(SUM(ts.totaal)) as 'actions' FROM `tellerstanden` ts INNER JOIN( SELECT tv.id as 'treeviewId', concat(pd.start_date, 'T', pd.start_time) as 'startDate', concat(pd.end_date, 'T', pd.end_time) as 'endDate' FROM `production_data` pd, `machine_monitoring_poorten` mmp, `treeview` tv WHERE( pd.`treeview_id` = @id OR pd.`treeview2_id` = @id) AND pd.port = mmp.port AND pd.board = mmp.board AND tv.naam = mmp.name ) AS A ON A.treeviewId = ts.treeview_id AND ts.start_datum > A.startDate AND ts.end_datum < A.endDate";
             using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
             {
                 connection.Open();
@@ -151,7 +151,10 @@ namespace DAL
                     int actions = 0;
                     while (reader.Read())
                     {
-                        actions = reader.GetInt32("actions");
+                        if (!reader.IsDBNull(reader.GetOrdinal("actions")))
+                        {
+                            actions = reader.GetInt32("actions");
+                        }
                     }
 
                     return 0;
@@ -169,7 +172,7 @@ namespace DAL
 
         public int GetActions(MachineHistory machineHistory)
         {
-            string query = "SELECT Count(`timestamp`) as 'actions' FROM `monitoring_data_202009` WHERE `port` = @port AND `board` = @board AND `timestamp` between @startDate and @endDate";
+            string query = "SELECT ROUND(SUM(ts.totaal)) as 'actions' FROM `tellerstanden` ts INNER JOIN( SELECT tv.id as 'treeviewId', concat(pd.start_date, 'T', pd.start_time) as 'startDate', concat(pd.end_date, 'T', pd.end_time) as 'endDate' FROM `production_data` pd, `machine_monitoring_poorten` mmp, `treeview` tv WHERE( pd.`treeview_id` = 213 OR pd.`treeview2_id` = 213) AND pd.port = mmp.port AND pd.board = mmp.board AND tv.naam = mmp.name ) AS A ON A.treeviewId = ts.treeview_id AND ts.start_datum > A.startDate AND ts.end_datum < A.endDate";
             using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
             {
                 connection.Open();
