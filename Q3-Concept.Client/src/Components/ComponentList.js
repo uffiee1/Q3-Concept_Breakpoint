@@ -6,8 +6,6 @@ import ComponentCard from "./ComponentCard"
 
 function ComponentList({ components }) {
 
-    const [Compare, setCompare] = useState(false)
-    const [sortedComponents, setSortedComponents] = useState([])
     const [filteredComponents, setFilteredComponents] = useState([])
     const [notFound, setNotFound] = useState(false)
 
@@ -30,7 +28,7 @@ function ComponentList({ components }) {
         }
         else { setNotFound(false); }
 
-        setFilteredComponents(filtered)
+        setFilteredComponents(filtered.sort(compare))
         return
     }
 
@@ -43,16 +41,6 @@ function ComponentList({ components }) {
         }
         return 0;
     }
-
-    function sortByAscending() {
-        let sorted = components.sort(compare)
-        setSortedComponents(sorted)
-        setCompare(true)
-    }
-
-    useEffect(() => {
-        console.log(sortedComponents)
-    }, [sortedComponents])
 
     useEffect(() => {
         console.log(filteredComponents)
@@ -69,26 +57,17 @@ function ComponentList({ components }) {
                 <input className="searchField" type="text" onChange={filterComponentsOnChange}></input>
                 {notFound === true ? <label>No results found</label> : null}
             </div>
-
-            <input type="submit" onClick={sortByAscending} value="Sorteer op naam" >
-            </input>
-
             {
                 filteredComponents.length >= 1 ? filteredComponents.map((component) => (
                     <div className="column" >
                         <ComponentCard key={component.id} ComponentName={component.name} ComponentDescription={component.description} />
                     </div>
-                )) : sortedComponents.length >= 1 ? sortedComponents.map((component) => (
-                    <div className="column" >
-                        <ComponentCard key={component.id} ComponentName={component.name} ComponentDescription={component.description} />
-                    </div>
-                )) : components.map((component) => (
+                )) : components.sort(compare).map((component) => (
                     <div className="column" >
                         <ComponentCard key={component.id} ComponentName={component.name} ComponentDescription={component.description} />
                     </div>
                 ))
             }
-
         </div >
     )
 }
