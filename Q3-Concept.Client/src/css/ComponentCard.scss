@@ -3,7 +3,12 @@
 * {
   box-sizing: border-box;
 }
-
+.searchLabel {
+  padding-right: 0px;
+}
+.searchField {
+  margin-left: 10px;
+}
 .column {
   float: left;
   width: 25%;

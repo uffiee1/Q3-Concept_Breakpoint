@@ -20,30 +20,18 @@ namespace Q3_Concept.Server.Controllers
         [Route("Component")]
         public IEnumerable<Component> GetSelection(int port, int board)
         {
-            List<ComponentDataModel> componentDalList = _dalComponenet.GetComponentsInProductionLine(port, board);
-            List<Component> componentList = new List<Component>();
-
-            foreach (ComponentDataModel component in componentDalList)
-            {
-                componentList.Add(
-                    new Component()
-                    {
-                        Name = component.Name,
-                        Id = component.ID,
-                        Description = component.Description,
-                        MachineHistory = _dalComponenet.GetComHistory(component.ID)
-                    }
-                );
-            }
-
-            return componentList;
+            return ConvertComponent(_dalComponenet.GetComponentsInProductionLine(port, board));
         }
 
         [HttpGet]
         [Route("ComponentsAll")]
         public IEnumerable<Component> GetAll()
         {
-            List<ComponentDataModel> componentDalList = _dalComponenet.GetComponents();
+            return ConvertComponent(_dalComponenet.GetComponents());
+        }
+
+        private List<Component> ConvertComponent(List<ComponentDataModel> componentDalList)
+        {
             List<Component> componentList = new List<Component>();
 
             foreach (ComponentDataModel component in componentDalList)
@@ -54,6 +42,7 @@ namespace Q3_Concept.Server.Controllers
                         Name = component.Name,
                         Id = component.ID,
                         Description = component.Description,
+                        Actions = _dalComponenet.GetActions(component.ID),
                         MachineHistory = _dalComponenet.GetComHistory(component.ID)
                     }
                 );

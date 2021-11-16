@@ -1,23 +1,23 @@
-@import 'StatusCollors';
+@import "StatusCollors";
 
-.itemcolor{
-    &.on{
-        color: $MachineStatus-Active;
-    }
-    
-    &.off{
-        color: $MachineStatus-Inactive;
-    }
-    
-    &.maintenance{
-        color: $MachineStatus-Maintenace;
-    }
+.itemcolor {
+  &.on {
+    color: $MachineStatus-Active;
+  }
 
-    &.requires-maintance{
-        color: $MachineStatus-RequiresMaintance;
-    }
+  &.off {
+    color: $MachineStatus-Inactive;
+  }
 
-    &.undefined{
-        color: $MachineStatus-Undefined;
-    }
+  &.maintenance {
+    color: $MachineStatus-Maintenace;
+  }
+
+  &.requires-maintance {
+    color: $MachineStatus-RequiresMaintance;
+  }
+
+  &.undefined {
+    color: $MachineStatus-Undefined;
+  }
 }
