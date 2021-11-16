@@ -157,7 +157,7 @@ namespace DAL
                         }
                     }
 
-                    return 0;
+                    return actions;
                 }
                 catch
                 {
