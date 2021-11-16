@@ -1,12 +1,14 @@
-import ComponentCard from "../Components/ComponentCard"
+import ComponentList from "../Components/ComponentList";
 import { screen } from "@testing-library/react"
 // import '@testing-library/jest-dom/extend-expect'
 import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
+import userEvent from "@testing-library/user-event";
 
 // arrange
   const Components = 
-    {
+    [
+      {
         "id": 220,
         "name": "Koffielepel deluxe 2",
         "description": "Coldhalf",
@@ -37,7 +39,9 @@ import { act } from "react-dom/test-utils";
             "endDate": "2021-06-15T09:40:00"
           }
         ]
+      
       }
+    ]
   
   let container = null;
   beforeEach(() => {
@@ -64,7 +68,7 @@ import { act } from "react-dom/test-utils";
 
       it("loads and displays components", () =>{
       act(() => {
-        render(<ComponentCard data-testid = "card" ComponentName={Components.name} ComponentDescription = {Components.description}/>, container)
+        render(<ComponentList data-testid = "card" components = {Components}/>, container)
         
         // render components
       });
@@ -75,10 +79,9 @@ import { act } from "react-dom/test-utils";
 
     it("input fiels responsiveness and correctness", () =>{
       act(() =>{
-        render(<ComponentCard data-testid = "card" ComponentName={Components.name} ComponentDescription = {Components.description}/>, container)
+        render(<ComponentList data-testid = "card" components = {Components}/>, container)
         const input = screen.getByTestId("searchfieldid")
-        userEvent.type(input, "Koffie");
+        userEvent.type(input, "Koffie")
       })
-      expect(screen.getByTestId("searchfieldid")).toHaveValue("Koffie");
       expect(container.textContent).toContain("Koffie");
     });

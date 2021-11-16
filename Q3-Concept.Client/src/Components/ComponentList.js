@@ -51,23 +51,13 @@ function ComponentList({ components }) {
     }, [notFound])
 
     return (
-        <div class="row">
+        <div>
             <div className="Searchbar">
                 <label className="searchLabel" htmlFor="search">Search by name:</label>
                 <input className="searchField" data-testid="searchfieldid" type="text" onChange={filterComponentsOnChange}></input>
                 {notFound === true ? <label className="NoResultsLabel">No results found</label> : null}
             </div>
-            {
-                filteredComponents.length >= 1 ? filteredComponents.map((component) => (
-                    <div className="column" >
-                        <ComponentCard key={component.id} ComponentName={component.name} ComponentDescription={component.description} />
-                    </div>
-                )) : components.sort(compare).map((component) => (
-                    <div className="column" >
-                        <ComponentCard key={component.id} ComponentName={component.name} ComponentDescription={component.description} />
-                    </div>
-                ))
-            }
+            
             <table class="table">
                 <thead>
                     <tr>
@@ -77,13 +67,20 @@ function ComponentList({ components }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {components.map(component => (
+                    {filteredComponents.length >= 1 ? filteredComponents.map(component => (
                         <tr key={component.id}>
                             <th>{component.name}</th>
                             <th>{component.description}</th>
                             <th>{component.actions}</th>
                         </tr>
-                    ))}
+                    )) : components.sort(compare).map((component) => (
+                        <tr key={component.id}>
+                        <th>{component.name}</th>
+                        <th>{component.description}</th>
+                        <th>{component.actions}</th>
+                    </tr> 
+                    ))
+                    }   
                 </tbody>
             </table>
         </div >
