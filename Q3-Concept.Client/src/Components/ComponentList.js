@@ -54,8 +54,8 @@ function ComponentList({ components }) {
         <div class="row">
             <div className="Searchbar">
                 <label className="searchLabel" htmlFor="search">Search by name:</label>
-                <input className="searchField" type="text" onChange={filterComponentsOnChange}></input>
-                {notFound === true ? <label>No results found</label> : null}
+                <input className="searchField" data-testid="searchfieldid" type="text" onChange={filterComponentsOnChange}></input>
+                {notFound === true ? <label className="NoResultsLabel">No results found</label> : null}
             </div>
             {
                 filteredComponents.length >= 1 ? filteredComponents.map((component) => (

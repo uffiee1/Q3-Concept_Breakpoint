@@ -1,6 +1,8 @@
 import ComponentCard from "../Components/ComponentCard"
-import { render, screen } from "@testing-library/react"
-import '@testing-library/jest-dom/extend-expect'
+import { screen } from "@testing-library/react"
+// import '@testing-library/jest-dom/extend-expect'
+import { render, unmountComponentAtNode } from "react-dom";
+import { act } from "react-dom/test-utils";
 
 // arrange
   const Components = 
@@ -37,18 +39,46 @@ import '@testing-library/jest-dom/extend-expect'
         ]
       }
   
-/*   let container = null;
+  let container = null;
   beforeEach(() => {
     // setup a DOM element as a render target
     container = document.createElement("div");
     document.body.appendChild(container);
-  }); */
+  });
 
-    test('loads and displays components', () => {
+  afterEach(() => {
+    // cleanup on exiting
+    unmountComponentAtNode(container);
+    container.remove();
+    container = null;
+  });
+
+   /*  test('loads and displays components', () => {
         // act
         const {getAllByTestId} = render(<ComponentCard data-testid = "card" ComponentName={Components.name} ComponentDescription = {Components.description}/>)
 
       // assert
       expect(getAllByTestId("card")).toBeInTheDocument();
       //  expect((screen.getByRole("list")).components.lenght) === 6
+      }) */
+
+      it("loads and displays components", () =>{
+      act(() => {
+        render(<ComponentCard data-testid = "card" ComponentName={Components.name} ComponentDescription = {Components.description}/>, container)
+        
+        // render components
+      });
+      // make assertions
+      expect(container.textContent).toContain("Koffielepel deluxe 2");
+      expect(container.textContent).toContain("Coldhalf");
+    })
+
+    it("input fiels responsiveness and correctness", () =>{
+      act(() =>{
+        render(<ComponentCard data-testid = "card" ComponentName={Components.name} ComponentDescription = {Components.description}/>, container)
+        const input = screen.getByTestId("searchfieldid")
+        userEvent.type(input, "Koffie");
       })
+      expect(screen.getByTestId("searchfieldid")).toHaveValue("Koffie");
+      expect(container.textContent).toContain("Koffie");
+    });
