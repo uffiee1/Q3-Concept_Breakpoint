@@ -26,15 +26,12 @@ namespace Logic
             }
             else
             {
-                //ConvertToStatus(_moniDAL.GetMonitoritingData(board, port), endDate, startDate, treeviewId, counterReadings);
                 return FilterStatuses(counterReadings, startDate, endDate);
             }
         }
 
-        // werkt
         public List<StatusModel> ConvertToStatus(List<MonitoringDataModel> monitoringDataModels, DateTime endDate, DateTime startDate, int treeviewId, List<StatusModel> statusesExisting = null)
         {
-            // werkt
             if (monitoringDataModels.Count <= 0)
             {
                 return new List<StatusModel>();
@@ -53,41 +50,55 @@ namespace Logic
             {
                 // bepaald of verschil te groot is
                 currentStatus = (monitoringDataModels[i].TimeStamp - monitoringDataModels[i - 1].TimeStamp).TotalSeconds < _machineOfflineMargin;
+                entries++;
 
                 // anders dan vorige entry -> nieuwe status
                 if (currentStatus != previousStatus || i == monitoringDataModels.Count)
                 {
-                    status = !currentStatus ? "on" : "off";
-
+                    if (currentStatus)
+                    {
+                        status = "off";
+                        entries = 1;
+                    }
+                    else
+                    {
+                        status = "on";
+                    }
                     statuses.Add(CreatestatusModel(startTime, monitoringDataModels[i - 1].TimeStamp, status, entries, (monitoringDataModels[i - 1].TimeStamp - startTime).TotalSeconds));
 
                     // setup volgende status
                     previousStatus = currentStatus;
+
                     // timestamp van vorige entry
                     startTime = monitoringDataModels[i - 1].TimeStamp;
-                    entries = 0;
                 }
-                entries++;
 
+                // laatste status
                 if (i >= monitoringDataModels.Count - 1)
                 {
+                    entries++;
                     status = currentStatus ? "on" : "off";
-                    statuses.Add(CreatestatusModel(startTime, monitoringDataModels[i - 1].TimeStamp, status, entries, (monitoringDataModels[i - 1].TimeStamp - startTime).TotalSeconds));
+                    if (status == "off")
+                    {
+                        entries = 1;
+                    }
+                    statuses.Add(CreatestatusModel(startTime, monitoringDataModels[i].TimeStamp, status, entries, (monitoringDataModels[i - 1].TimeStamp - startTime).TotalSeconds));
                 }
             }
 
+            // laatste status bij gap wanneer uit
             if (statuses[statuses.Count - 1].End__Time <= endDate.AddSeconds(_machineOfflineMargin * -1))
             {
-                // final status
                 statuses.Add(CreatestatusModel(statuses[statuses.Count - 1].End__Time, endDate, "off", 1, (endDate - statuses[statuses.Count - 1].End__Time).TotalSeconds));
             }
 
+            // eerste status bij gap wanneer uit
             if (statuses[0].StartTime.AddSeconds(_machineOfflineMargin * -1) >= startDate)
             {
-                // final status
                 statuses.Insert(0, CreatestatusModel(startDate, statuses[0].StartTime, "off", 1, (statuses[0].StartTime - startDate).TotalSeconds));
             }
 
+            // update bestaande tellerstanden wanneer statusesExisting wordt meegegeven
             if (statusesExisting != null && statusesExisting.Count > 0)
             {
                 if (_lastUpdate < DateTime.Now.AddSeconds(_updateFrequency * -1))
@@ -96,6 +107,8 @@ namespace Logic
                     _counterReading.UpdateStatuses(statuses, treeviewId);
                 }
             }
+
+            // insert nieuwe tellerstanden
             else
             {
                 _lastUpdate = DateTime.Now;
@@ -133,10 +146,12 @@ namespace Logic
                     }
                 }
             }
-
             return filteredStatus;
         }
 
+        /// <summary>
+        /// converts data to statusmodel.
+        /// </summary>
         private StatusModel CreatestatusModel(DateTime startTime, DateTime endTime, string description, int entries, double duration)
         {
             return new StatusModel() { StartTime = startTime, End__Time = endTime, Description = description, Entries = entries, Duration = duration };
