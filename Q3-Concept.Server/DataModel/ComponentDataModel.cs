@@ -15,6 +15,6 @@ namespace Model
 
         public string Description { get; set; }
 
-        public List<CounterReadingModel> meters { get; set; }
+        public string ProductionLIne { get; set; }
     }
 }

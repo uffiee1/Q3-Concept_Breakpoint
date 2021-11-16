@@ -13,5 +13,9 @@ namespace Model
         public DateTime StarDate { get; set; }
 
         public DateTime EndDate { get; set; }
+
+        public int Port { get; set; }
+
+        public int Board { get; set; }
     }
 }
