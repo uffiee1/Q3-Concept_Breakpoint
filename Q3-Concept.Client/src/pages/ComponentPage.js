@@ -37,6 +37,7 @@ function ComponentPage() {
     return (
         <div>
             {ShowLoadingPopUp ? <LoadingPopup /> : null}
+
             <div>
                 {AllComponents.length >= 1 ? <ComponentList components={AllComponents} /> : null}
             </div>
