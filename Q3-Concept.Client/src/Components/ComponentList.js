@@ -1,14 +1,25 @@
 import "../css/ComponentCard.scss"
-
+import ComponentDetails from "./ComponentDetails"
 import { useEffect, useState } from "react"
 
 // import ComponentCard from "./ComponentCard"
 
 function ComponentList({ components }) {
-
+    const [showDetailPopUp, setShowDetailPopUp] = useState(false);
+    const [component, setComponent] = useState([]);
     const [filteredComponents, setFilteredComponents] = useState([])
     const [notFound, setNotFound] = useState(false)
 
+    function showPopup(component) {
+        console.log("toggled")
+        setComponent(component)
+        ToggleDetailPopUp()
+    }
+
+    function ToggleDetailPopUp() {
+        setShowDetailPopUp(!showDetailPopUp);
+        console.log("toggled")
+    }
 
     let searchInput = ""
 
@@ -58,7 +69,7 @@ function ComponentList({ components }) {
                 {notFound === true ? <label className="NoResultsLabel">No results found</label> : null}
             </div>
 
-            <table class="table">
+            <table className="table">
                 <thead>
                     <tr>
                         <th>Naam</th>
@@ -68,13 +79,13 @@ function ComponentList({ components }) {
                 </thead>
                 <tbody>
                     {filteredComponents.length >= 1 ? filteredComponents.map(component => (
-                        <tr key={component.id}>
+                        <tr onClick={() => showPopup(component)} key={component.id}>
                             <th>{component.name}</th>
                             <th>{component.description}</th>
                             <th>{component.actions}</th>
                         </tr>
                     )) : components.sort(compare).map((component) => (
-                        <tr key={component.id}>
+                        <tr onClick={() => showPopup(component)} key={component.id}>
                             <th>{component.name}</th>
                             <th>{component.description}</th>
                             <th>{component.actions}</th>
@@ -83,6 +94,8 @@ function ComponentList({ components }) {
                     }
                 </tbody>
             </table>
+            {showDetailPopUp ? <ComponentDetails toggle={() => ToggleDetailPopUp()} component={component} /> : null}
+
         </div >
     )
 }
