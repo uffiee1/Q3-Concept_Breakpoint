@@ -20,7 +20,23 @@ namespace Q3_Concept.Server.Controllers
         [Route("Component")]
         public IEnumerable<Component> GetSelection(int port, int board)
         {
-            return ConvertComponent(_dalComponenet.GetComponentsInProductionLine(port, board));
+            List<ComponentDataModel> componentDalList = _dalComponenet.GetComponentsInProductionLine(port, board, false);
+            List<Component> componentList = new List<Component>();
+
+            foreach (ComponentDataModel component in componentDalList)
+            {
+                componentList.Add(
+                    new Component()
+                    {
+                        Name = component.Name,
+                        Id = component.ID,
+                        Description = component.Description,
+                        MachineHistory = _dalComponenet.GetComHistory(component.ID)
+                    }
+                );
+            }
+
+            return componentList;
         }
 
         [HttpGet]

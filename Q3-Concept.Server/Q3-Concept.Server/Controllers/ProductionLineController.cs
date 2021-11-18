@@ -29,7 +29,8 @@ namespace Q3_Concept.Server.Controllers
                 Id = productionLine.port,
                 Side = productionLine.Side,
                 Statuses = _sb.setStatus(startTime, endTime, board, port, productionLine.ID).ToArray(),
-                Components = GetComponents(productionLine.port, productionLine.Board).ToArray()
+                Components = GetComponents(productionLine.port, productionLine.Board).ToArray(),
+                ComponentHistory = GetComponents(productionLine.port, productionLine.Board, true).ToArray()
             };
         }
 
@@ -50,29 +51,31 @@ namespace Q3_Concept.Server.Controllers
                         Id = productionLine.ID,
                         Side = productionLine.Side,
                         Statuses = _sb.setStatus(startTime, endTime, productionLine.Board, productionLine.port, productionLine.ID).ToArray(),
-                        Components = GetComponents(productionLine.port, productionLine.Board).ToArray()
+                        Components = GetComponents(productionLine.port, productionLine.Board).ToArray(),
+                        ComponentHistory = GetComponents(productionLine.port, productionLine.Board, true).ToArray()
                     }
                 );
             }
             return productionLines;
         }
 
-        private List<Component> GetComponents(int port, int board)
+        private List<Component> GetComponents(int port, int board, bool all = false)
         {
-            List<ComponentDataModel> componentDalList = _dalComponenet.GetComponentsInProductionLine(port, board);
+            List<ComponentDataModel> componentDalList = _dalComponenet.GetComponentsInProductionLine(port, board, all);
             List<Component> componentList = new List<Component>();
 
             foreach (ComponentDataModel component in componentDalList)
             {
-                componentList.Add(
-                    new Component()
-                    {
-                        Name = component.Name,
-                        Id = component.ID,
-                        Description = component.Description,
-                        MachineHistory = _dalComponenet.GetComHistory(component.ID)
-                    }
-                );
+                Component comp = new Component()
+                {
+                    Name = component.Name,
+                    Id = component.ID,
+                    Description = component.Description,
+                    StartDate = component.StartDate,
+                    EndDate = component.EndDate
+                };
+
+                componentList.Add(comp);
             }
 
             return componentList;
