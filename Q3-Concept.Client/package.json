@@ -31,6 +31,12 @@
     "styled-components": "^5.3.3",
     "web-vitals": "^1.1.2"
   },
+  "devDependencies": {
+    "@testing-library/react": "^12.1.2",
+    "ansi-html": "^0.0.7",
+    "immer": "^9.0.6",
+    "set-value": "^4.1.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -56,8 +62,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@testing-library/react": "^12.1.2"
   }
 }
