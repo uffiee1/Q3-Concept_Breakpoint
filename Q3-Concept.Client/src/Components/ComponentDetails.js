@@ -1,6 +1,5 @@
 import '../css/ComponentDetails.css';
 
-
 function ComponentDetails({ component }) {
     return (
         <div className="componentPopup">

@@ -1,6 +1,8 @@
 import "../css/ComponentCard.scss"
-import ComponentDetails from "./ComponentDetails"
+
 import { useEffect, useState } from "react"
+
+import ComponentDetails from "./ComponentDetails"
 
 // import ComponentCard from "./ComponentCard"
 

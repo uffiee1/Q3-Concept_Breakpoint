@@ -1,6 +1,5 @@
 import '../css/ProductionLineDetails.css';
 
-
 function ProductionLineDetails({ productionline }) {
     return (
         <div className="productionLinePopup">
