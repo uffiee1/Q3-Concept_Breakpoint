@@ -2,7 +2,7 @@ import "../css/ComponentCard.scss"
 
 import { useEffect, useState } from "react"
 
-import ComponentCard from "./ComponentCard"
+// import ComponentCard from "./ComponentCard"
 
 function ComponentList({ components }) {
 
@@ -57,7 +57,7 @@ function ComponentList({ components }) {
                 <input className="searchField" data-testid="searchfieldid" type="text" onChange={filterComponentsOnChange}></input>
                 {notFound === true ? <label className="NoResultsLabel">No results found</label> : null}
             </div>
-            
+
             <table class="table">
                 <thead>
                     <tr>
@@ -75,12 +75,12 @@ function ComponentList({ components }) {
                         </tr>
                     )) : components.sort(compare).map((component) => (
                         <tr key={component.id}>
-                        <th>{component.name}</th>
-                        <th>{component.description}</th>
-                        <th>{component.actions}</th>
-                    </tr> 
+                            <th>{component.name}</th>
+                            <th>{component.description}</th>
+                            <th>{component.actions}</th>
+                        </tr>
                     ))
-                    }   
+                    }
                 </tbody>
             </table>
         </div >
