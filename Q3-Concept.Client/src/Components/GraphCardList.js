@@ -31,7 +31,7 @@ function GraphCardList({ Cards }) {
                     :
                     null
             ))}
-            {showDetailPopUp ? <ProductionLineDetails togggle={() => ToggelDetailPopUp()} productionline={productionline} /> : null}
+            {showDetailPopUp ? <ProductionLineDetails toggle={() => ToggelDetailPopUp()} productionline={productionline} /> : null}
         </div>
     )
 }

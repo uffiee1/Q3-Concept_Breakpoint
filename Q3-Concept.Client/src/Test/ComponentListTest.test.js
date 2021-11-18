@@ -82,12 +82,21 @@ it("loads and displays components", () => {
   expect(container.textContent).toContain("Coldhalf");
 })
 
-it("input fiels responsiveness and correctness", () => {
+it("input field responsiveness and correctness", () => {
   act(() => {
     render(<ComponentList data-testid="card" components={Components} />, container)
     const input = screen.getByTestId("searchfieldid")
     userEvent.type(input, "Koffie")
   })
   expect(container.textContent).toContain("Koffie");
+});
+
+it("No search results shows error label", () => {
+  act(() => {
+    render(<ComponentList data-testid="card" components={Components} />, container)
+    const input = screen.getByTestId("searchfieldid")
+    userEvent.type(input, "fjdlkjfibe")
+  })
+  expect(container.textContent).toContain("No results found");
 });
 
