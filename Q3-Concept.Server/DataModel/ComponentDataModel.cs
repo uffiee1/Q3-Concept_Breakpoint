@@ -15,6 +15,8 @@ namespace Model
 
         public string Description { get; set; }
 
-        public string ProductionLIne { get; set; }
+        public DateTime StartDate { get; set; }
+
+        public DateTime EndDate { get; set; }
     }
 }
