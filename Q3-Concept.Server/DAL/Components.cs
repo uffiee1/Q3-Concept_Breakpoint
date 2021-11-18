@@ -34,7 +34,7 @@ namespace DAL
                             MachineHistory machineHistory = new MachineHistory()
                                 {
                                     Name = reader.GetString("name"),
-                                    StarDate = DateTime.Parse(reader.GetString("startDate")),
+                                    StartDate = DateTime.Parse(reader.GetString("startDate")),
                                     EndDate = DateTime.Parse(reader.GetString("endDate")),
                                     Port = reader.GetInt16("port"),
                                     Board = reader.GetInt16("board"),
@@ -199,7 +199,7 @@ namespace DAL
                 MySqlCommand command = new MySqlCommand(query, connection);
                 command.Parameters.Add(new MySqlParameter("@port", machineHistory.Port));
                 command.Parameters.Add(new MySqlParameter("@board", machineHistory.Board));
-                command.Parameters.Add(new MySqlParameter("@startDate", machineHistory.StarDate));
+                command.Parameters.Add(new MySqlParameter("@startDate", machineHistory.StartDate));
                 command.Parameters.Add(new MySqlParameter("@endDate", machineHistory.EndDate));
                 MySqlDataReader reader = command.ExecuteReader();
                 try
