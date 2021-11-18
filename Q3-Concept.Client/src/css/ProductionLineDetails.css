@@ -1,13 +1,20 @@
-.productionLinePopup{
-    z-index: 99;
-    width: 50vw;
-    height: 50vh;
-    background-color:white;
-    border-radius: 10px;
-    position: fixed;
-    top: 10vw;
-    left: 25vw;
-    display: flex;
-    -webkit-box-shadow: 0px 0px 50px 30px rgba(0,0,0,0.4), 0px 0px 20px 5px rgba(0,0,0,0.3); 
-    box-shadow: 0px 0px 50px 30px rgba(0,0,0,0.4), 0px 0px 20px 5px rgba(0,0,0,0.3);
+.productionLinePopup {
+  z-index: 99;
+  width: 80vw;
+  height: 80vh;
+  background-color: white;
+  border-radius: 10px;
+  position: fixed;
+  top: 5vw;
+  left: 10vw;
+  overflow: scroll;
+  -webkit-box-shadow: 0px 0px 50px 30px rgba(0, 0, 0, 0.4),
+    0px 0px 20px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 50px 30px rgba(0, 0, 0, 0.4),
+    0px 0px 20px 5px rgba(0, 0, 0, 0.3);
+}
+
+tr:hover {
+  background-color: rgb(223, 223, 223);
+  cursor: pointer;
 }
