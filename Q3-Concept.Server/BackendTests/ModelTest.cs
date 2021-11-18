@@ -17,13 +17,11 @@ namespace BackendTests
             {
                 ID = 1,
                 Name = "potato",
-                Description = "tomato",
-                meters = new List<CounterReadingModel>()
+                Description = "tomato"
             };
             int i = cdm.ID;
             string j= cdm.Name;
             string k = cdm.Description;
-            List<CounterReadingModel> m = cdm.meters;
 
             new CounterReadingModel();
             new MachineHistory();
