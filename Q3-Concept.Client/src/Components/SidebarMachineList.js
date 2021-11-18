@@ -11,9 +11,4 @@ const SidebarMachineList = ({ Machines }) => {
 
 }
 
-SidebarMachineList.defaultProps = {
-  Machines: []
-
-}
-
 export default SidebarMachineList
