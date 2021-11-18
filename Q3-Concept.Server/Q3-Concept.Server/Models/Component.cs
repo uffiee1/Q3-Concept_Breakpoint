@@ -13,6 +13,10 @@ namespace Q3_Concept.Server.Models
 
         public string Description { get; set; }
 
+        public DateTime StartDate { get; set; }
+
+        public DateTime EndDate { get; set; }
+
         public int Actions { get; set; }
 
         public List<Model.MachineHistory> MachineHistory { get; set; }
