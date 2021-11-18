@@ -31,11 +31,9 @@ function Home() {
     })
 
     return (
-        <div>
+        <div class = 'screen'>
             <Sidebar productionlinearray={productionlines} />
-            <div className='container'>
-                {productionlines.length >= 1 ? <GraphCardList Cards={productionlines} /> : <LoadingPopup />}
-            </div>
+            {productionlines.length >= 1 ? <GraphCardList Cards={productionlines} /> : <LoadingPopup />}
         </div>
     )
 }

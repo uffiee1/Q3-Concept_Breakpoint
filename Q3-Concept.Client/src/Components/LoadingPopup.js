@@ -4,7 +4,7 @@ function LoadingPopup() {
 
     return (
         <div class="LoadingPopup">
-            <h3>Fetching Producion Lines. please wait...</h3>
+            <h3>Fetching Data. please wait...</h3>
         </div>
     )
 }
