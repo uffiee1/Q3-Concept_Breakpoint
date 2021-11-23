@@ -17,6 +17,8 @@ namespace Q3_Concept.Server.Models
 
         public Component[] Components { get; set; }
 
+        public Component[] ComponentHistory { get; set; }
+
         public Machine[] Machines { get; set; }
     }
 }

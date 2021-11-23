@@ -34,7 +34,7 @@ namespace DAL
                             MachineHistory machineHistory = new MachineHistory()
                                 {
                                     Name = reader.GetString("name"),
-                                    StarDate = DateTime.Parse(reader.GetString("startDate")),
+                                    StartDate = DateTime.Parse(reader.GetString("startDate")),
                                     EndDate = DateTime.Parse(reader.GetString("endDate")),
                                     Port = reader.GetInt16("port"),
                                     Board = reader.GetInt16("board"),
@@ -99,11 +99,20 @@ namespace DAL
             }
         }
 
-        public List<ComponentDataModel> GetComponentsInProductionLine(int port, int board)
+        public List<ComponentDataModel> GetComponentsInProductionLine(int port, int board, bool all)
         {
             List<ComponentDataModel> componentsList = new List<ComponentDataModel>();
+            string query = string.Empty;
 
-            string query = "( SELECT tv.`id`, tv.`omschrijving` as `name`, tp.`omschrijving` as `description` FROM `production_data` pd, `treeview` tv, `treeview` tp WHERE pd.treeview2_id = tv.id AND tv.parent = tp.id AND pd.port = @port AND pd.board = @board ORDER BY pd.end_time DESC, pd.start_time DESC LIMIT 1) UNION( SELECT tv.`id`, tv.`omschrijving` as `name`, tp.`omschrijving` as `description` FROM `production_data` pd, `treeview` tv, `treeview` tp WHERE pd.treeview_id = tv.id AND tv.parent = tp.id AND pd.port = @port AND pd.board = @board ORDER BY pd.end_time DESC, pd.start_time DESC LIMIT 1 ) ";
+            if (!all)
+            {
+                query = "( SELECT tv.`id`, tv.`omschrijving` as `name`, tp.`omschrijving` as `description`, CONCAT(pd.start_date, 'T', pd.start_time) AS startDate, CONCAT(pd.end_date, 'T', pd.end_time) AS endDate FROM `production_data` pd, `treeview` tv, `treeview` tp WHERE pd.treeview2_id = tv.id AND tv.parent = tp.id AND pd.port = @port AND pd.board = @board ORDER BY pd.end_time ASC, pd.start_time ASC LIMIT 1 ) UNION( SELECT tv.`id`, tv.`omschrijving` as `name`, tp.`omschrijving` as `description`, CONCAT(pd.start_date, ' ', pd.start_time) AS startDate, CONCAT(pd.end_date, ' ', pd.end_time) AS endDate FROM `production_data` pd, `treeview` tv, `treeview` tp WHERE pd.treeview_id = tv.id AND tv.parent = tp.id AND pd.port = @port AND pd.board = @board ORDER BY pd.end_time ASC, pd.start_time ASC LIMIT 1 ) ";
+            }
+            else
+            {
+                query = "( SELECT tv.`id`, tv.`omschrijving` as `name`, tp.`omschrijving` as `description`, CONCAT(pd.start_date, 'T', pd.start_time) AS startDate, CONCAT(pd.end_date, 'T', pd.end_time) AS endDate FROM `production_data` pd, `treeview` tv, `treeview` tp WHERE pd.treeview2_id = tv.id AND tv.parent = tp.id AND pd.port = @port AND pd.board = @board ORDER BY pd.end_time ASC, pd.start_time ASC ) UNION( SELECT tv.`id`, tv.`omschrijving` as `name`, tp.`omschrijving` as `description`, CONCAT(pd.start_date, ' ', pd.start_time) AS startDate, CONCAT(pd.end_date, ' ', pd.end_time) AS endDate FROM `production_data` pd, `treeview` tv, `treeview` tp WHERE pd.treeview_id = tv.id AND tv.parent = tp.id AND pd.port = @port AND pd.board = @board ORDER BY pd.end_time ASC, pd.start_time ASC ) ";
+            }
+
             using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
             {
                 connection.Open();
@@ -121,6 +130,17 @@ namespace DAL
                             Name = reader.GetString("name"),
                             Description = reader.GetString("description")
                         };
+
+                        if (reader.GetString("startDate") != "0000-00-00T00:00:00" && reader.GetString("startDate") != "0000-00-00 00:00:00")
+                        {
+                            componentdata.StartDate = DateTime.Parse(reader.GetString("startDate"));
+                        }
+
+                        if (reader.GetString("endDate") != "0000-00-00T00:00:00" && reader.GetString("endDate") != "0000-00-00 00:00:00")
+                        {
+                            componentdata.EndDate = DateTime.Parse(reader.GetString("endDate"));
+                        }
+
                         componentsList.Add(componentdata);
                     }
 
@@ -179,7 +199,7 @@ namespace DAL
                 MySqlCommand command = new MySqlCommand(query, connection);
                 command.Parameters.Add(new MySqlParameter("@port", machineHistory.Port));
                 command.Parameters.Add(new MySqlParameter("@board", machineHistory.Board));
-                command.Parameters.Add(new MySqlParameter("@startDate", machineHistory.StarDate));
+                command.Parameters.Add(new MySqlParameter("@startDate", machineHistory.StartDate));
                 command.Parameters.Add(new MySqlParameter("@endDate", machineHistory.EndDate));
                 MySqlDataReader reader = command.ExecuteReader();
                 try
