@@ -64,7 +64,7 @@ function BarItem({ statusarray }) {
         <XYPlot class="Bar" width={300} height={100} stackBy="x">
             <VerticalGridLines />
             <HorizontalGridLines />
-            <XAxis tickFormat={tickFormatter} xDomain={[0, 50]} xType='time' />
+            <XAxis tickFormat={tickFormatter} xType='time' />
             {statusarray.map((item) => (
                 <HorizontalBarSeries data={[{ y: 1, x: item.duration }]} stroke='black' color={GetCollor(item.description)} />
             ))}
