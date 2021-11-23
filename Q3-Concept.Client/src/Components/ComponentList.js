@@ -60,7 +60,7 @@ function ComponentList({ components }) {
                 {notFound === true ? <label className="NoResultsLabel">No results found</label> : null}
             </div>
 
-            <table class="table">
+            <table className="table">
                 <thead>
                     <tr>
                         <th>Naam</th>

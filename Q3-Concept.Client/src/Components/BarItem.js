@@ -22,22 +22,29 @@ function GetCollor(status) {
 
 
 function BarItem({ statusarray }) {
-    var s = [0, 4, 8, 12, 16, 20, 24].reverse();
-    var x = 0;
+    let s = [0, 4, 8, 12, 16, 20, 24].reverse();
+    let x = 0;
+
+    let nextkey = 0
 
     const tickFormatter = d => {
-        var y = s[x]
+        let y = s[x]
         x = x + 1;
         return y;
     };
 
+    function getposition(){
+        nextkey += 1
+        return nextkey
+    }
+
     return (
-        <XYPlot class="Bar" width={300} height={100} stackBy="x">
+        <XYPlot className="Bar" width={300} height={100} stackBy="x">
             <VerticalGridLines />
             <HorizontalGridLines />
-            <XAxis tickTotal={[7]} tickFormat={tickFormatter} xDomain={[0, 30]} />
+            <XAxis tickFormat={tickFormatter} xDomain={[0, 30]} />
             {statusarray.map((item) => (
-                <HorizontalBarSeries data={[{ y: 1, x: item.duration }]} stroke='black' color={GetCollor(item.description)} />
+                <HorizontalBarSeries key = {getposition()} data={[{ y: 1, x: item.duration }]} stroke='black' color={GetCollor(item.description)} />
             ))}
         </XYPlot>
     )

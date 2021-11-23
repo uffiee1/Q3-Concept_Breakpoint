@@ -6,23 +6,18 @@
   padding: 0;
 }
 
-.table{
+.ProductionLineList{
   display: inline-flex;
   flex-wrap: wrap;
   margin-bottom: auto;
-  border: 0px;
 }
 
-.table>:not(:first-child){
-  border-width: 0px;
-}
 
-.tableItem{
+.ProductionLineListItem{
   margin: 10px;
   margin-right: 0;
   margin-bottom: 0;
   height: min-content;
-  border: none;
 }
 
 

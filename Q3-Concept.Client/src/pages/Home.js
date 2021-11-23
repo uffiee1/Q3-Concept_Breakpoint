@@ -31,7 +31,7 @@ function Home() {
     })
 
     return (
-        <div class = 'screen'>
+        <div className = 'screen'>
             <Sidebar productionlinearray={productionlines} />
             {productionlines.length >= 1 ? <GraphCardList Cards={productionlines} /> : <LoadingPopup />}
         </div>
