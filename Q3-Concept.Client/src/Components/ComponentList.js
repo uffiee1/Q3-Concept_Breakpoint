@@ -91,7 +91,7 @@ function ComponentList({ components }) {
                             <th>{component.description}</th>
                             <th>{component.actions}</th>
                         </tr>
-                    )) : components.sort(compare).map((component) => (
+                    )) : components.sort(OrderByAssending).map((component) => (
                         <tr onClick={() => showPopup(component)} key={component.id}>
                             <th>{component.name}</th>
                             <th>{component.description}</th>

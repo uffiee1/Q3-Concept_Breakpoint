@@ -58,16 +58,18 @@ function CalcTimeIntervals(statusarray) {
         var interval = difference / intervalCount;
         DateArray.push(DateFormat(new Date(startTime.getTime() + interval * i), false));
     }
-
     //final date
-    DateArray.push(DateFormat(endTime))
-    return DateArray;
+    s.push(DateFormat(endTime))
+    return s;
 }
 
 function BarItem({ statusarray }) {
-    let timeIntervals = CalcTimeIntervals(statusarray);
 
+
+
+    let timeIntervals = CalcTimeIntervals(statusarray);
     let x = 0;
+
     const tickFormatter = d => {
         var y = timeIntervals[x]
         x = x + 1;
