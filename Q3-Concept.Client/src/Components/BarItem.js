@@ -20,13 +20,42 @@ function GetCollor(status) {
     //if you change the colors make sure to change them in statuscollors.scss as well
 }
 
+function DateFormat(date) {
+    return date.getDate() + "-" + date.getHours() + ":" + date.getMinutes()
+}
+
+function TimeFormat(date) {
+    return date.getHours() + ":" + date.getMinutes()
+}
+
+function CalcTimeIntervals(statusarray) {
+    const startTime = new Date(statusarray[0].startTime);
+    const endTime = new Date(statusarray[statusarray.length - 1].end__Time);
+    const difference = endTime - startTime;
+
+    //first date
+    let s = [DateFormat(startTime)];
+    //intervals
+    const intervalCount = 2;
+    for (let i = 1; i <= intervalCount; i++) {
+        var interval = difference / intervalCount;
+        s.push(TimeFormat(new Date(startTime.getTime() + interval * i)));
+    }
+    //final date
+    s.push(DateFormat(endTime))
+    return s;
+}
 
 function BarItem({ statusarray }) {
-    var s = [0, 4, 8, 12, 16, 20, 24].reverse();
-    var x = 0;
+
+
+
+    let timeIntervals = CalcTimeIntervals(statusarray);
+
+    let x = 0;
 
     const tickFormatter = d => {
-        var y = s[x]
+        var y = timeIntervals[x]
         x = x + 1;
         return y;
     };
@@ -35,7 +64,7 @@ function BarItem({ statusarray }) {
         <XYPlot class="Bar" width={300} height={100} stackBy="x">
             <VerticalGridLines />
             <HorizontalGridLines />
-            <XAxis tickTotal={[7]} tickFormat={tickFormatter} xDomain={[0, 30]} />
+            <XAxis tickFormat={tickFormatter} xDomain={[0, 50]} xType='time' />
             {statusarray.map((item) => (
                 <HorizontalBarSeries data={[{ y: 1, x: item.duration }]} stroke='black' color={GetCollor(item.description)} />
             ))}
