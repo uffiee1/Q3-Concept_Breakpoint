@@ -11,8 +11,8 @@ function SidebarMachineItem({ machine }) {
     }
 
     return (
-        <div class={`MachineCard ${currentStatusString}`}>
-            <Link to="/" class='link'>
+        <div className={`MachineCard ${currentStatusString}`}>
+            <Link to="/" className='link'>
                 <h3> {machine.name} </h3>
             </Link>
         </div>

@@ -1,6 +1,9 @@
-.container {
-  margin-left: 0;
-  padding-left: 0;
-  width: 84%;
-  display: inline-block;
+*{
+  box-sizing: border-box;
 }
+
+.screen{
+  display: inline-flex;
+  width: 100vw;
+}
+

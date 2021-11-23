@@ -2,56 +2,28 @@
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.column {
-  float: left;
-  width: 25%;
-  padding: 0.7rem;
-  padding-bottom: 10px;
-  display: inline-table;
+.ProductionLineList{
+  display: inline-flex;
+  flex-wrap: wrap;
+  margin-bottom: auto;
 }
 
-.row {
-  margin: 0 -3px;
-  display: inline-block;
+
+.ProductionLineListItem{
+  margin: 10px;
+  margin-right: 0;
+  margin-bottom: 0;
+  height: min-content;
 }
 
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* Responsive columns */
-@media screen and (max-width: 100%) {
-  .column {
-    width: 100%;
-    display: block;
-    margin-bottom: 20px;
-  }
-}
-
-// .card {
-//   min-width: 15rem;
-//   max-width: calc(12.5rem + 13vw);
-//   background: rgb(235, 45, 45);
-//   border-radius: 0.75em;
-
-//   box-shadow: 0 0.25em 0.6em #0005, 0 0.65em 1em #0004;
-//   transition: transform 270ms ease;
-//   position: relative;
-// }
 
 .card {
-  min-width: 15rem;
-  max-width: calc(12.5rem + 13vw);
   border-radius: 0.75em;
-
-  box-shadow: 0 0.25em 0.6em #0005, 0 0.65em 1em #0004;
   transition: transform 270ms ease;
-  position: relative;
 
   &.on {
     background-color: $MachineStatus-Active;
@@ -75,7 +47,7 @@
 }
 
 .card::before {
-  inset: 0;
+
   isolation: isolate;
   mix-blend-mode: color;
   opacity: 0;
@@ -89,12 +61,10 @@
 }
 
 .card-body {
-  display: inline-block;
-  margin-left: -1.7rem;
+  margin-left: -1.3rem;
 }
 
 p {
-  margin-left: 1.7rem;
   text-align: left;
   color: rgb(0, 0, 0);
   font-style: normal;

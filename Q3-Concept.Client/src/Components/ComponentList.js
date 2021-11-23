@@ -1,10 +1,8 @@
-import "../css/ComponentCard.scss"
+import "../css/ComponentList.scss"
 
 import { useEffect, useState } from "react"
 
 import ComponentDetails from "./ComponentDetails"
-
-// import ComponentCard from "./ComponentCard"
 
 function ComponentList({ components }) {
     const [showDetailPopUp, setShowDetailPopUp] = useState(false);
@@ -35,17 +33,22 @@ function ComponentList({ components }) {
     async function filterComponentsOnChange(event) {
         searchInput = event.target.value;
         console.log(searchInput)
+        setFilteredComponents([])
+        if(searchInput === ""){
+            return
+        }
+
         let filtered = components.filter(filterComponentsByName)
         if (filtered.length === 0) {
             setNotFound(true)
         }
         else { setNotFound(false); }
 
-        setFilteredComponents(filtered.sort(compare))
+        setFilteredComponents(filtered.sort(OrderByAssending))
         return
     }
 
-    function compare(a, b) {
+    function OrderByAssending(a, b) {
         if (a.name < b.name) {
             return -1
         }
@@ -86,7 +89,7 @@ function ComponentList({ components }) {
                             <th>{component.description}</th>
                             <th>{component.actions}</th>
                         </tr>
-                    )) : components.sort(compare).map((component) => (
+                    )) : components.sort(OrderByAssending).map((component) => (
                         <tr onClick={() => showPopup(component)} key={component.id}>
                             <th>{component.name}</th>
                             <th>{component.description}</th>
