@@ -20,12 +20,28 @@ function GetCollor(status) {
     //if you change the colors make sure to change them in statuscollors.scss as well
 }
 
-function DateFormat(date) {
-    return date.getDate() + "-" + date.getHours() + ":" + date.getMinutes()
-}
 
-function TimeFormat(date) {
-    return date.getHours() + ":" + date.getMinutes()
+
+function DateFormat(date, DateTrue = true) {
+    let Date = date.getDate();
+    let Hour = date.getHours();
+    let Minute = date.getMinutes();
+
+    if (Date < 10) {
+        date = '0' + Date;
+    }
+    if (Hour < 10) {
+        Hour = '0' + Hour;
+    }
+    if (Minute < 10) {
+        Minute = '0' + Minute;
+    }
+    if (DateTrue) {
+        return Date + "-" + Hour + ":" + Minute;
+    }
+    else {
+        return Hour + ":" + Minute;
+    }
 }
 
 function CalcTimeIntervals(statusarray) {
@@ -34,26 +50,24 @@ function CalcTimeIntervals(statusarray) {
     const difference = endTime - startTime;
 
     //first date
-    let s = [DateFormat(startTime)];
+    let DateArray = [DateFormat(startTime)];
+
     //intervals
     const intervalCount = 2;
     for (let i = 1; i <= intervalCount; i++) {
         var interval = difference / intervalCount;
-        s.push(TimeFormat(new Date(startTime.getTime() + interval * i)));
+        DateArray.push(DateFormat(new Date(startTime.getTime() + interval * i), false));
     }
+
     //final date
-    s.push(DateFormat(endTime))
-    return s;
+    DateArray.push(DateFormat(endTime))
+    return DateArray;
 }
 
 function BarItem({ statusarray }) {
-
-
-
     let timeIntervals = CalcTimeIntervals(statusarray);
 
     let x = 0;
-
     const tickFormatter = d => {
         var y = timeIntervals[x]
         x = x + 1;
