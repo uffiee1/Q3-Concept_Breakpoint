@@ -32,6 +32,7 @@ it("navbar componenten button  href exist", () => {
     // make assertions
    
     expect(screen.getByText('Componenten').closest('a')).toHaveProperty('href');
+  
     //expect(screen.getByText('Componenten').closest('a')).toHaveTextContent("Componenten");
     //check if href works
     
@@ -44,9 +45,7 @@ it("navbar componenten button  href exist", () => {
     
     });
     // make assertions
-   
-    expect(screen.getByText('Machines').closest('a')).toHaveProperty('href');
-    expect(screen.getByText('Machines').closest('a')).toHaveProperty('href');
+     expect(screen.getByText('Machines').closest('a')).toHaveProperty('href');
     //expect(screen.getByText('Componenten').closest('a')).toHaveTextContent("Componenten");
     //check if href works
     
