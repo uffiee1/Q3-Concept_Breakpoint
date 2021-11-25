@@ -104,7 +104,7 @@ namespace DAL
             List<ComponentDataModel> componentsList = new List<ComponentDataModel>();
             string query = string.Empty;
 
-            query = "SELECT tv.`id`, tv.`omschrijving` as `name`, tp.`omschrijving` as `description` FROM `treeview` tv, `treeview` tp WHERE tv.id = @id AND tv.parent = tp.id "
+            query = "SELECT tv.`id`, tv.`omschrijving` as `name`, tp.`omschrijving` as `description` FROM `treeview` tv, `treeview` tp WHERE tv.id = @id AND tv.parent = tp.id ";
 
             using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
             {
@@ -138,7 +138,6 @@ namespace DAL
                 }
             }
         }
-
 
         public List<ComponentDataModel> GetComponentsInProductionLine(int port, int board, bool all)
         {
