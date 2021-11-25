@@ -40,6 +40,29 @@ namespace Q3_Concept.Server.Controllers
         }
 
         [HttpGet]
+        [Route("Component/id")]
+        public IEnumerable<Component> GetSelection(int id)
+        {
+            List<ComponentDataModel> componentDalList = _dalComponenet.GetComponentsInProductionLine(id);
+            List<Component> componentList = new List<Component>();
+
+            foreach (ComponentDataModel component in componentDalList)
+            {
+                componentList.Add(
+                    new Component()
+                    {
+                        Name = component.Name,
+                        Id = component.ID,
+                        Description = component.Description,
+                        MachineHistory = _dalComponenet.GetComHistory(component.ID)
+                    }
+                );
+            }
+
+            return componentList;
+        }
+
+        [HttpGet]
         [Route("ComponentsAll")]
         public IEnumerable<Component> GetAll()
         {
