@@ -34,7 +34,7 @@ function Home() {
     }
 
     function WaitForProductionLines() {
-        if (productionlines.length !== 0) {
+        if (productionlines !== null) {
             setShowLoadingPopup(false);
         }
         return;
@@ -51,7 +51,7 @@ function Home() {
             {showLoadingPopUp ? <LoadingPopup /> : null}
             <Sidebar productionlinearray={productionlines} />
             <div className='container'>
-                {productionlines.length >= 1 ? <GraphCardList Cards={productionlines} /> : null}
+                {productionlines != null ? <GraphCardList Cards={productionlines} /> : <a>No pruductionlines found</a>}
             </div>
         </div>
 
