@@ -5,9 +5,13 @@ import LoadingPopup from "../Components/LoadingPopup";
 import { Variables } from "../Components/ApiUrls";
 import axios from "axios";
 
-function ComponentPage() {
+function ComponentPage(props) {
     const [AllComponents, SetAllComponents] = useState([])
     const [ShowLoadingPopUp, setShowLoadingPopup] = useState(true)
+
+    if (props.location.state.id != null) {
+        console.log(props.location.state.id);
+    }
 
     async function GetAllComponents() {
         try {
@@ -29,19 +33,18 @@ function ComponentPage() {
         return;
     }
 
-
     useEffect(() => {
         SetComponents()
         WaitForComponents()
     })
+
     return (
         <div>
             {ShowLoadingPopUp ? <LoadingPopup /> : null}
 
             <div>
-                {AllComponents.length >= 1 ? <ComponentList components={AllComponents} /> : null}
+                {AllComponents.length >= 1 ? <ComponentList components={AllComponents} id={props.location.state.id} /> : null}
             </div>
-
         </div>
     )
 }

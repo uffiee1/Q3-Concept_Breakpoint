@@ -1,7 +1,10 @@
 import '../css/ProductionLineDetails.css';
+import { Link, useHistory } from 'react-router-dom';
 
 
 function ProductionLineDetails({ productionline }) {
+
+
     return (
         <div className="productionLinePopup">
             <h1>{productionline.name}</h1>
@@ -42,6 +45,7 @@ function ProductionLineDetails({ productionline }) {
                             <div />
                             :
                             <tr key={component.id}>
+                                {<Link to={{ pathname: "/ComponentPage", state: { id: component.id } }} >ga dan </Link>}
                                 <th>{component.name}</th>
                                 <th>{component.description}</th>
                                 <th>{component.startDate}</th>
@@ -53,7 +57,7 @@ function ProductionLineDetails({ productionline }) {
                     }
                 </tbody>
             </table>
-        </div>
+        </div >
     )
 }
 

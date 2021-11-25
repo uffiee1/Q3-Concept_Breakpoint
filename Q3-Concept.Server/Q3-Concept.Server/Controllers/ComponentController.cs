@@ -41,7 +41,7 @@ namespace Q3_Concept.Server.Controllers
 
         [HttpGet]
         [Route("Component/id")]
-        public IEnumerable<Component> GetSelection(int id)
+        public Component GetSelection(int id)//fix dit ooit - nick
         {
             List<ComponentDataModel> componentDalList = _dalComponenet.GetComponentsInProductionLine(id);
             List<Component> componentList = new List<Component>();
@@ -59,7 +59,7 @@ namespace Q3_Concept.Server.Controllers
                 );
             }
 
-            return componentList;
+            return componentList[0];
         }
 
         [HttpGet]
