@@ -14,7 +14,7 @@ function GraphCardList({ Cards }) {
     }
 
     window.onkeydown = function (event) {
-        if (event.keyCode == 27) {
+        if (event.keyCode === 27) {
             setShowDetailPopUp(false);
         }
     };
