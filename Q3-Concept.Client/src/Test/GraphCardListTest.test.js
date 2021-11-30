@@ -1,16 +1,12 @@
 import { render, unmountComponentAtNode } from "react-dom";
-
 import ComponentList from "../Components/ComponentList";
 import { act } from "react-dom/test-utils";
 import { screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event";
+import GraphCardList from "../Components/GraphCardList";
 
-// import '@testing-library/jest-dom/extend-expect'
+{
 
-
-
-
-// arrange
 const Components =
   [
     {
@@ -48,7 +44,7 @@ const Components =
     }
   ]
 
-let container = null;
+  let container = null;
 beforeEach(() => {
   // setup a DOM element as a render target
   container = document.createElement("div");
@@ -62,32 +58,14 @@ afterEach(() => {
   container = null;
 });
 
-
-it("loads and displays components", () => {
-  act(() => {
-    render(<ComponentList data-testid="card" components={Components} />, container)
-
-    // render components
-  });
-  // make assertions
-  expect(container.textContent).toContain("Koffielepel deluxe 2");
-  expect(container.textContent).toContain("Coldhalf");
-})
-
-it("input fields responsiveness and correctness", () => {
-  act(() => {
-    render(<ComponentList data-testid="card" components={Components} />, container)
-    const input = screen.getByTestId("searchfieldid")
-    userEvent.type(input, "Koffie")
+it("row onClick shows pop-up", () =>{
+    act(() => {
+      render(<GraphCardList data-testid = "Graphcard" productionline = {productionLine}/>, container)
+      userEvent.click(screen.getByText("A1"))
+      // render components
+    });
+    // make assertions
+    expect(container.textContent).toContain("Actuele componenten"); // de popup class is productionLinePopup
   })
-  expect(container.textContent).toContain("Koffie");
-});
 
-it("Pop-up shows", () => {
-  act(() => {
-    render(<ComponentList data-testid="card" components={Components} />, container)
-    userEvent.click(screen.getByText("Koffielepel deluxe 2"))
-  })
-  expect(container.textContent).toContain("Koffielepel deluxe 2");
-  expect(container.textContent).toContain("Eind Datum");
-});
+}
