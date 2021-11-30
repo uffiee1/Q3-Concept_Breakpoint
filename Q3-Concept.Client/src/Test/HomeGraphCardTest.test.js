@@ -212,6 +212,4 @@ it("Loads and displays current status (off)", () =>{
     expect(container.firstChild.className).toBe('card off')
   })
 
-
-
 }

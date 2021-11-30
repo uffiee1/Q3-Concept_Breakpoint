@@ -74,7 +74,7 @@ it("loads and displays components", () => {
   expect(container.textContent).toContain("Coldhalf");
 })
 
-it("input fields responsiveness and correctness", () => {
+it("input field responsiveness and correctness", () => {
   act(() => {
     render(<ComponentList data-testid="card" components={Components} />, container)
     const input = screen.getByTestId("searchfieldid")
@@ -83,11 +83,12 @@ it("input fields responsiveness and correctness", () => {
   expect(container.textContent).toContain("Koffie");
 });
 
-it("Pop-up shows", () => {
+it("No search results shows error label", () => {
   act(() => {
     render(<ComponentList data-testid="card" components={Components} />, container)
-    userEvent.click(screen.getByText("Koffielepel deluxe 2"))
+    const input = screen.getByTestId("searchfieldid")
+    userEvent.type(input, "fjdlkjfibe")
   })
-  expect(container.textContent).toContain("Koffielepel deluxe 2");
-  expect(container.textContent).toContain("Eind Datum");
+  expect(container.textContent).toContain("No results found");
 });
+

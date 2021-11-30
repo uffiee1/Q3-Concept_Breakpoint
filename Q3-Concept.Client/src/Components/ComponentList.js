@@ -68,7 +68,8 @@ function ComponentList({ components, id = null }) {
         return
     }
 
-    function OrderByAssending(a, b) {
+    // wordt nog aangepast, en later getest
+    function compare(a, b) {
         if (a.name < b.name) {
             return -1
         }
