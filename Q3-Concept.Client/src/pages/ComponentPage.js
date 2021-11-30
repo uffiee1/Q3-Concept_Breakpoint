@@ -5,8 +5,12 @@ import ComponentList from "../Components/ComponentList"
 import LoadingPopup from "../Components/LoadingPopup";
 import { Variables } from "../Components/ApiUrls";
 
-function ComponentPage() {
+function ComponentPage(props) {
     const [AllComponents, SetAllComponents] = useState([])
+
+    if (props.location.state.id != null) {
+        console.log(props.location.state.id);
+    }
 
     async function GetAllComponents() {
         try {
@@ -22,13 +26,24 @@ function ComponentPage() {
         return;
     }
 
+    function WaitForComponents() {
+        if (AllComponents.length !== 0) {
+            setShowLoadingPopup(false);
+        }
+        return;
+    }
+
     useEffect(() => {
         SetComponents()
     })
-    
+
     return (
         <div>
-            {AllComponents.length >= 1 ? <ComponentList components={AllComponents} /> : <LoadingPopup />}
+            {ShowLoadingPopUp ? <LoadingPopup /> : null}
+
+            <div>
+                {AllComponents.length >= 1 ? <ComponentList components={AllComponents} id={props.location.state.id} /> : null}
+            </div>
         </div>
     )
 }

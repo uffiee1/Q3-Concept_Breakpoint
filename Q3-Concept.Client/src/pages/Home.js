@@ -26,6 +26,14 @@ function Home() {
         return;
     }
 
+    function WaitForProductionLines() {
+        if (productionlines !== null) {
+            setShowLoadingPopup(false);
+        }
+        return;
+    }
+
+
     useEffect(() => {
         getLines()
     })
@@ -33,7 +41,9 @@ function Home() {
     return (
         <div className = 'screen'>
             <Sidebar productionlinearray={productionlines} />
-            {productionlines.length >= 1 ? <GraphCardList Cards={productionlines} /> : <LoadingPopup />}
+            <div className='container'>
+                {productionlines != null ? <GraphCardList Cards={productionlines} /> : <a>No pruductionlines found</a>}
+            </div>
         </div>
     )
 }

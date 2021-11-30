@@ -28,7 +28,7 @@ function NavBar() {
         <AppBar position="static">
           <Toolbar>
             <Button variant="contained" color="primary"><Link to="/" className={classes.link}>Machines</Link></Button>
-            <Button variant="contained" color="primary"><Link to="/ComponentPage" className={classes.link}>Componenten</Link></Button>
+            <Button variant="contained" color="primary"><Link to={{ pathname: "/ComponentPage", state: { id: -1 } }} className={classes.link}>Componenten</Link></Button>
 
             {/* <Button variant="contained" color="primary"> <Link to="/">Machines</Link> </Button> 
           <Button variant="contained" color="inherit"> <Link to="/ComponentPage">Componenten</Link></Button> */}

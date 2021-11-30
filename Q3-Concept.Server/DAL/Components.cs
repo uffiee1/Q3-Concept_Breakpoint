@@ -99,6 +99,46 @@ namespace DAL
             }
         }
 
+        public List<ComponentDataModel> GetComponentsInProductionLine(int id)
+        {
+            List<ComponentDataModel> componentsList = new List<ComponentDataModel>();
+            string query = string.Empty;
+
+            query = "SELECT tv.`id`, tv.`omschrijving` as `name`, tp.`omschrijving` as `description` FROM `treeview` tv, `treeview` tp WHERE tv.id = @id AND tv.parent = tp.id ";
+
+            using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
+            {
+                connection.Open();
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.Add(new MySqlParameter("@id", id));
+                MySqlDataReader reader = command.ExecuteReader();
+                try
+                {
+                    while (reader.Read())
+                    {
+                        ComponentDataModel componentdata = new ComponentDataModel()
+                        {
+                            ID = reader.GetInt32("id"),
+                            Name = reader.GetString("name"),
+                            Description = reader.GetString("description")
+                        };
+
+                        componentsList.Add(componentdata);
+                    }
+
+                    return componentsList;
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
         public List<ComponentDataModel> GetComponentsInProductionLine(int port, int board, bool all)
         {
             List<ComponentDataModel> componentsList = new List<ComponentDataModel>();

@@ -1,4 +1,5 @@
 import '../css/ProductionLineDetails.css';
+import { Link, useHistory } from 'react-router-dom';
 
 function ProductionLineDetails({ productionline }) {
     return (
@@ -41,7 +42,7 @@ function ProductionLineDetails({ productionline }) {
                             <div />
                             :
                             <tr key={component.id}>
-                                <th>{component.name}</th>
+                                <Link to={{ pathname: "/ComponentPage", state: { id: component.id } }} >{component.name}</Link>
                                 <th>{component.description}</th>
                                 <th>{component.startDate}</th>
                                 <th>{component.endDate}</th>
@@ -52,7 +53,7 @@ function ProductionLineDetails({ productionline }) {
                     }
                 </tbody>
             </table>
-        </div>
+        </div >
     )
 }
 
