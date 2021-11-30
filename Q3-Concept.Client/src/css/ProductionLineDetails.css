@@ -18,3 +18,11 @@ tr:hover {
   background-color: rgb(223, 223, 223);
   cursor: pointer;
 }
+
+/*
+dit staat dubbel, ook in componentdetails.css
+*/
+#trnoclick {
+  background-color: rgb(255, 255, 255);
+  cursor: default;
+}

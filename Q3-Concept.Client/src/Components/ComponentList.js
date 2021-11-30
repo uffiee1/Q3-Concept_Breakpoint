@@ -103,7 +103,7 @@ function ComponentList({ components, id = null }) {
             </div>
             <table className="table">
                 <thead>
-                    <tr>
+                    <tr id="trnoclick">
                         <th>Naam</th>
                         <th>Beschrijving</th>
                         <th>Handelingen</th>
