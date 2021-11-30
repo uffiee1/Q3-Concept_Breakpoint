@@ -65,28 +65,30 @@ function CalcTimeIntervals(statusarray) {
 }
 
 function BarItem({ statusarray }) {
-    let timeIntervals = CalcTimeIntervals(statusarray);
+    let timeIntervals = []
+
+    if(statusarray.lenght >= 1){
+        timeIntervals = CalcTimeIntervals(statusarray)
+    }
 
     let x = 0;
     const tickFormatter = d => {
-        var y = timeIntervals[x]
+        var y = 0
+        if(timeIntervals.lenght >= 1 ){
+            y = timeIntervals[x]
+        }
         x = x + 1;
         return y;
     };
-
-    function getposition(){
-        nextkey += 1
-        return nextkey
-    }
 
     return (
         <XYPlot className="Bar" width={300} height={100} stackBy="x">
             <VerticalGridLines />
             <HorizontalGridLines />
             <XAxis tickFormat={tickFormatter} xType='time' />
-            {statusarray.map((item) => (
-                <HorizontalBarSeries key = {getposition()} data={[{ y: 1, x: item.duration }]} stroke='black' color={GetCollor(item.description)} />
-            ))}
+                {statusarray.length >= 1 ? statusarray.map((item) => (
+                    	<HorizontalBarSeries data={[{ y: 1, x: item.duration }]} stroke='black' color={GetCollor(item.description)} />
+                )): null}
         </XYPlot>
     )
 }

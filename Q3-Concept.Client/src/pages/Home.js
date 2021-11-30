@@ -1,12 +1,11 @@
 import './Home.css'
 
 import { useEffect, useState } from 'react';
-import axios from "axios";
 
 import GraphCardList from '../Components/GraphCardList';
-import LoadingPopup from '../Components/LoadingPopup';
 import Sidebar from '../Components/Sidebar';
 import { Variables } from '../Components/ApiUrls';
+import axios from "axios";
 
 function Home() {
 
@@ -26,20 +25,12 @@ function Home() {
         return;
     }
 
-    function WaitForProductionLines() {
-        if (productionlines !== null) {
-            setShowLoadingPopup(false);
-        }
-        return;
-    }
-
-
     useEffect(() => {
         getLines()
     })
 
     return (
-        <div className = 'screen'>
+        <div className='screen'>
             <Sidebar productionlinearray={productionlines} />
             <div className='container'>
                 {productionlines != null ? <GraphCardList Cards={productionlines} /> : <a>No pruductionlines found</a>}

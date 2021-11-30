@@ -1,6 +1,8 @@
 import "../css/ComponentList.scss"
 
 import { useEffect, useState } from "react"
+
+import ComponentDetails from "./ComponentDetails";
 import { Variables } from "../Components/ApiUrls";
 import axios from "axios";
 
@@ -54,7 +56,7 @@ function ComponentList({ components, id = null }) {
         searchInput = event.target.value;
         console.log(searchInput)
         setFilteredComponents([])
-        if(searchInput === ""){
+        if (searchInput === "") {
             return
         }
 
@@ -69,7 +71,7 @@ function ComponentList({ components, id = null }) {
     }
 
     // wordt nog aangepast, en later getest
-    function compare(a, b) {
+    function OrderByAssending(a, b) {
         if (a.name < b.name) {
             return -1
         }
@@ -88,10 +90,10 @@ function ComponentList({ components, id = null }) {
     }, [notFound])
 
     useEffect(() => {
-        if (!popupRendered && id != -1) {
+        if (!popupRendered && id !== -1) {
             SetPopupComponent(id);
+            setPopupRendered(true);
         }
-        setPopupRendered(true);
     })
 
     return (

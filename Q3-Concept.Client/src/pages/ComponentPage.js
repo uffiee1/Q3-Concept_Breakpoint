@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
-import axios from "axios";
 
 import ComponentList from "../Components/ComponentList"
 import LoadingPopup from "../Components/LoadingPopup";
 import { Variables } from "../Components/ApiUrls";
+import axios from "axios";
 
 function ComponentPage(props) {
     const [AllComponents, SetAllComponents] = useState([])
+    const [showLoadingPopUp, setShowLoadingPopup] = useState([])
 
     if (props.location.state.id != null) {
         console.log(props.location.state.id);
@@ -35,11 +36,13 @@ function ComponentPage(props) {
 
     useEffect(() => {
         SetComponents()
+        WaitForComponents()
+
     })
 
     return (
         <div>
-            {ShowLoadingPopUp ? <LoadingPopup /> : null}
+            {showLoadingPopUp ? <LoadingPopup /> : null}
 
             <div>
                 {AllComponents.length >= 1 ? <ComponentList components={AllComponents} id={props.location.state.id} /> : null}

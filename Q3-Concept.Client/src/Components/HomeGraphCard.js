@@ -2,17 +2,6 @@ import '../css/HomeGraphCard.scss';
 
 import BarItem from './BarItem';
 
-// import {
-//     HorizontalBarSeries,
-//     HorizontalGridLines,
-//     VerticalGridLines,
-//     XAxis,
-//     XYPlot
-// } from 'react-vis';
-
-
-// const BarSeries = HorizontalBarSeries
-
 function HomeGraphCard({ productionline }) {
     let currentStatusString = "undefined"
 
@@ -24,7 +13,7 @@ function HomeGraphCard({ productionline }) {
         <div className={`card ${currentStatusString}`}>
             <div className="card-body">
                 <p>{productionline.name}</p>
-                <BarItem statusarray={productionline.statuses} />
+                <BarItem statusarray={productionline.statuses} /> 
             </div>
         </div>
     )
