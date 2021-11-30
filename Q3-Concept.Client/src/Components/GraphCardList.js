@@ -13,16 +13,22 @@ function GraphCardList({ Cards }) {
         ToggelDetailPopUp()
     }
 
+    window.onkeydown = function (event) {
+        if (event.keyCode == 27) {
+            setShowDetailPopUp(false);
+        }
+    };
+
     function ToggelDetailPopUp() {
         setShowDetailPopUp(!showDetailPopUp);
     }
 
     return (
-        <div className = 'ProductionLineList'>
+        <div className='ProductionLineList'>
             {Cards.map((Card) => (
-                    <div key={Card.id} className="ProductionLineListItem" onClick={() => showPopup(Card)}>
-                        <HomeGraphCard productionline={Card} />
-                    </div>
+                <div key={Card.id} className="ProductionLineListItem" onClick={() => showPopup(Card)}>
+                    <HomeGraphCard productionline={Card} />
+                </div>
             ))}
             {showDetailPopUp ? <ProductionLineDetails toggle={() => ToggelDetailPopUp()} productionline={productionline} /> : null}
         </div>
