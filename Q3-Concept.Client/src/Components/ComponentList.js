@@ -89,6 +89,7 @@ function ComponentList({ components, id = null }) {
         console.log(notFound)
     }, [notFound])
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         if (!popupRendered && id !== -1) {
             SetPopupComponent(id);
