@@ -8,7 +8,7 @@ function ComponentDetails({ component }) {
             <h5>Machine Historie</h5>
             <table class="table">
                 <thead>
-                    <tr>
+                    <tr id="trnoclick">
                         <th>Naam</th>
                         <th>Start Datum</th>
                         <th>Eind Datum</th>
