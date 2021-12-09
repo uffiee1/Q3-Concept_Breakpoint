@@ -11,9 +11,11 @@ namespace Logic
     public class MaintenanceLogic
     {
         private DAL.Components _dalComponenet = new DAL.Components();
+        private DAL.Maintenance _dalMaintenance = new DAL.Maintenance();
 
-        public bool CheckWarning(MaintenanceModel maintenance)
+        public bool CheckWarning(int  componentid)
         {
+            _dalMaintenance.GetMaintenances(componentid);
             int actions = _dalComponenet.GetActions(maintenance.TreeviewId);
 
             if (actions >= maintenance.Warning)

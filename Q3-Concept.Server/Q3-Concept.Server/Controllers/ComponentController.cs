@@ -15,6 +15,7 @@ namespace Q3_Concept.Server.Controllers
     public class ComponentController : ControllerBase
     {
         private DAL.Components _dalComponenet = new DAL.Components();
+        private MaintenanceLogic _main = new MaintenanceLogic();
 
         [HttpGet]
         [Route("Component")]
@@ -85,6 +86,14 @@ namespace Q3_Concept.Server.Controllers
                         MachineHistory = _dalComponenet.GetComHistory(component.ID)
                     }
                 );
+                MaintenanceModel model = new MaintenanceModel()
+                {
+                    TreeviewId = comp.Id
+                };
+                if (_main.CheckWarning(model))
+                {
+                    comp.MaintenanceNeeded = true;
+                }
             }
 
             return componentList;

@@ -14,9 +14,15 @@ namespace Q3_Concept.Server.Controllers
         private DAL.Maintenance _dalMaintenance = new DAL.Maintenance();
 
         [HttpGet]
-        public List<MaintenanceModel> GetMaintenance()
+        public List<MaintenanceModel> GetMaintenances()
         {
             return _dalMaintenance.GetMaintenances();
+        }
+
+        [HttpGet]
+        public MaintenanceModel GetMaintenance(int componentid)
+        {
+            return _dalMaintenance.GetMaintenance(componentid);
         }
 
         [HttpPatch]

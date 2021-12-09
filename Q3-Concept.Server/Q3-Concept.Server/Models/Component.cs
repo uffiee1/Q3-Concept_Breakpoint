@@ -19,6 +19,8 @@ namespace Q3_Concept.Server.Models
 
         public int Actions { get; set; }
 
+        public bool MaintenanceNeeded { get; set; }
+
         public List<Model.MachineHistory> MachineHistory { get; set; }
     }
 }

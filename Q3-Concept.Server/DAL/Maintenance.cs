@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Model;
+﻿using Model;
 using MySql.Data.MySqlClient;
+using System.Collections.Generic;
 
 namespace DAL
 {
@@ -37,6 +33,41 @@ namespace DAL
                         }
                     }
                     return maitenances;
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+        public MaintenanceModel GetMaintenance(int id)
+        {
+            MaintenanceModel maintenance = new MaintenanceModel();
+            string query = "SELECT * FROM `maintenance` WHERE id = @id";
+            using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
+            {
+                connection.Open();
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.Add(new MySqlParameter("@id", id));
+                MySqlDataReader reader = command.ExecuteReader();
+                try
+                {
+                    while (reader.Read())
+                    {
+                        MaintenanceModel machineHistory = new MaintenanceModel()
+                        {
+                            Id = reader.GetInt16("id"),
+                            TreeviewId = reader.GetInt16("treeview_id"),
+                            Warning = reader.GetInt16("warning"),
+                            Notes = reader.GetString("notes")
+                        };
+                        maintenance = machineHistory;
+                    }
+                    return maintenance;
                 }
                 catch
                 {
