@@ -14,6 +14,19 @@ function ComponentList({ components, id = null }) {
     const [notFound, setNotFound] = useState(false);
     const [maxOperationEditing, setToggleEditing ] = useState(false);
 
+    async function UpdateComponentHandles(event,componentId,maxActions) {
+        event.stopPropagation();
+        try {
+            const apirequest = await axios.patch(Variables.PatchOnderhoudByComponentIdUrl + "?treeviewId=" + componentId +"&warning=" + maxActions);
+            console.log(apirequest.data)
+            console.log("max number of handles is " + maxActions);
+            return apirequest.data;
+        } catch (error) {
+            console.log("big bean burrito")
+            console.error(error);
+        }
+    }    
+
     async function GetComponentById(id) {
         try {
             const apirequest = await axios.get(Variables.GetComponentByIdUrl + "?id=" + id);
@@ -49,6 +62,9 @@ function ComponentList({ components, id = null }) {
          event.stopPropagation();
          setToggleEditing(!maxOperationEditing);
           console.log("toggled editing")
+     }
+     function doNotPropagate(event){
+        event.stopPropagation();
      }
 
     let searchInput = ""
@@ -118,6 +134,7 @@ function ComponentList({ components, id = null }) {
                         <th>Naam</th>
                         <th>Beschrijving</th>
                         <th>Handelingen</th>
+                        <th>Maximaal aantal handelingen</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -132,14 +149,20 @@ function ComponentList({ components, id = null }) {
                             <th>{component.name}</th>
                             <th>{component.description}</th>
                             <th>{component.actions}</th>
-                            <th>{maxOperationEditing ? <p onClick={(e) => toggleEditingField(e) }>✎ true</p>: <p onClick={(e) => toggleEditingField(e) }>✎ false</p>}</th>
+                            <th>{maxOperationEditing ? 
+                                <div onClick={(e) => toggleEditingField(e) }><input id="maxActionsField" type="number" onClick={(e) => doNotPropagate(e) }/>
+                                <button class="btn warning" onClick={(e) => UpdateComponentHandles(e, component.id, document.getElementById('maxActionsField').value)}>Submit</button>
+                                <button class="btn danger" onClick={(e) => toggleEditingField(e) }>Cancel</button></div>:
+                                
+                                <div onClick={(e) => toggleEditingField(e) }><p>✎ false</p></div>}
+                            </th>
                         </tr>
                     ))
                     }
                 </tbody>
             </table>
             {showDetailPopUp ? <ComponentDetails component={givenComponent} /> : null}
-        </div >
+        </div>
     )
 }
 
