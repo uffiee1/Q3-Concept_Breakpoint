@@ -23,4 +23,4 @@ jobs:
         image: uffiee1/q3concept
         tags: v1, latest
         registry: docker.io
-        dockerfile: ./Dockerfile
+        dockerfile: ./Q3-Concept.Server/Dockerfile
