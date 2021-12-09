@@ -13,12 +13,16 @@ namespace Logic
         private DAL.Components _dalComponenet = new DAL.Components();
         private DAL.Maintenance _dalMaintenance = new DAL.Maintenance();
 
-        public bool CheckWarning(int  componentid)
+        public bool CheckWarning(int componentid)
         {
-            _dalMaintenance.GetMaintenances(componentid);
-            int actions = _dalComponenet.GetActions(maintenance.TreeviewId);
+         MaintenanceModel maintenance = _dalMaintenance.GetMaintenance(componentid);
+         int actions = _dalComponenet.GetActions(componentid);
 
-            if (actions >= maintenance.Warning)
+         if (maintenance.Warning <= 0)
+         {
+             return false;
+         }
+         if (actions >= maintenance.Warning)
             {
                 // send email
                 // possibly send sms
@@ -26,7 +30,20 @@ namespace Logic
                 return true;
             }
 
-            return false;
+         return false;
+        }
+
+        public void UpdateMaintenance(int treeviewId, int warning, string text)
+        {
+            MaintenanceModel maintenance = _dalMaintenance.GetMaintenance(treeviewId);
+            if (maintenance != null && maintenance.TreeviewId > 0)
+            {
+                _dalMaintenance.UpdateMaintenance(treeviewId, warning, text);
+            }
+            else
+            {
+                _dalMaintenance.InsertMaintenance(treeviewId, warning, text);
+            }
         }
     }
 }

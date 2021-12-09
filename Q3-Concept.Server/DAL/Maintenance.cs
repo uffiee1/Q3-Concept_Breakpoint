@@ -1,6 +1,6 @@
-﻿using Model;
+﻿using System.Collections.Generic;
+using Model;
 using MySql.Data.MySqlClient;
-using System.Collections.Generic;
 
 namespace DAL
 {
@@ -26,9 +26,12 @@ namespace DAL
                             {
                                 Id = reader.GetInt16("id"),
                                 TreeviewId = reader.GetInt16("treeview_id"),
-                                Warning = reader.GetInt16("warning"),
-                                Notes = reader.GetString("notes")
+                                Warning = reader.GetInt16("warning")
                             };
+                            if (!reader.IsDBNull(reader.GetOrdinal("notes")))
+                            {
+                                machineHistory.Notes = reader.GetString("notes");
+                            }
                             maitenances.Add(machineHistory);
                         }
                     }
@@ -44,10 +47,11 @@ namespace DAL
                 }
             }
         }
+
         public MaintenanceModel GetMaintenance(int id)
         {
             MaintenanceModel maintenance = new MaintenanceModel();
-            string query = "SELECT * FROM `maintenance` WHERE id = @id";
+            string query = "SELECT * FROM `maintenance` WHERE treeview_id = @id";
             using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
             {
                 connection.Open();
@@ -62,9 +66,12 @@ namespace DAL
                         {
                             Id = reader.GetInt16("id"),
                             TreeviewId = reader.GetInt16("treeview_id"),
-                            Warning = reader.GetInt16("warning"),
-                            Notes = reader.GetString("notes")
+                            Warning = reader.GetInt16("warning")
                         };
+                        if (!reader.IsDBNull(reader.GetOrdinal("notes")))
+                        {
+                            machineHistory.Notes = reader.GetString("notes");
+                        }
                         maintenance = machineHistory;
                     }
                     return maintenance;
@@ -80,14 +87,13 @@ namespace DAL
             }
         }
 
-        public void UpdateMaintenance(int id, int treeviewId, int warning, string notes)
+        public void UpdateMaintenance(int treeviewId, int warning, string notes)
         {
-            string query = "UPDATE `maintenance` SET `treeview_id`=@tId,`warning`=@warning,`notes`=@notes WHERE `id`=@id";
+            string query = "UPDATE `maintenance` SET `warning`=@warning,`notes`=@notes WHERE treeview_id = @tId";
             using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
             {
                 connection.Open();
                 MySqlCommand command = new MySqlCommand(query, connection);
-                command.Parameters.Add(new MySqlParameter("@id", id));
                 command.Parameters.Add(new MySqlParameter("@tId", treeviewId));
                 command.Parameters.Add(new MySqlParameter("@warning", warning));
                 command.Parameters.Add(new MySqlParameter("@notes", notes));

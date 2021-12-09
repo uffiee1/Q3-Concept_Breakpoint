@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DAL;
 using Logic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +16,8 @@ namespace Q3_Concept.Server.Controllers
     public class ComponentController : ControllerBase
     {
         private DAL.Components _dalComponenet = new DAL.Components();
-        private MaintenanceLogic _main = new MaintenanceLogic();
+        private DAL.Maintenance _dalMaintenance = new Maintenance();
+        private MaintenanceLogic _mainLogic = new MaintenanceLogic();
 
         [HttpGet]
         [Route("Component")]
@@ -83,17 +85,11 @@ namespace Q3_Concept.Server.Controllers
                         Id = component.ID,
                         Description = component.Description,
                         Actions = _dalComponenet.GetActions(component.ID),
-                        MachineHistory = _dalComponenet.GetComHistory(component.ID)
+                        MachineHistory = _dalComponenet.GetComHistory(component.ID),
+                        MaintenanceNeeded = _mainLogic.CheckWarning(component.ID),
+                        MaintenanceNote = _dalMaintenance.GetMaintenance(component.ID).Notes
                     }
                 );
-                MaintenanceModel model = new MaintenanceModel()
-                {
-                    TreeviewId = comp.Id
-                };
-                if (_main.CheckWarning(model))
-                {
-                    comp.MaintenanceNeeded = true;
-                }
             }
 
             return componentList;
