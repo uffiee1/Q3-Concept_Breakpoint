@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Model;
 using MySql.Data.MySqlClient;
 
@@ -20,22 +21,84 @@ namespace DAL
                 {
                     while (reader.Read())
                     {
-                        if (reader.GetString("startDate") != "0000-00-00 00:00:00" && reader.GetString("endDate") != "0000-00-00 00:00:00")
-                        {
-                            MaintenanceModel machineHistory = new MaintenanceModel()
+                        MaintenanceModel machineHistory = new MaintenanceModel()
                             {
                                 Id = reader.GetInt16("id"),
                                 TreeviewId = reader.GetInt16("treeview_id"),
                                 Warning = reader.GetInt16("warning")
                             };
-                            if (!reader.IsDBNull(reader.GetOrdinal("notes")))
+                        if (!reader.IsDBNull(reader.GetOrdinal("notes")))
                             {
                                 machineHistory.Notes = reader.GetString("notes");
                             }
-                            maitenances.Add(machineHistory);
-                        }
+                        maitenances.Add(machineHistory);
                     }
                     return maitenances;
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public List<MaintenanceHistoryModel> Getmaintenancehistory(int treeviewid)
+        {
+            List<MaintenanceHistoryModel> maitenances = new List<MaintenanceHistoryModel>();
+
+            string query = "SELECT * FROM `maintenancehistory` WHERE treeview_id = @tId";
+            using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
+            {
+                connection.Open();
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.Add(new MySqlParameter("@tId", treeviewid));
+                MySqlDataReader reader = command.ExecuteReader();
+                try
+                {
+                    while (reader.Read())
+                    {
+                        MaintenanceHistoryModel machineHistory = new MaintenanceHistoryModel()
+                        {
+                            Id = reader.GetInt16("id"),
+                            TreeviewId = reader.GetInt16("treeview_id"),
+                            InsertDate = reader.GetDateTime("insert_date")
+                        };
+                        if (!reader.IsDBNull(reader.GetOrdinal("notes")))
+                        {
+                            machineHistory.Notes = reader.GetString("notes");
+                        }
+                        maitenances.Add(machineHistory);
+                    }
+                    return maitenances;
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public void InsertMaintenceHistory(int treeviewId, string notes)
+        {
+            string query = "INSERT INTO `maintenancehistory`( `treeview_id`, `notes`, `insert_date`) VALUES (@tId, @notes, @date)";
+            using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
+            {
+                connection.Open();
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.Add(new MySqlParameter("@tId", treeviewId));
+                command.Parameters.Add(new MySqlParameter("@date", DateTime.Now));
+                command.Parameters.Add(new MySqlParameter("@notes", notes));
+                try
+                {
+                    MySqlDataReader reader = command.ExecuteReader();
                 }
                 catch
                 {
@@ -66,7 +129,7 @@ namespace DAL
                         {
                             Id = reader.GetInt16("id"),
                             TreeviewId = reader.GetInt16("treeview_id"),
-                            Warning = reader.GetInt16("warning")
+                            Notes = reader.GetString("notes")
                         };
                         if (!reader.IsDBNull(reader.GetOrdinal("notes")))
                         {

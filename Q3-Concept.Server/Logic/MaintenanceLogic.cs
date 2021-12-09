@@ -44,6 +44,11 @@ namespace Logic
             {
                 _dalMaintenance.InsertMaintenance(treeviewId, warning, text);
             }
+
+            if (text != null)
+            {
+                _dalMaintenance.InsertMaintenceHistory(treeviewId, text);
+            }
         }
     }
 }
