@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build --file ./Dockerfile . --latest:$(date +%s)
+      run: docker build --file ./Dockerfile . 
       working-directory: ./Q3-Concept.Server/Q3-Concept.Server
 
 
