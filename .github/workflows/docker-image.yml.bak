@@ -26,6 +26,5 @@ jobs:
         image: uffiee1/q3concept
         tags: v1, latest
         registry: docker.io
-        dockerfile: Q3-Concept.Server/Dockerfile
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
