@@ -1,9 +1,8 @@
-*{
+* {
   box-sizing: border-box;
 }
-
-.screen{
+.screen {
+  background-color: white;
   display: inline-flex;
   width: 100vw;
 }
-

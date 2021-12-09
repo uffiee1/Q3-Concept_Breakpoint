@@ -17,17 +17,13 @@ function ComponentList({ components, id = null }) {
         try {
             const apirequest = await axios.get(Variables.GetComponentByIdUrl + "?id=" + id);
             console.log(apirequest.data)
-            console.log("yohallo2 " + id);
             return apirequest.data;
         } catch (error) {
-            console.log("big bean burrito")
             console.error(error);
         }
     }
 
     async function SetPopupComponent(id) {//van redirect
-        console.log("hallo1 " + id);
-
         setComponent(await GetComponentById(id));
         ToggleDetailPopUp();
         return;
@@ -46,7 +42,7 @@ function ComponentList({ components, id = null }) {
     let searchInput = ""
 
     function filterComponentsByName(component) {
-        if (component.name.includes(searchInput)) {
+        if (component.name.toLowerCase().includes(searchInput.toLowerCase()) || component.description.toLowerCase().includes(searchInput.toLowerCase())) {
             return true
         }
         return false
@@ -89,7 +85,6 @@ function ComponentList({ components, id = null }) {
         console.log(notFound)
     }, [notFound])
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         if (!popupRendered && id !== -1) {
             SetPopupComponent(id);
@@ -98,39 +93,45 @@ function ComponentList({ components, id = null }) {
     })
 
     return (
-        <div>
-            <div className="Searchbar">
-                <label className="searchLabel" htmlFor="search">Search by name:</label>
-                <input className="searchField" data-testid="searchfieldid" type="text" onChange={filterComponentsOnChange}></input>
-                {notFound === true ? <label className="NoResultsLabel">No results found</label> : null}
+        <div className="background">
+            <div className="page">
+                <div style={{ margin: "1%" }} className="Searchbar">
+                    <a style={{ fontSize: "25px" }}>🔎︎</a><input className="searchField" data-testid="searchfieldid" type="text" onChange={filterComponentsOnChange}></input>
+                    {notFound ? <label className="NoResultsLabel">No results found</label> : null}
+                </div>
+                <hr />
+                <table className="table">
+                    <thead>
+                        <tr id="trnoclick">
+                            <th>Naam</th>
+                            <th>Beschrijving</th>
+                            <th>Handelingen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {filteredComponents.length >= 1 ? filteredComponents.map(component => (
+                            <tr onClick={() => showPopup(component)} key={component.id}>
+                                <th>{component.name}</th>
+                                <th>{component.description}</th>
+                                <th>{component.actions}</th>
+                            </tr>
+                        )) : components.sort(OrderByAssending).map((component) => (
+                            <tr onClick={() => showPopup(component)} key={component.id}>
+                                <th>{component.name}</th>
+                                <th>{component.description}</th>
+                                <th>{component.actions}</th>
+                            </tr>
+                        ))
+                        }
+                    </tbody>
+                </table>
+                {showDetailPopUp ?
+                    <div id="dimScreen" onClick={() => ToggleDetailPopUp()}>
+                        <ComponentDetails component={givenComponent} />
+                    </div>
+                    : null}
             </div>
-            <table className="table">
-                <thead>
-                    <tr id="trnoclick">
-                        <th>Naam</th>
-                        <th>Beschrijving</th>
-                        <th>Handelingen</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {filteredComponents.length >= 1 ? filteredComponents.map(component => (
-                        <tr onClick={() => showPopup(component)} key={component.id}>
-                            <th>{component.name}</th>
-                            <th>{component.description}</th>
-                            <th>{component.actions}</th>
-                        </tr>
-                    )) : components.sort(OrderByAssending).map((component) => (
-                        <tr onClick={() => showPopup(component)} key={component.id}>
-                            <th>{component.name}</th>
-                            <th>{component.description}</th>
-                            <th>{component.actions}</th>
-                        </tr>
-                    ))
-                    }
-                </tbody>
-            </table>
-            {showDetailPopUp ? <ComponentDetails component={givenComponent} /> : null}
-        </div >
+        </div>
     )
 }
 

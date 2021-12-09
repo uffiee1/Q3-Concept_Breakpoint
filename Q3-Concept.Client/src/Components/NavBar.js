@@ -1,41 +1,24 @@
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import React from 'react'
-import Toolbar from '@mui/material/Toolbar';
-import { makeStyles } from "@material-ui/core";
-
-const useStyles = makeStyles((theme) => ({
-  navlinks: {
-    marginLeft: theme.spacing(5),
-    display: "flex",
-  },
-  link: {
-    textDecoration: "none",
-    color: "white",
-    "&:hover": {
-      color: "white",
-    },
-  },
-}));
 
 function NavBar() {
-  const classes = useStyles();
   return (
-    <div>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar>
-            <Button variant="contained" color="primary"><Link to="/" className={classes.link}>Machines</Link></Button>
-            <Button variant="contained" color="primary"><Link to={{ pathname: "/ComponentPage", state: { id: -1 } }} className={classes.link}>Componenten</Link></Button>
-
-            {/* <Button variant="contained" color="primary"> <Link to="/">Machines</Link> </Button> 
-          <Button variant="contained" color="inherit"> <Link to="/ComponentPage">Componenten</Link></Button> */}
-          </Toolbar>
-        </AppBar>
-      </Box>
-    </div>
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div className="navbar-brand" style={{ marginLeft: "20px" }}>Q3</div>
+      <div className="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul className="navbar-nav">
+          <li className="nav-item">
+            <Link to="/" className="nav-link">Machines</Link>
+          </li>
+          <li className="nav-item">
+            <Link to={{ pathname: "/ComponentPage", state: { id: -1 } }} className="nav-link">Componenten</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/MaintenancePage" className="nav-link">Onderhoud</Link>
+          </li>
+        </ul>
+      </div>
+    </nav >
   )
 }
 

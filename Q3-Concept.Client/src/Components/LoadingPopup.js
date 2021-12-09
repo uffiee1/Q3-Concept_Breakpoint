@@ -3,8 +3,8 @@ import '../css/LoadingPopup.css';
 function LoadingPopup() {
 
     return (
-        <div className="LoadingPopup">
-            <h3>Fetching Data. please wait...</h3>
+        <div class="spinner-border spinner" role="status">
+            <span class="sr-only"></span>
         </div>
     )
 }

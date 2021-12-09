@@ -1,6 +1,6 @@
 import SidebarMachineItem from './SidebarMachineItem'
 
-const SidebarMachineList = ({ Machines }) => {
+function SidebarMachineList({ Machines }) {
   return (
     <>
       {Machines.map((Machine) => (
