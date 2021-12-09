@@ -10,8 +10,9 @@ function ComponentList({ components, id = null }) {
     const [showDetailPopUp, setShowDetailPopUp] = useState(false);
     const [popupRendered, setPopupRendered] = useState(false);
     const [givenComponent, setComponent] = useState([]);
-    const [filteredComponents, setFilteredComponents] = useState([])
-    const [notFound, setNotFound] = useState(false)
+    const [filteredComponents, setFilteredComponents] = useState([]);
+    const [notFound, setNotFound] = useState(false);
+    const [maxOperationEditing, setToggleEditing ] = useState(false);
 
     async function GetComponentById(id) {
         try {
@@ -42,6 +43,13 @@ function ComponentList({ components, id = null }) {
         setShowDetailPopUp(!showDetailPopUp);
         console.log(givenComponent)
     }
+
+
+    function toggleEditingField(event){ //catch event:any
+         event.stopPropagation();
+         setToggleEditing(!maxOperationEditing);
+          console.log("toggled editing")
+     }
 
     let searchInput = ""
 
@@ -124,6 +132,7 @@ function ComponentList({ components, id = null }) {
                             <th>{component.name}</th>
                             <th>{component.description}</th>
                             <th>{component.actions}</th>
+                            <th>{maxOperationEditing ? <p onClick={(e) => toggleEditingField(e) }>✎ true</p>: <p onClick={(e) => toggleEditingField(e) }>✎ false</p>}</th>
                         </tr>
                     ))
                     }
