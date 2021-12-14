@@ -111,15 +111,51 @@ namespace DAL
             }
         }
 
-        public MaintenanceModel GetMaintenance(int id)
+        public List<MaintenanceHistoryModel> GetHistory(int trid)
         {
-            MaintenanceModel maintenance = new MaintenanceModel();
-            string query = "SELECT * FROM `maintenance` WHERE treeview_id = @id";
+            List<MaintenanceHistoryModel> machinehistories = new List<MaintenanceHistoryModel>();
+            string query = "SELECT * FROM `maintenancehistory` WHERE treeview_id = @id";
             using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
             {
                 connection.Open();
                 MySqlCommand command = new MySqlCommand(query, connection);
-                command.Parameters.Add(new MySqlParameter("@id", id));
+                command.Parameters.Add(new MySqlParameter("@id", trid));
+                MySqlDataReader reader = command.ExecuteReader();
+                try
+                {
+                    while (reader.Read())
+                    {
+                        MaintenanceHistoryModel history = new MaintenanceHistoryModel()
+                        {
+                            Id = reader.GetInt16("id"),
+                            TreeviewId = reader.GetInt16("treeview_id"),
+                            InsertDate = reader.GetDateTime("insert_date"),
+                            Notes = reader.GetString("notes")
+                        };
+                        machinehistories.Add(history);
+                    }
+                    return machinehistories;
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public MaintenanceModel GetMaintenance(int id)
+        {
+            MaintenanceModel maintenance = new MaintenanceModel();
+            string query = "SELECT * FROM `maintenance` WHERE treeview_id = @treeview";
+            using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
+            {
+                connection.Open();
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.Add(new MySqlParameter("@treeview", id));
                 MySqlDataReader reader = command.ExecuteReader();
                 try
                 {
@@ -128,8 +164,7 @@ namespace DAL
                         MaintenanceModel machineHistory = new MaintenanceModel()
                         {
                             Id = reader.GetInt16("id"),
-                            TreeviewId = reader.GetInt16("treeview_id"),
-                            Notes = reader.GetString("notes")
+                            TreeviewId = reader.GetInt16("treeview_id")
                         };
                         if (!reader.IsDBNull(reader.GetOrdinal("notes")))
                         {

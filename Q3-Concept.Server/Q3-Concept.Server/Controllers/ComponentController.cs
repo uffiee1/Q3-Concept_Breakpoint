@@ -87,7 +87,8 @@ namespace Q3_Concept.Server.Controllers
                         Actions = _dalComponenet.GetActions(component.ID),
                         MachineHistory = _dalComponenet.GetComHistory(component.ID),
                         MaintenanceNeeded = _mainLogic.CheckWarning(component.ID),
-                        MaintenanceNote = _dalMaintenance.GetMaintenance(component.ID).Notes
+                        MaintenanceNote = _dalMaintenance.GetMaintenance(component.ID).Notes,
+                        MaintenanceHistory = _dalMaintenance.GetHistory(component.ID)
                     }
                 );
             }

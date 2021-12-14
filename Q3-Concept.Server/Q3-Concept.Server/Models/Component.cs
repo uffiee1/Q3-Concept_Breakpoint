@@ -24,5 +24,7 @@ namespace Q3_Concept.Server.Models
         public bool MaintenanceNeeded { get; set; }
 
         public List<Model.MachineHistory> MachineHistory { get; set; }
+
+        public List<Model.MaintenanceHistoryModel> MaintenanceHistory { get; set; }
     }
 }
