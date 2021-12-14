@@ -15,5 +15,8 @@ namespace Model
         public DateTime InsertDate { get; set; }
 
         public string Notes { get; set; }
+
+        // 1 open, 2 inprogress, 3 closed
+        public int Status { get; set; }
     }
 }

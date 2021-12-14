@@ -15,5 +15,8 @@ namespace Model
         public int Warning { get; set; }
 
         public string Notes { get; set; }
+
+        // 1 open, 2 progress, 3 closed
+        public int Status { get; set; }
     }
 }

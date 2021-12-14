@@ -12,6 +12,7 @@ namespace Logic
     {
         private DAL.Components _dalComponenet = new DAL.Components();
         private DAL.Maintenance _dalMaintenance = new DAL.Maintenance();
+        private MaintenanceHistory _dalmaintenanceHistory = new MaintenanceHistory();
 
         public bool CheckWarning(int componentid)
         {
@@ -33,22 +34,27 @@ namespace Logic
          return false;
         }
 
-        public void UpdateMaintenance(int treeviewId, int warning, string text)
+        public void UpdateMaintenance(int treeviewId, int warning, string text, int status)
         {
             MaintenanceModel maintenance = _dalMaintenance.GetMaintenance(treeviewId);
+            if (maintenance != null && maintenance.TreeviewId > 0 && status == 2 )
+            {
+                _dalmaintenanceHistory.InsertMaintenceHistory(treeviewId, text, status);
+                _dalMaintenance.removeMaintenance(treeviewId);
+                return;
+            }
             if (maintenance != null && maintenance.TreeviewId > 0)
             {
-                _dalMaintenance.UpdateMaintenance(treeviewId, warning, text);
+                _dalMaintenance.UpdateMaintenance(treeviewId, warning, text, status);
             }
             else
             {
-                _dalMaintenance.InsertMaintenance(treeviewId, warning, text);
+                _dalMaintenance.InsertMaintenance(treeviewId, warning, text, status);
             }
 
-            if (text != null)
-            {
-                _dalMaintenance.InsertMaintenceHistory(treeviewId, text);
-            }
+            // if (text != null)
+            // {
+            // }
         }
     }
 }

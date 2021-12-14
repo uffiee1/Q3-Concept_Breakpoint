@@ -18,6 +18,7 @@ namespace Q3_Concept.Server.Controllers
         private DAL.Components _dalComponenet = new DAL.Components();
         private DAL.Maintenance _dalMaintenance = new Maintenance();
         private MaintenanceLogic _mainLogic = new MaintenanceLogic();
+        private MaintenanceHistory _dalMaintenanceHistory = new MaintenanceHistory();
 
         [HttpGet]
         [Route("Component")]
@@ -44,7 +45,7 @@ namespace Q3_Concept.Server.Controllers
 
         [HttpGet]
         [Route("Component/id")]
-        public Component GetSelection(int id)//fix dit ooit - nick
+        public Component GetSelection(int id) // fix dit ooit - nick
         {
             List<ComponentDataModel> componentDalList = _dalComponenet.GetComponentsInProductionLine(id);
             List<Component> componentList = new List<Component>();
@@ -88,7 +89,7 @@ namespace Q3_Concept.Server.Controllers
                         MachineHistory = _dalComponenet.GetComHistory(component.ID),
                         MaintenanceNeeded = _mainLogic.CheckWarning(component.ID),
                         MaintenanceNote = _dalMaintenance.GetMaintenance(component.ID).Notes,
-                        MaintenanceHistory = _dalMaintenance.GetHistory(component.ID)
+                        MaintenanceHistory = _dalMaintenanceHistory.GetmaintenancehistoryFromComponent(component.ID)
                     }
                 );
             }
