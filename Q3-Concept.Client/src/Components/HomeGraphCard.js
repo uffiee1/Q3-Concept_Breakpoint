@@ -12,8 +12,8 @@ function HomeGraphCard({ productionline }) {
     return (
         <div className={`card ${currentStatusString}`}>
             <div className="card-body">
-                <p>{productionline.name}</p>
-                <BarItem statusarray={productionline.statuses} /> 
+                <p className='ProductionLinetitle'>{productionline.name}</p>
+                <BarItem statusarray={productionline.statuses} />
             </div>
         </div>
     )

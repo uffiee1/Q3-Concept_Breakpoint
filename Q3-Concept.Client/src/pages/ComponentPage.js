@@ -9,10 +9,6 @@ function ComponentPage(props) {
     const [AllComponents, SetAllComponents] = useState([])
     const [showLoadingPopUp, setShowLoadingPopup] = useState([])
 
-    if (props.location.state.id != null) {
-        console.log(props.location.state.id);
-    }
-
     async function GetAllComponents() {
         try {
             const apirequest = await axios.get(Variables.GetAllComponentsUrl);
