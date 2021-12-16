@@ -13,7 +13,7 @@ RUN dotnet restore "./Q3-Concept.Server.sln"
 COPY . .
 WORKDIR /src
 FROM restore AS build
-RUN dotnet build "./Q3-Concept.Server.csproj" -c Release -o /app/build
+RUN dotnet build "./Q3-Concept.Server.sln" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "./Q3-Concept.Server.sln" -c Release -o /app/publish
