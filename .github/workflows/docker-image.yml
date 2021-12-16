@@ -13,7 +13,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build the Docker image
+<<<<<<< HEAD
         working-directory: ./Q3-Concept_Server/Q3-Concept_Server
+=======
+        working-directory: ./Q3-Concept.Server/Q3-Concept.Server
+>>>>>>> parent of baccf8c (Update docker-image.yml)
         run: docker build --file ./Dockerfile -t my-image-name:$(date +%s) .
 
       - uses: mr-smithers-excellent/docker-build-push@v5
@@ -22,4 +26,4 @@ jobs:
           image: uffiee1/q3concept
           tags: v1, latest
           registry: docker.io
-          dockerfile: ./Q3-Concept_Server/Dockerfile
+          dockerfile: ./Q3-Concept.Server/Dockerfile
