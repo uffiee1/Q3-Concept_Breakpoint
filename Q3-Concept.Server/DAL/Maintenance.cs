@@ -11,7 +11,7 @@ namespace DAL
         {
             List<MaintenanceModel> maitenances = new List<MaintenanceModel>();
 
-            string query = "SELECT * FROM `maintenance`";
+            string query = "SELECT m.id, m.treeview_id, m.notes, m.status, m.warning, tv.omschrijving FROM `maintenance` m, `treeview` tv WHERE m.treeview_id = tv.id";
             using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
             {
                 connection.Open();
@@ -26,7 +26,8 @@ namespace DAL
                                 Id = reader.GetInt16("id"),
                                 TreeviewId = reader.GetInt16("treeview_id"),
                                 Warning = reader.GetInt32("warning"),
-                                Status = reader.GetInt16("status")
+                                Status = reader.GetInt16("status"),
+                                Name = reader.GetString("omschrijving")
                             };
                         if (!reader.IsDBNull(reader.GetOrdinal("notes")))
                         {
@@ -75,7 +76,7 @@ namespace DAL
         public MaintenanceModel GetMaintenance(int id)
         {
             MaintenanceModel maintenance = new MaintenanceModel();
-            string query = "SELECT * FROM `maintenance` WHERE treeview_id = @treeview";
+            string query = "SELECT m.id, m.treeview_id, m.notes, m.StatusModel, m.status, tv.omschrijving FROM `maintenance` m, `treeview` tv WHERE m.treeview_id = @treeview AND tv.id = @treeview";
             using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
             {
                 connection.Open();
@@ -89,7 +90,9 @@ namespace DAL
                         MaintenanceModel machineHistory = new MaintenanceModel()
                         {
                             Id = reader.GetInt16("id"),
-                            TreeviewId = reader.GetInt16("treeview_id")
+                            TreeviewId = reader.GetInt16("treeview_id"),
+                            Name = reader.GetString("omschrijving"),
+                            Status = reader.GetInt16("StatusModel")
                         };
                         if (!reader.IsDBNull(reader.GetOrdinal("notes")))
                         {
