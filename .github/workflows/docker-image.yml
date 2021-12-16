@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build the Docker image
-        working-directory: ./Q3-Concept_Server/Q3-Concept.Server
+        working-directory: ./Q3-Concept_Server/Q3-Concept_Server
         run: docker build --file ./Dockerfile -t my-image-name:$(date +%s) .
 
       - uses: mr-smithers-excellent/docker-build-push@v5
