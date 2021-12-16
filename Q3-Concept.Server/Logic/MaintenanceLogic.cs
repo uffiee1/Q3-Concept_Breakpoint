@@ -39,8 +39,8 @@ namespace Logic
             MaintenanceModel maintenance = _dalMaintenance.GetMaintenance(treeviewId);
             if (maintenance != null && maintenance.TreeviewId > 0 && status == 2 )
             {
-                _dalmaintenanceHistory.InsertMaintenceHistory(treeviewId, text, status);
-                _dalMaintenance.removeMaintenance(treeviewId);
+                _dalmaintenanceHistory.InsertMaintenceHistory(treeviewId, text, 2);
+                _dalMaintenance.UpdateMaintenance(treeviewId, warning, text, status);
                 return;
             }
             if (maintenance != null && maintenance.TreeviewId > 0)
@@ -49,7 +49,7 @@ namespace Logic
             }
             else
             {
-                _dalMaintenance.InsertMaintenance(treeviewId, warning, text, status);
+                _dalMaintenance.InsertMaintenance(treeviewId, warning, text, 0);
             }
 
             // if (text != null)

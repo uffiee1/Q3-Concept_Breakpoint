@@ -138,7 +138,7 @@ namespace DAL
 
         public void InsertMaintenance(int treeviewId, int warning, string notes, int status)
         {
-            string query = "INSERT INTO `maintenance`(`treeview_id`, `warning`, `notes`) VALUES (@tId,@warning,@notes, @status)";
+            string query = "INSERT INTO `maintenance`(`treeview_id`, `warning`, `notes`, `status`) VALUES (@tId,@warning,@notes, @status)";
             using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
             {
                 connection.Open();
