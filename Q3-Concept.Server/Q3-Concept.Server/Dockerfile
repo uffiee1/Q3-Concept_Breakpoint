@@ -1,4 +1,5 @@
-FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
+
+FROM microsoft/aspnet:1.0.0-beta4 AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
