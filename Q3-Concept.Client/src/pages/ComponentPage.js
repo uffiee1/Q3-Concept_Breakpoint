@@ -39,7 +39,6 @@ function ComponentPage(props) {
     return (
         <div>
             {showLoadingPopUp ? <LoadingPopup /> : null}
-
             <div>
                 {AllComponents.length >= 1 ? <ComponentList components={AllComponents} id={props.location.state.id} /> : null}
             </div>

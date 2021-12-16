@@ -13,7 +13,6 @@ function ComponentList({ components, id = null }) {
     const [givenComponent, setComponent] = useState([]);
     const [filteredComponents, setFilteredComponents] = useState([]);
     const [notFound, setNotFound] = useState(false);
-    const [maxOperationEditing, setToggleEditing] = useState(false);
 
     async function UpdateComponentHandles(event, componentId) {
         event.stopPropagation();
@@ -93,6 +92,14 @@ function ComponentList({ components, id = null }) {
         z.style.display = "inline";
     }
 
+    function HoverLeave(componentId) {
+        document.getElementById("editicon" + componentId).style.display = "none"
+    }
+
+    function HoverEnter(componentId) {
+        document.getElementById("editicon" + componentId).style.display = "inline"
+    }
+
     function DoNotPropagate(event) {
         event.stopPropagation();
     }
@@ -166,49 +173,52 @@ function ComponentList({ components, id = null }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredComponents.length >= 1 ? filteredComponents.map(component => (
-                            <tr onClick={() => ShowPopup(component)} key={component.id}>
-                                <td>{component.name}</td>
-                                <td>{component.description}</td>
-                                <td>{component.actions}</td>
-                                <td>
-                                    <svg id={"editicon" + component.id} onClick={(e) => EnableEditing(e, component.id)} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-                                    </svg>
-                                    <p id={"editinglabel" + component.id} style={{ width: "70%" }} className="changeActionsTr" onClick={(e) => EnableEditing(e, component.id)}>{component.actions}</p>
-                                    <input id={"editingfield" + component.id} style={{ width: "70%", display: "none" }} class="changeActionsTr" type="number" placeholder={component.actions} onClick={(e) => DoNotPropagate(e)} />
-                                    <p id={"editingcheck" + component.id} style={{ width: "15%", display: "none" }} class="changeActionsTr" onClick={(e) => UpdateComponentHandles(e, component.id)}>{"\u2705"}</p>
-                                    <p id={"editingcross" + component.id} style={{ width: "15%", display: "none" }} class="changeActionsTr" onClick={(e) => DisableEditing(e, component.id)}>{"\u274C"}
-                                    </p>
-                                </td>
-                            </tr>
-                        )) : components.sort(OrderByAssending).map((component) => (
-                            <tr onClick={() => ShowPopup(component)} key={component.id}>
-                                <td>{component.name}</td>
-                                <td>{component.description}</td>
-                                <td>{component.actions}</td>
-                                <td  >
-                                    <svg id={"editicon" + component.id} onClick={(e) => EnableEditing(e, component.id)} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-                                    </svg>
-                                    <p id={"editinglabel" + component.id} style={{ width: "70%" }} className="changeActionsTr" >{component.actions}</p>
-                                    <input id={"editingfield" + component.id} style={{ width: "70%", display: "none" }} class="changeActionsTr" type="number" placeholder={component.actions} onClick={(e) => DoNotPropagate(e)} />
-                                    <p id={"editingcheck" + component.id} style={{ width: "15%", display: "none" }} class="changeActionsTr" onClick={(e) => UpdateComponentHandles(e, component.id)}>{"\u2705"}</p>
-                                    <p id={"editingcross" + component.id} style={{ width: "15%", display: "none" }} class="changeActionsTr" onClick={(e) => DisableEditing(e, component.id)}>{"\u274C"}
-                                    </p>
-                                </td>
-                            </tr>
-                        ))
+                        {
+                            filteredComponents.length >= 1 ? filteredComponents.map(component => (
+                                <tr onClick={() => ShowPopup(component)} key={component.id}>
+                                    <td>{component.name}</td>
+                                    <td>{component.description}</td>
+                                    <td>{component.actions}</td>
+                                    <td>
+                                        <svg id={"editicon" + component.id} onClick={(e) => EnableEditing(e, component.id)} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+                                        </svg>
+                                        <p id={"editinglabel" + component.id} style={{ width: "70%" }} className="changeActionsTr" onClick={(e) => EnableEditing(e, component.id)}>{component.actions}</p>
+                                        <input id={"editingfield" + component.id} style={{ width: "70%", display: "none" }} class="changeActionsTr" type="number" placeholder={component.actions} onClick={(e) => DoNotPropagate(e)} />
+                                        <p id={"editingcheck" + component.id} style={{ width: "15%", display: "none" }} class="changeActionsTr" onClick={(e) => UpdateComponentHandles(e, component.id)}>{"\u2705"}</p>
+                                        <p id={"editingcross" + component.id} style={{ width: "15%", display: "none" }} class="changeActionsTr" onClick={(e) => DisableEditing(e, component.id)}>{"\u274C"}
+                                        </p>
+                                    </td>
+                                </tr>
+                            )) : components.sort(OrderByAssending).map((component) => (
+                                <tr onMouseEnter={() => HoverEnter(component.id)} onMouseLeave={() => HoverLeave(component.id)} onClick={() => ShowPopup(component)} key={component.id}>
+                                    <td>{component.name}</td>
+                                    <td>{component.description}</td>
+                                    <td>{component.actions}</td>
+                                    <td>
+                                        <svg style={{ display: "none" }} id={"editicon" + component.id} onClick={(e) => EnableEditing(e, component.id)} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+                                        </svg>
+                                        <p id={"editinglabel" + component.id} style={{ width: "20%" }} className="changeActionsTr" >{component.actions}</p>
+                                        <input id={"editingfield" + component.id} style={{ width: "20%", display: "none" }} class="changeActionsTr" type="number" placeholder={component.actions} onClick={(e) => DoNotPropagate(e)} />
+                                        <p id={"editingcheck" + component.id} style={{ width: "15%", display: "none" }} class="changeActionsTr" onClick={(e) => UpdateComponentHandles(e, component.id)}>{"\u2705"}</p>
+                                        <p id={"editingcross" + component.id} style={{ width: "15%", display: "none" }} class="changeActionsTr" onClick={(e) => DisableEditing(e, component.id)}>{"\u274C"}
+                                        </p>
+                                    </td>
+                                </tr>
+                            ))
                         }
                     </tbody>
                 </table>
-                {showDetailPopUp ?
-                    <div id="dimScreen" onClick={() => ToggleDetailPopUp()}>
-                        <ComponentDetails component={givenComponent} />
-                    </div>
-                    : null}
+                {
+                    showDetailPopUp ?
+                        <div id="dimScreen" onClick={() => ToggleDetailPopUp()}>
+                            <ComponentDetails component={givenComponent} />
+                        </div>
+                        : null
+                }
             </div>
-        </div>
+        </div >
     )
 }
 
