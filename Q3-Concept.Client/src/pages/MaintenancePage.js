@@ -9,6 +9,8 @@ function MaintenancePage(){
     const [showLoadingPopUp, setShowLoadingPopup] = useState([])
     const [components, SetComponents] = useState([])
 
+
+
     var compIdarr = [];
     var compNameArr = [];
 
@@ -28,16 +30,15 @@ function MaintenancePage(){
     }
 
     async function GetComponentById(id){
-        if(!isNaN(id)){
         try {
             const apirequest = await axios.get(Variables.GetComponentByIdUrl + "?id=" + id);
-            console.log(apirequest.data)
-            SetAllMaintenance(AllMaintenance => [AllMaintenance, {ComponentName: apirequest.data.ComponentName}]);
-            return apirequest.data;
+            console.log(apirequest.data.name)
+
+            return apirequest.data.name;
         } catch (error) {
             console.error(error);
         }
-        }
+        
     }
 
     async function getComponentNames(){
@@ -46,17 +47,19 @@ function MaintenancePage(){
     }
 
     function WaitForMaintenance() {
+
         if (AllMaintenance.length >= 0) {
             AllMaintenance.forEach(maintenance => {
                 compIdarr.push(maintenance.treeviewId)
             });
             console.log(compIdarr);
-            compNameArr = compIdarr.forEach(id => {GetComponentById(id)
+            compIdarr.forEach(id => {compNameArr.push(GetComponentById(id))
             });
-            console.log(compNameArr);
+
         }
         return;
-    }
+    
+}
     function WaitForComponentNames() {
         if (components !== 0) {
             setShowLoadingPopup(false);
@@ -77,7 +80,7 @@ function MaintenancePage(){
             <div>
         {showLoadingPopUp ? <LoadingPopup /> : null}
         <h1>MaintenancePage</h1>
-        {AllMaintenance.length >= 1 ? <MaintenanceList maintenance={AllMaintenance} /> : <p>No Data</p> }
+        {AllMaintenance.length >= 1 ? <MaintenanceList maintenance={AllMaintenance} CompNames={compNameArr}/> : <p>No Data</p> }
             </div>
         </div>
     )

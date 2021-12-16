@@ -1,8 +1,11 @@
 import { Variables } from "../Components/ApiUrls";
 import axios from "axios";
 
-function MaintenanceList(maintenance){
+function MaintenanceList(maintenance, CompNames){
     console.log(maintenance);
+    console.log(CompNames[0]);
+    
+
 
 
     return(
@@ -18,8 +21,8 @@ function MaintenanceList(maintenance){
                         </tr>
                     </thead>
                         {maintenance.maintenance.map(maintenance => (
-                            <tr>
-
+                            <tr>{console.log(maintenance.CompNames)}
+                                <td>{}</td>
                                 <td>{maintenance.warning}</td>
                                 <td>{maintenance.notes}</td>
                                 <td>{maintenance.status === 0 ? <p>Gepland</p> : null} {maintenance.status === 1 ? <p>In Behandeling</p> : null} {maintenance.status === 2 ? <p>Klaar</p> : null}</td>
