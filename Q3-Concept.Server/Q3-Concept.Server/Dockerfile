@@ -7,6 +7,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS restore
 
 # copy config files
+WORKDIR /src
 COPY common.props .
 COPY stylecop.json .
 COPY stylecop.props .
@@ -28,4 +29,3 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Q3-Concept.Server.dll"]
-
