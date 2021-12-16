@@ -9,6 +9,9 @@ function MaintenancePage(){
     const [showLoadingPopUp, setShowLoadingPopup] = useState([])
     const [components, SetComponents] = useState([])
 
+    var compIdarr = [];
+    var compNameArr = [];
+
     async function GetAllMaintenance() {
         try {
             const apirequest = await axios.get(Variables.GetAllOnderhoud);
@@ -21,13 +24,15 @@ function MaintenancePage(){
 
     async function SetMaintenance() {
         SetAllMaintenance(await GetAllMaintenance());
+        return;
     }
 
     async function GetComponentById(id){
-        if(id != NaN){
+        if(!isNaN(id)){
         try {
             const apirequest = await axios.get(Variables.GetComponentByIdUrl + "?id=" + id);
             console.log(apirequest.data)
+            SetAllMaintenance(AllMaintenance => [AllMaintenance, {ComponentName: apirequest.data.ComponentName}]);
             return apirequest.data;
         } catch (error) {
             console.error(error);
@@ -37,16 +42,23 @@ function MaintenancePage(){
 
     async function getComponentNames(){
         SetComponents(await GetComponentById())
+        return;
     }
 
     function WaitForMaintenance() {
         if (AllMaintenance.length >= 0) {
-            // setShowLoadingPopup(false);
+            AllMaintenance.forEach(maintenance => {
+                compIdarr.push(maintenance.treeviewId)
+            });
+            console.log(compIdarr);
+            compNameArr = compIdarr.forEach(id => {GetComponentById(id)
+            });
+            console.log(compNameArr);
         }
         return;
     }
     function WaitForComponentNames() {
-        if (components != 0) {
+        if (components !== 0) {
             setShowLoadingPopup(false);
         }
         return;
@@ -55,10 +67,9 @@ function MaintenancePage(){
     useEffect(() => {
         SetMaintenance()
         WaitForMaintenance()
-        getComponentNames()
         WaitForComponentNames()
-
-
+        console.log(AllMaintenance)
+        console.log(components)
     })
 
     return(
@@ -66,7 +77,7 @@ function MaintenancePage(){
             <div>
         {showLoadingPopUp ? <LoadingPopup /> : null}
         <h1>MaintenancePage</h1>
-        {AllMaintenance != 0 ? <MaintenanceList maintenance={AllMaintenance} componentNames={components} /> : <p>No Data</p> }
+        {AllMaintenance.length >= 1 ? <MaintenanceList maintenance={AllMaintenance} /> : <p>No Data</p> }
             </div>
         </div>
     )
