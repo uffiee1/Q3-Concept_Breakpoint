@@ -32,7 +32,6 @@ function MaintenanceList(maintenance){
                             <th style={{ width: "35%" }}>Status</th>
                         </tr>
                     </thead>
-                    
                         {maintenance.maintenance.map(maintenance, i => (
                             <tr>
                                 <td><p>{GetThemComponents(maintenance.treeviewId)}{console.log(GetThemComponents(maintenance.treeviewId))}</p></td>

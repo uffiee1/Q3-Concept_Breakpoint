@@ -21,7 +21,6 @@ function MaintenancePage(){
 
     async function SetMaintenance() {
         SetAllMaintenance(await GetAllMaintenance());
-        return;
     }
 
     async function GetComponentById(id){
@@ -47,7 +46,7 @@ function MaintenancePage(){
         return;
     }
     function WaitForComponentNames() {
-        if (components.length >= 0) {
+        if (components != 0) {
             setShowLoadingPopup(false);
         }
         return;
@@ -67,7 +66,7 @@ function MaintenancePage(){
             <div>
         {showLoadingPopUp ? <LoadingPopup /> : null}
         <h1>MaintenancePage</h1>
-        {AllMaintenance.length > 0 ? <MaintenanceList maintenance={AllMaintenance} componentNames={components} /> : <p>No Data</p> }
+        {AllMaintenance != 0 ? <MaintenanceList maintenance={AllMaintenance} componentNames={components} /> : <p>No Data</p> }
             </div>
         </div>
     )
