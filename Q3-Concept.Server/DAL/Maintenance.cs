@@ -25,7 +25,7 @@ namespace DAL
                             {
                                 Id = reader.GetInt16("id"),
                                 TreeviewId = reader.GetInt16("treeview_id"),
-                                Warning = reader.GetInt16("warning"),
+                                Warning = reader.GetInt32("warning"),
                                 Status = reader.GetInt16("status")
                             };
                         if (!reader.IsDBNull(reader.GetOrdinal("notes")))

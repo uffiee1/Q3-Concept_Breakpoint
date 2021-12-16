@@ -56,7 +56,7 @@ namespace DAL
                             Id = reader.GetInt16("id"),
                             TreeviewId = reader.GetInt16("treeview_id"),
                             InsertDate = reader.GetDateTime("insert_date"),
-                            Status = reader.GetInt16("status")
+                            Status = reader.GetInt32("status")
                         };
                         if (!reader.IsDBNull(reader.GetOrdinal("notes")))
                         {
