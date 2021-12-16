@@ -13,8 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build the Docker image
+        working-directory: ./Q3-Concept.Server/Q3-Concept.Server
         run: docker build --file ./Dockerfile -t my-image-name:$(date +%s) .
-        working-directory: ./Q3-Concept.Server
 
       - uses: mr-smithers-excellent/docker-build-push@v5
         name: Build & push Docker image
@@ -22,4 +22,4 @@ jobs:
           image: uffiee1/q3concept
           tags: v1, latest
           registry: docker.io
-          dockerfile: ./Q3-Concept.Server/Q3-Concept.Server/Dockerfile
+          dockerfile: ./Q3-Concept.Server/Dockerfile
