@@ -6,8 +6,7 @@ EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
-WORKDIR /src/Q3-Concept.Server
-COPY ["Q3-Concept.Server/Q3-Concept.Server.csproj", "Q3-Concept.Server/"]
+COPY ["./Q3-Concept.Server/Q3-Concept.Server/Q3-Concept.Server.csproj", "Q3-Concept.Server/"]
 RUN dotnet restore "Q3-Concept.Server/Q3-Concept.Server.csproj" 
 COPY . .
 WORKDIR "/src/Q3-Concept.Server"
