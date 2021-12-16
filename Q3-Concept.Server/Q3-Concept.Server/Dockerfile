@@ -8,7 +8,7 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS restore
 
 
 WORKDIR /
-COPY ["./Q3-Concept.Server.sln", "Q3-Concept.Server/"]
+COPY ["./Q3-Concept.Server.csproj", "Q3-Concept.Server/"]
 RUN dotnet restore "./Q3-Concept.Server.sln"
 COPY . .
 WORKDIR /src
