@@ -2,25 +2,24 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ main, CICD/CD-Docker ]
+    branches: [main, CICD/CD-Docker, CD-TEMP-BLAME-NICK]
   pull_request:
-    branches: [ main, CICD/CD-Docker ]
+    branches: [main, CICD/CD-Docker]
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build --file ./Dockerfile -t my-image-name:$(date +%s) .
-      working-directory: ./Q3-Concept.Server
+      - uses: actions/checkout@v2
+      - name: Build the Docker image
+        run: docker build --file ./Dockerfile -t my-image-name:$(date +%s) .
+        working-directory: ./Q3-Concept.Server
 
-    - uses: mr-smithers-excellent/docker-build-push@v5
-      name: Build & push Docker image
-      with:
-        image: uffiee1/q3concept
-        tags: v1, latest
-        registry: docker.io
-        dockerfile: ./Q3-Concept.Server/Dockerfile
+      - uses: mr-smithers-excellent/docker-build-push@v5
+        name: Build & push Docker image
+        with:
+          image: uffiee1/q3concept
+          tags: v1, latest
+          registry: docker.io
+          dockerfile: ./Q3-Concept.Server/Q3-Concept.Server/Dockerfile
