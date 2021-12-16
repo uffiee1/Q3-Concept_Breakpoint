@@ -1,6 +1,7 @@
 import '../css/HomeGraphCard.scss';
 
 import BarItem from './BarItem';
+import ActivityGraph from './ActivityGraph';
 
 // import {
 //     HorizontalBarSeries,
@@ -24,7 +25,7 @@ function HomeGraphCard({ productionline }) {
         <div className={`card ${currentStatusString}`}>
             <div className="card-body">
                 <p>{productionline.name}</p>
-                <BarItem statusarray={productionline.statuses} />
+                <ActivityGraph statusarray={productionline.statuses}/>
             </div>
         </div>
     )
