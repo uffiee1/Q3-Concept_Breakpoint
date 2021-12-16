@@ -35,7 +35,7 @@ namespace Q3_Concept.Server.Controllers
         }
 
         [HttpGet]
-        [Route("ProductionLineDetails")]
+        [Route("ProductionLineAll")]
         public IEnumerable<ProductionLine> GetAll(DateTime startTime, DateTime endTime)
         {
             List<ProductionLineModel> productionLinesDB = _pd.GetProductionLines();
