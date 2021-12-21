@@ -17,7 +17,6 @@
   margin: 10px;
   margin-right: 0;
   margin-bottom: 0;
-  height: min-content;
 }
 
 
@@ -60,10 +59,6 @@
   transform: scale(1.05);
 }
 
-.card-body {
-  margin-left: -1.3rem;
-}
-
 p {
   text-align: left;
   color: rgb(0, 0, 0);
@@ -73,3 +68,4 @@ p {
   margin-bottom: 0;
   margin-top: 5px;
 }
+

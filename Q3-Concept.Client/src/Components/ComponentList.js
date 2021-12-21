@@ -2,36 +2,16 @@ import "../css/ComponentList.scss"
 
 import { useEffect, useState } from "react"
 
-import ComponentDetails from "./ComponentDetails";
-import { Variables } from "../Components/ApiUrls";
-import axios from "axios";
+import ComponentDetails from "./ComponentDetails"
 
-function ComponentList({ components, id = null }) {
+// import ComponentCard from "./ComponentCard"
+
+function ComponentList({ components }) {
     const [showDetailPopUp, setShowDetailPopUp] = useState(false);
     const [popupRendered, setPopupRendered] = useState(false);
     const [givenComponent, setComponent] = useState([]);
     const [filteredComponents, setFilteredComponents] = useState([])
     const [notFound, setNotFound] = useState(false)
-
-    async function GetComponentById(id) {
-        try {
-            const apirequest = await axios.get(Variables.GetComponentByIdUrl + "?id=" + id);
-            console.log(apirequest.data)
-            console.log("yohallo2 " + id);
-            return apirequest.data;
-        } catch (error) {
-            console.log("big bean burrito")
-            console.error(error);
-        }
-    }
-
-    async function SetPopupComponent(id) {//van redirect
-        console.log("hallo1 " + id);
-
-        setComponent(await GetComponentById(id));
-        ToggleDetailPopUp();
-        return;
-    }
 
     function showPopup(component) {
         setComponent(component)

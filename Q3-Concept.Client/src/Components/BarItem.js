@@ -1,10 +1,25 @@
+
+import { Translate } from '@material-ui/icons';
 import {
     HorizontalBarSeries,
-    HorizontalGridLines,
-    VerticalGridLines,
     XAxis,
-    XYPlot
+    XYPlot,
+    FlexibleXYPlot,
+    HorizontalRectSeries,
+    YAxis
 } from 'react-vis';
+
+import '../css/Baritem.scss'
+
+let intervalCount = 1
+
+const graphWidth = 300
+let tickAmount = 2
+
+const tickspace = [
+]
+
+
 
 function GetCollor(status) {
     switch (status) {
@@ -20,76 +35,144 @@ function GetCollor(status) {
     //if you change the colors make sure to change them in statuscollors.scss as well
 }
 
-
-
-function DateFormat(date, DateTrue = true) {
-    let Date = date.getDate();
+function DateFormat(date) {
     let Hour = date.getHours();
     let Minute = date.getMinutes();
 
-    if (Date < 10) {
-        date = '0' + Date;
-    }
     if (Hour < 10) {
         Hour = '0' + Hour;
     }
     if (Minute < 10) {
         Minute = '0' + Minute;
     }
-    if (DateTrue) {
-        return Date + "-" + Hour + ":" + Minute;
-    }
-    else {
-        return Hour + ":" + Minute;
-    }
+    
+    return Hour + ":" + Minute;
 }
 
 function CalcTimeIntervals(statusarray) {
-    const startTime = new Date(statusarray[0].startTime);
-    const endTime = new Date(statusarray[statusarray.length - 1].end__Time);
-    const difference = endTime - startTime;
-
-    //first date
-    let DateArray = [DateFormat(startTime)];
-
-    //intervals
-    const intervalCount = 2;
-    for (let i = 1; i <= intervalCount; i++) {
-        var interval = difference / intervalCount;
-        DateArray.push(DateFormat(new Date(startTime.getTime() + interval * i), false));
+    if(statusarray.length >= 1){
+        intervalCount = 1
+        tickAmount = 2 
+        const startTime = new Date(statusarray[0].startTime);
+        const endTime = new Date(statusarray[statusarray.length - 1].end__Time);
+        const difference = endTime - startTime;
+    
+        //first date
+        let DateArray = [DateFormat(startTime)];
+    
+        //intervals
+        intervalCount = statusarray.length - 2;
+        for (let i = 1; i <= intervalCount; i++) {
+            var interval = difference / intervalCount;
+            DateArray.push(DateFormat(new Date(startTime.getTime() + interval * i)));
+        }
+        //final date
+        DateArray.push(DateFormat(endTime))
+        tickAmount = DateArray.length
+        return DateArray;
     }
 
-    //final date
-    DateArray.push(DateFormat(endTime))
-    return DateArray;
+    return
+}
+
+function calcTickSpacing(){
+    let space = 0
+
+    const sa = (graphWidth / tickAmount)
+    const ts = Math.round(sa / 2)
+
+    tickspace.push(`translate(${space}px, 10px)`)
+    for(let i = 0; i < tickAmount; i++ ){
+        space += ts-1
+        tickspace.push(`translate(${space}px, 10px)`)
+    }
+    return
+}
+
+function GetTitle(statusarray){
+    if(statusarray.length >= 1){
+        const startTime = new Date(statusarray[0].startTime);
+        
+        const formatedstart = `${startTime.getDate()}/${startTime.getMonth() + 1}/${startTime.getFullYear()}`
+
+        const endTime = new Date(statusarray[statusarray.length - 1].end__Time);
+
+        const formatedend = `${endTime.getDate()}/${endTime.getMonth() + 1}/${endTime.getFullYear()}`
+
+        return(`${formatedstart} - ${formatedend}`)
+    }
+    return("")
 }
 
 function BarItem({ statusarray }) {
-    let timeIntervals = []
 
-    if(statusarray.lenght >= 1){
-        timeIntervals = CalcTimeIntervals(statusarray)
+    let timeIntervals = CalcTimeIntervals(statusarray);
+    let x = 0;
+
+    let nextspace = -1
+
+    let nextkey = 0
+
+    const Values = [
+    ]
+
+    function getNextSpace(){
+        return tickspace[x]
     }
 
-    let x = 0;
-    const tickFormatter = d => {
-        var y = 0
-        if(timeIntervals.lenght >= 1 ){
-            y = timeIntervals[x]
-        }
+    function tickFormatter() {
+        var y = timeIntervals[x]
+        let transform = tickspace[x]
         x = x + 1;
-        return y;
+        return <text position transform = {transform}>{y}</text>;
     };
 
+    function getposition(){
+        nextkey += 1
+        return nextkey
+    }
+
+    function getXValues(){
+        let nextX = 0
+
+        function processitem(item){
+            if(nextX === 0){
+                nextX = item.startTime
+            }
+            Values.push({data: [{ x: item.duration, y: 0}], color: GetCollor(item.description)})
+            nextX = item.startTime
+        }
+        
+        statusarray.map((item) => (
+            processitem(item)
+        ))
+        console.log(Values)
+        return
+    }
+
+
+    calcTickSpacing()
+    getXValues()
+
     return (
-        <XYPlot className="Bar" width={300} height={100} stackBy="x">
-            <VerticalGridLines />
-            <HorizontalGridLines />
-            <XAxis tickFormat={tickFormatter} xType='time' />
-                {statusarray.length >= 1 ? statusarray.map((item) => (
-                    	<HorizontalBarSeries data={[{ y: 1, x: item.duration }]} stroke='black' color={GetCollor(item.description)} />
-                )): null}
-        </XYPlot>
+        <div>
+            <XYPlot width = {graphWidth} height = {100} stackBy="x">
+                <XAxis tickLabelAngle = {-90} style =
+                {
+                    {
+                        ticks:{
+                            textAnchor: 'start',
+                            fontSize: 20,
+                        },
+                    }
+
+                }/>
+                {Values.map((item) => (
+                    <HorizontalBarSeries key = {getposition} data = {item.data} stroke = 'black' color = {item.color}/>
+                ))}
+            </XYPlot>
+            <div className = "GraphTitle">{GetTitle(statusarray)}</div>
+        </div>
     )
 }
 

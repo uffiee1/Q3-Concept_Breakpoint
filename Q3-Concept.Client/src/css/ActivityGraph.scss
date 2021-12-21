@@ -1,0 +1,21 @@
+.GraphItem{
+    stroke : black;
+    stroke-width: 1;
+    opacity: 1;
+
+    &.on{
+        fill: green;
+    }
+    &.off{
+        fill: red;
+    }
+
+    z-index: 12;
+}
+
+
+svg text{
+    fill: black;
+    stroke: black;
+    text-anchor: middle;
+}
