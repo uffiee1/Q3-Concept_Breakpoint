@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
+
 import LoadingPopup from "../Components/LoadingPopup"
+import MaintenanceList from "../Components/MaintenanceList";
 import { Variables } from "../Components/ApiUrls";
 import axios from "axios";
-import MaintenanceList from "../Components/MaintenanceList";
 
-function MaintenancePage(){
+function MaintenancePage() {
     const [AllMaintenance, SetAllMaintenance] = useState([])
     const [showLoadingPopUp, setShowLoadingPopup] = useState([])
     const [components, SetComponents] = useState([])
@@ -29,7 +30,7 @@ function MaintenancePage(){
         return;
     }
 
-    async function GetComponentById(id){
+    async function GetComponentById(id) {
         try {
             const apirequest = await axios.get(Variables.GetComponentByIdUrl + "?id=" + id);
             console.log(apirequest.data.name)
@@ -38,10 +39,10 @@ function MaintenancePage(){
         } catch (error) {
             console.error(error);
         }
-        
+
     }
 
-    async function getComponentNames(){
+    async function getComponentNames() {
         SetComponents(await GetComponentById())
         return;
     }
@@ -53,13 +54,14 @@ function MaintenancePage(){
                 compIdarr.push(maintenance.treeviewId)
             });
 
-            compIdarr.forEach(id => {compNameArr.push(GetComponentById(id))
+            compIdarr.forEach(id => {
+                compNameArr.push(GetComponentById(id))
             });
 
         }
         return;
-    
-}
+
+    }
     function WaitForComponentNames() {
         if (components !== 0) {
             setShowLoadingPopup(false);
@@ -74,16 +76,15 @@ function MaintenancePage(){
 
     })
 
-    return(
+    return (
         <div>
             <div>
-        {showLoadingPopUp ? <LoadingPopup /> : null}
-        <h1>MaintenancePage</h1>
-        {AllMaintenance.length >= 1 ? <MaintenanceList maintenance={AllMaintenance}/> : <p>No Data</p> }
+                {showLoadingPopUp ? <LoadingPopup /> : null}
+                {AllMaintenance.length >= 1 ? <MaintenanceList maintenance={AllMaintenance} /> : <p>No Data</p>}
             </div>
         </div>
     )
-    
-    
+
+
 }
 export default MaintenancePage
