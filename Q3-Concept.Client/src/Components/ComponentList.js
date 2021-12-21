@@ -5,11 +5,12 @@ import { useEffect, useState } from "react"
 import ComponentDetails from "./ComponentDetails";
 import { Variables } from "../Components/ApiUrls";
 import axios from "axios";
+
 // import EditIcon from "@mui/icons-material/Edit";
 
 // import ComponentCard from "./ComponentCard"
 
-function ComponentList({ components }) {
+function ComponentList({ components, id = null }) {
     const [showDetailPopUp, setShowDetailPopUp] = useState(false);
     const [popupRendered, setPopupRendered] = useState(false);
     const [givenComponent, setComponent] = useState([]);
