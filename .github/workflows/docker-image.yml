@@ -26,6 +26,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
-          file: Q3-Concept.Server/Q3-Concept.Server/Dockerfile
+          file: Q3-Concept.Server/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/q3-concept:latest
