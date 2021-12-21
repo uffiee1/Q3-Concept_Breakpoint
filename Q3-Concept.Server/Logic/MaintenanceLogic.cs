@@ -51,10 +51,6 @@ namespace Logic
             {
                 _dalMaintenance.InsertMaintenance(treeviewId, warning, text, 0);
             }
-
-            // if (text != null)
-            // {
-            // }
         }
     }
 }

@@ -31,7 +31,7 @@ namespace DAL
                             };
                         if (!reader.IsDBNull(reader.GetOrdinal("notes")))
                         {
-                                machineHistory.Notes = reader.GetString("notes");
+                            machineHistory.Notes = reader.GetString("notes");
                         }
                         maitenances.Add(machineHistory);
                     }
@@ -76,7 +76,7 @@ namespace DAL
         public MaintenanceModel GetMaintenance(int id)
         {
             MaintenanceModel maintenance = new MaintenanceModel();
-            string query = "SELECT m.id, m.treeview_id, m.notes, m.status, tv.omschrijving FROM `maintenance` m, `treeview` tv WHERE m.treeview_id = @treeview AND tv.id = @treeview";
+            string query = "SELECT m.id, m.treeview_id, m.notes, m.status, m.warning, tv.omschrijving FROM `maintenance` m, `treeview` tv WHERE m.treeview_id = @treeview AND tv.id = @treeview";
             using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
             {
                 connection.Open();
@@ -92,7 +92,8 @@ namespace DAL
                             Id = reader.GetInt16("id"),
                             TreeviewId = reader.GetInt16("treeview_id"),
                             Name = reader.GetString("omschrijving"),
-                            Status = reader.GetInt16("status")
+                            Status = reader.GetInt16("status"),
+                            Warning = reader.GetInt32("warning")
                         };
                         if (!reader.IsDBNull(reader.GetOrdinal("notes")))
                         {
