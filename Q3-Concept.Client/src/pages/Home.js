@@ -29,7 +29,7 @@ function Home() {
     }
 
     function WaitForProductionLines() {
-        if (productionlines.length !== 0) {
+        if (productionlines !== undefined && productionlines.length !== 0) {
             setShowLoadingPopup(false);
         }
         return;

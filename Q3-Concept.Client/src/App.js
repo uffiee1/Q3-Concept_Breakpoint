@@ -3,6 +3,7 @@ import ComponentPage from './pages/ComponentPage';
 import Home from './pages/Home';
 import NavBar from './Components/NavBar';
 import React from 'react';
+import MaintenancePage from './pages/MaintenancePage';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
           <Route path='/' exact component={Home} />
           <Route path='/home' exact component={Home} />
           <Route path='/ComponentPage' component={ComponentPage} />
-          <Route path='/MaintenancePage' component={Home} />
+          <Route path='/MaintenancePage' component={MaintenancePage} />
         </Switch>
       </Router>
     </div>
