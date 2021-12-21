@@ -52,7 +52,7 @@ function MaintenancePage(){
             AllMaintenance.forEach(maintenance => {
                 compIdarr.push(maintenance.treeviewId)
             });
-            console.log(compIdarr);
+
             compIdarr.forEach(id => {compNameArr.push(GetComponentById(id))
             });
 
@@ -71,8 +71,7 @@ function MaintenancePage(){
         SetMaintenance()
         WaitForMaintenance()
         WaitForComponentNames()
-        console.log(AllMaintenance)
-        console.log(components)
+
     })
 
     return(
@@ -80,7 +79,7 @@ function MaintenancePage(){
             <div>
         {showLoadingPopUp ? <LoadingPopup /> : null}
         <h1>MaintenancePage</h1>
-        {AllMaintenance.length >= 1 ? <MaintenanceList maintenance={AllMaintenance} CompNames={compNameArr}/> : <p>No Data</p> }
+        {AllMaintenance.length >= 1 ? <MaintenanceList maintenance={AllMaintenance}/> : <p>No Data</p> }
             </div>
         </div>
     )
