@@ -28,4 +28,4 @@ jobs:
         with:
           file: Q3-Concept.Server/Q3-Concept.Server/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/Q3-Concept.Server:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/q3-concept:latest
