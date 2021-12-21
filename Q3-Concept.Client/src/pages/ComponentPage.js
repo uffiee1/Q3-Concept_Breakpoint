@@ -7,7 +7,7 @@ import axios from "axios";
 
 function ComponentPage(props) {
     const [AllComponents, SetAllComponents] = useState([])
-    const [showLoadingPopUp, setShowLoadingPopup] = useState([])
+    const [showLoadingPopUp, setShowLoadingPopup] = useState(true)
 
     async function GetAllComponents() {
         try {
