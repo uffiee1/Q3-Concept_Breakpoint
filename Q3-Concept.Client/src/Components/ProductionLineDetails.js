@@ -17,17 +17,17 @@ function ProductionLineDetails({ productionline }) {
                 <table class="table">
                     <thead>
                         <tr id="trnoclick">
-                            <th>Naam</th>
-                            <th>Beschrijving</th>
-                            <th>Start Datum</th>
+                            <th style={{ width: "25%" }}>Naam</th>
+                            <th style={{ width: "25%" }}>Beschrijving</th>
+                            <th style={{ width: "50%" }}>Start Datum</th>
                         </tr>
                     </thead>
                     <tbody>
                         {productionline.components.map(component => (
                             <tr onClick={() => MoreDetails(component.id)} key={component.id}>
-                                <th>{component.name}</th>
-                                <th>{component.description}</th>
-                                <th>{component.startDate}</th>
+                                <td>{component.name}</td>
+                                <td>{component.description}</td>
+                                <td>{component.startDate}</td>
                                 <Link hidden id={"com" + component.id} to={{ pathname: "/ComponentPage", state: { id: component.id } }} ></Link>
 
                             </tr>
@@ -41,10 +41,10 @@ function ProductionLineDetails({ productionline }) {
                 <table class="table">
                     <thead>
                         <tr id="trnoclick">
-                            <th>Naam</th>
-                            <th>Beschrijving</th>
-                            <th>Start Datum</th>
-                            <th>Eind Datum</th>
+                            <th style={{ width: "25%" }}>Naam</th>
+                            <th style={{ width: "25%" }}>Beschrijving</th>
+                            <th style={{ width: "25%" }}>Start Datum</th>
+                            <th style={{ width: "25%" }}>Eind Datum</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,10 +53,10 @@ function ProductionLineDetails({ productionline }) {
                                 <div />
                                 :
                                 <tr onClick={() => MoreDetails(component.id)} key={component.id}>
-                                    <th>{component.name}</th>
-                                    <th>{component.description}</th>
-                                    <th>{component.startDate}</th>
-                                    <th>{component.endDate}</th>
+                                    <td>{component.name}</td>
+                                    <td>{component.description}</td>
+                                    <td>{component.startDate}</td>
+                                    <td>{component.endDate}</td>
                                     <Link hidden id={"com" + component.id} to={{ pathname: "/ComponentPage", state: { id: component.id } }} ></Link>
                                 </tr>
                         ))

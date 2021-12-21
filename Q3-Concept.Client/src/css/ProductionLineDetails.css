@@ -26,3 +26,16 @@ dit staat dubbel, ook in componentdetails.css
   background-color: rgb(255, 255, 255);
   cursor: default;
 }
+
+#dimScreen {
+  position: fixed;
+  padding: 0;
+  margin: 0;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+  background: rgba(83, 83, 83, 0.5);
+}

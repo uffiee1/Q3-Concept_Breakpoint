@@ -10,7 +10,7 @@ function GraphCardList({ Cards }) {
 
     function showPopup(line) {
         setProductionLine(line)
-        ToggelDetailPopUp()
+        ToggleDetailPopUp()
     }
 
     window.onkeydown = function (event) {
@@ -19,7 +19,7 @@ function GraphCardList({ Cards }) {
         }
     };
 
-    function ToggelDetailPopUp() {
+    function ToggleDetailPopUp() {
         setShowDetailPopUp(!showDetailPopUp);
     }
 
@@ -30,7 +30,11 @@ function GraphCardList({ Cards }) {
                     <HomeGraphCard productionline={Card} />
                 </div>
             ))}
-            {showDetailPopUp ? <ProductionLineDetails toggle={() => ToggelDetailPopUp()} productionline={productionline} /> : null}
+            {showDetailPopUp ?
+                <div id="dimScreen" onClick={() => ToggleDetailPopUp()}>
+                    <ProductionLineDetails toggle={() => ToggleDetailPopUp()} productionline={productionline} />
+                </div>
+                : null}
         </div>
     )
 }

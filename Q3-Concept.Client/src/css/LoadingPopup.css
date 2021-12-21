@@ -1,9 +1,9 @@
-.LoadingPopup{
-    display: inline-block;
-    z-index: 2;
-    position: fixed;
-    background-color: blueviolet;
-    top: 45%;
-    left: 40%;
-    width: 40%;
+.spinner {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20%;
+}
+
+.spinner-border {
+  display: inherit;
 }

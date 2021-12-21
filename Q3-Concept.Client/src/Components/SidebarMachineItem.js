@@ -1,6 +1,5 @@
 import '../css/SidebarMachineInfo.scss'
 
-import { Link } from 'react-router-dom';
 import React from 'react'
 
 function SidebarMachineItem({ machine }) {
@@ -12,9 +11,7 @@ function SidebarMachineItem({ machine }) {
 
     return (
         <div className={`MachineCard ${currentStatusString}`}>
-            <Link to="/" className='link'>
-                <h3> {machine.name} </h3>
-            </Link>
+            <h3> {machine.name} </h3>
         </div>
     )
 

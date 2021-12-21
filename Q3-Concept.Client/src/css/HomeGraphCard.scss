@@ -6,19 +6,19 @@
   padding: 0;
 }
 
-.ProductionLineList{
+.ProductionLineList {
   display: inline-flex;
   flex-wrap: wrap;
   margin-bottom: auto;
 }
 
-
-.ProductionLineListItem{
+.ProductionLineListItem {
   margin: 10px;
   margin-right: 0;
   margin-bottom: 0;
+  height: min-content;
+  cursor: pointer;
 }
-
 
 .card {
   border-radius: 0.75em;
@@ -46,7 +46,6 @@
 }
 
 .card::before {
-
   isolation: isolate;
   mix-blend-mode: color;
   opacity: 0;
@@ -59,7 +58,13 @@
   transform: scale(1.05);
 }
 
-p {
+.card-body {
+  // margin-left: -1.3rem; //dit weghalen zorgt voor 3 naast elkaar ipv 4
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.ProductionLinetitle {
   text-align: left;
   color: rgb(0, 0, 0);
   font-style: normal;
