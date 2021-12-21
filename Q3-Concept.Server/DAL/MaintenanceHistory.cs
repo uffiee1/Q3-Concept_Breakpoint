@@ -40,7 +40,7 @@ namespace DAL
         {
             List<MaintenanceHistoryModel> maitenances = new List<MaintenanceHistoryModel>();
 
-            string query = "SELECT * FROM `maintenancehistory` WHERE treeview_id = @tId";
+            string query = "SELECT m.id, m.treeview_id, m.notes, m.insert_date, m.status, tv.omschrijving FROM `maintenancehistory` m, `treeview` tv WHERE m.treeview_id = @tId AND tv.id = @tId";
             using (MySqlConnection connection = new MySqlConnection(DalConnection.Conn))
             {
                 connection.Open();
@@ -56,7 +56,8 @@ namespace DAL
                             Id = reader.GetInt16("id"),
                             TreeviewId = reader.GetInt16("treeview_id"),
                             InsertDate = reader.GetDateTime("insert_date"),
-                            Status = reader.GetInt32("status")
+                            Status = reader.GetInt32("status"),
+                            Name = reader.GetString("omschrijving")
                         };
                         if (!reader.IsDBNull(reader.GetOrdinal("notes")))
                         {

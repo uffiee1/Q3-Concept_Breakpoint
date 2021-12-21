@@ -18,5 +18,7 @@ namespace Model
 
         // 1 open, 2 progress, 3 closed
         public int Status { get; set; }
+
+        public string Name { get; set; }
     }
 }

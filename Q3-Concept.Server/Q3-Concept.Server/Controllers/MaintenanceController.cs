@@ -23,6 +23,7 @@ namespace Q3_Concept.Server.Controllers
         }
 
         [HttpGet]
+        [Route("History")]
         public List<MaintenanceHistoryModel> GetMaintenancehistorys(int treeviewid)
         {
             return _dalMaintenanceHistory.GetmaintenancehistoryFromComponent(treeviewid);
