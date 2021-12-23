@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import {select, scaleBand, axisBottom, axisLeft, call, scaleLinear, stack, selectAll} from 'd3';
+import {select, scaleBand, axisBottom, axisLeft, call, scaleLinear, stack, selectAll, scalePoint} from 'd3';
 import '../css/ActivityGraph.scss'
+import { event } from "jquery";
 
 function ActivityGraph({statusarray}) {
    const [ran, setRan] = useState(false)
@@ -8,7 +9,7 @@ function ActivityGraph({statusarray}) {
    const sgvRef = useRef()
    const wrapperRef = useRef()
    const Width = 360;
-   const Height = 150;
+   const Height = 75;
 
    let keys = []
    let colors = []
@@ -111,7 +112,21 @@ function ActivityGraph({statusarray}) {
             return DateArray;
         }
     }
+    
+    function showTooltip(evt, text) {
+        let tooltip = document.getElementById("tooltip");
+        tooltip.innerHTML = text;
+        tooltip.style.display = "block";
+        tooltip.style.left = evt.pageX + 10 + 'px';
+        tooltip.style.top = evt.pageY + 10 + 'px';
+
+        console.log("tooltip shown")
+    }
       
+    function hideTooltip() {
+        var tooltip = document.getElementById("tooltip");
+        tooltip.style.display = "none";
+    }
 
    useEffect(()=>{
     if(ran === false && statusarray.length >= 1){
@@ -132,7 +147,12 @@ function ActivityGraph({statusarray}) {
         const xscale = scaleLinear()
             .domain([0, 86400]) //seconds in a day
             .range([0 + 30, Width - 30])
+            
 
+        const xscale2 = scalePoint()
+            .domain(MakeXAxisItems())
+            .range([0 + 30, Width - 30])
+        
         //rendering
         svg.selectAll(".layer")
         .data(layers)
@@ -147,34 +167,46 @@ function ActivityGraph({statusarray}) {
         .data(layer => layer)
         .join("rect")
         .attr("x", sequence => xscale(sequence[0]))
-        .attr("width", sequence => xscale(sequence[1] - xscale(sequence[0])))
+        .attr("width", sequence => xscale(sequence[1]) - xscale(sequence[0]))
         .attr("y", sequence => {
             return yScale(1)
         })
         .attr("height", yScale.bandwidth)
         .attr("stroke", "black")
+        .attr("onmousemove" , showTooltip(event, 'Hello world'))
+        .attr("onmouseout", hideTooltip())
+
 
 
         
         //axes
         const xAxis = axisBottom(xscale);
         const yAxis = axisLeft(yScale)
+        const xAxis2 = axisBottom(xscale2)
 
         svg.select(".XAxis")
             .attr("transform", `translate(0, ${Height - 25})`)
+            .attr("display", "none")
             .call(xAxis)
+
+        svg.select(".XAxis2")
+            .attr("transform", `translate(0, ${Height - 25})`)
+            .call(xAxis2)
         
         svg.select(".YAxis")
             .attr("transform", `translate(30, 0)`)
+            .attr("display", "none")
             .call(yAxis)
     }
    },[ran])
     
     return (
         <React.Fragment>
+            <div id="tooltip" display="none"></div>
             <div ref= {wrapperRef} style = {{marginBottom: "2rem"}}>
                 <svg ref = {sgvRef} width = {Width} height = {Height}>
                     <g className = 'XAxis' />
+                    <g className = 'XAxis2' />
                     <g className = 'YAxis' />
                 </svg>
             </div>
