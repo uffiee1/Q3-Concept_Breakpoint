@@ -94,7 +94,7 @@ namespace Q3_Concept.Server.Controllers
 
                 try
                 {
-                    comp.Percentage = Decimal.Divide((decimal)comp.Actions , (decimal)comp.MaxActions) * 100;
+                    comp.Percentage = Math.Round(Decimal.Divide((decimal)comp.Actions , (decimal)comp.MaxActions) * 100, 2);
                 }
                 catch
                 {
