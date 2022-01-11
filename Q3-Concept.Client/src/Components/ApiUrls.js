@@ -3,5 +3,6 @@ export const Variables = {
     GetAllComponentsUrl: "http://localhost:5000/Component/ComponentsAll",
     GetComponentByIdUrl: "http://localhost:5000/Component/Component/id",
     PatchOnderhoudByComponentIdUrl: "http://localhost:5000/Maintenance",
-    GetAllOnderhoud: "http://localhost:5000/Maintenance/MaintenanceAll"
+    GetAllOnderhoud: "http://localhost:5000/Maintenance/MaintenanceAll",
+    PatchPlanOnderhoud: "http://localhost:5000/Maintenance?"
 };

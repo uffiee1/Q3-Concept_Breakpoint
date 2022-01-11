@@ -9,6 +9,14 @@ function ComponentPage(props) {
     const [AllComponents, SetAllComponents] = useState([])
     const [showLoadingPopUp, setShowLoadingPopup] = useState(true)
 
+    let componentId;
+    try {
+        componentId = props.location.state.id
+    } catch {
+        componentId = -1
+    }
+
+
     async function GetAllComponents() {
         try {
             const apirequest = await axios.get(Variables.GetAllComponentsUrl);
@@ -24,7 +32,7 @@ function ComponentPage(props) {
     }
 
     function WaitForComponents() {
-        if (AllComponents.length !== 0) {
+        if (AllComponents.length !== null) {
             setShowLoadingPopup(false);
         }
         return;
@@ -40,7 +48,7 @@ function ComponentPage(props) {
         <div>
             {showLoadingPopUp ? <LoadingPopup /> : null}
             <div>
-                {AllComponents.length >= 1 ? <ComponentList components={AllComponents} id={props.location.state.id} /> : null}
+                {AllComponents.length >= 1 ? <ComponentList components={AllComponents} id={componentId} /> : null}
             </div>
         </div>
     )
