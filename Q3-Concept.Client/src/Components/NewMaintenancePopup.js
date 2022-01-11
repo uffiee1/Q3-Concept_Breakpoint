@@ -47,7 +47,7 @@ function NewMaintenancePopup({ componentId }) {
                     <Form.Control rows='9' id='description' as="textarea" />
                 </Form.Group>
 
-                <button class="btn-dark" style={{ padding: '3px', borderRadius: '5px' }} onClick={(e) => AddNewMaintenance()}>
+                <button class="btn-dark" style={{ padding: '3px', borderRadius: '5px' }} onClick={(e) => AddNewMaintenance(componentId)}>
                     Plan in
                 </button>
             </Form>
