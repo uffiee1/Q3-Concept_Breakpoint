@@ -1,13 +1,13 @@
 import { Variables } from "../Components/ApiUrls";
 import axios from "axios";
 
-function MaintenanceList(maintenance){
-
-    
+function MaintenanceList(maintenance) {
 
 
 
-    return(
+
+
+    return (
         <div className="background">
             <div className="page">
                 <table className="table">
@@ -19,17 +19,16 @@ function MaintenanceList(maintenance){
                             <th style={{ width: "35%" }}>Status</th>
                         </tr>
                     </thead>
-                        {maintenance.maintenance.map(maintenance => (
-                            <tr>{console.log(maintenance.name)}
-                                <td>{maintenance.name}</td>
-                                <td>{maintenance.warning}</td>
-                                <td>{maintenance.notes}</td>
-                                <td>{maintenance.status === 0 ? <p>Gepland</p> : null} {maintenance.status === 1 ? <p>In Behandeling</p> : null} {maintenance.status === 2 ? <p>Klaar</p> : null}</td>
-                               
-                            </tr>
-                        ))}
-                    
-                    </table>
+                    {maintenance.maintenance.map(maintenance => (
+                        <tr>{console.log(maintenance.name)}
+                            <td>{maintenance.name}</td>
+                            <td>{maintenance.warning}</td>
+                            <td>{maintenance.notes}</td>
+                            <td>{maintenance.status === 0 ? <p>Gepland</p> : null} {maintenance.status === 1 ? <p>In Behandeling</p> : null} {maintenance.status === 2 ? <p>Klaar</p> : null}</td>
+                        </tr>
+                    ))}
+
+                </table>
 
             </div>
         </div>
