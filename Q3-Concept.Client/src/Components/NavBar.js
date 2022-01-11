@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 import React from 'react'
+import '../css/Navbar.css'
 
 function NavBar() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div className="navbar-brand" style={{ marginLeft: "20px" }}>Q3</div>
       <div className="collapse navbar-collapse" id="navbarNavDropdown">
         <ul className="navbar-nav">

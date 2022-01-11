@@ -1,8 +1,4 @@
-* {
-  box-sizing: border-box;
-}
-.screen {
-  background-color: white;
-  display: inline-flex;
-  width: 100vw;
+.container {
+  max-width: 90%;
+  margin-left: 170px;
 }

@@ -12,7 +12,7 @@ function HomeGraphCard({ productionline }) {
     return (
         <div className={`card ${currentStatusString}`}>
             <div className="card-body">
-                <p>{productionline.name}</p>
+                <p className='ProductionLinetitle'>{productionline.name}</p>
                 <ActivityGraph statusarray={productionline.statuses} />
             </div>
         </div>

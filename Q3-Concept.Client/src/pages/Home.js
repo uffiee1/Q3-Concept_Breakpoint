@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-
 import './Home.css'
 
 import { useEffect, useState } from 'react';
@@ -43,12 +41,12 @@ function Home() {
     return (
 
         showLoadingPopUp ? <LoadingPopup /> :
-            <div className='screen'>
+            <>
                 <Sidebar productionlinearray={productionlines} />
                 <div className='container'>
                     {productionlines != null ? <GraphCardList Cards={productionlines} /> : <a>No pruductionlines found</a>}
                 </div>
-            </div>
+            </>
 
     )
 }
