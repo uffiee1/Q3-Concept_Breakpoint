@@ -5,7 +5,7 @@ import ActivityGraph from './ActivityGraph';
 function HomeGraphCard({ productionline }) {
     let currentStatusString;
 
-    if (productionline.components.length <= 1) {
+    if (productionline.components.length < 1) {
         currentStatusString = "undefined";
 
     } else if (productionline.statuses.length >= 1) {
