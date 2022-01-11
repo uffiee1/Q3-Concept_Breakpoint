@@ -1,21 +1,19 @@
-*{
+* {
   margin: 0;
   padding: 0;
 }
 
-@media screen and (min-height: 1600px) {
-  .side-menu{
-    height: calc(100vh - 80px);
-  }
-}
 .side-menu {
-  background-color: #d4d5d6;
-  flex-basis: 15%;
   vertical-align: top;
   padding: 0 10px;
+  padding-bottom: 10px;
+  z-index: -5;
+  border-right: black solid 1px;
   padding-top: 10px;
+  background-color: #d3d3d3;
+  position: fixed;
+  height: 100%;
 }
-
 
 .side-menu-items {
   text-align: center;
@@ -25,3 +23,6 @@
   padding: 0;
 }
 
+.side-menu-items:hover {
+  cursor: pointer;
+}

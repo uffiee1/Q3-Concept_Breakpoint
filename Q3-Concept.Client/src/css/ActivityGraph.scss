@@ -13,9 +13,23 @@
     z-index: 12;
 }
 
+.GraphTitle{
+    text-align: center;
+}
+
+
 
 svg text{
     fill: black;
     stroke: black;
     text-anchor: middle;
 }
+
+#tooltip {
+    background: cornsilk;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    display: none;
+    position: absolute;
+  }
