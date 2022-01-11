@@ -29,5 +29,6 @@ namespace Q3_Concept.Server.Models
 
         public List<Model.MaintenanceHistoryModel> MaintenanceHistory { get; set; }
 
+        public decimal Percentage { get; internal set; }
     }
 }
