@@ -6,6 +6,7 @@ import ComponentDetails from "./ComponentDetails";
 import { Variables } from "../Components/ApiUrls";
 import axios from "axios";
 import NewMaintenancePopup from "./NewMaintenancePopup";
+import { filter } from "d3";
 
 
 function ComponentList({ components, id = null }) {
@@ -94,12 +95,22 @@ function ComponentList({ components, id = null }) {
             setNotFound(true)
         }
         else { setNotFound(false); }
-
-        setFilteredComponents(filtered.sort(OrderByAssending))
+        setFilteredComponents(filtered.sort(OrderByAssendingName).sort(OrderByAssending))
         return
     }
 
     function OrderByAssending(a, b) {
+        if (a.percentage < b.percentage) {
+            return 1
+        }
+        if (a.percentage > b.percentage) {
+            return -1
+        }
+        return 0;
+    }
+
+
+    function OrderByAssendingName(a, b) {
         if (a.name < b.name) {
             return -1
         }
@@ -108,6 +119,14 @@ function ComponentList({ components, id = null }) {
         }
         return 0;
     }
+
+    window.onkeydown = function (event) {
+        if (event.keyCode === 27) {
+            setShowDetailPopUp(false);
+            setShowMaintenancePopup(false);
+        }
+    };
+
 
     useEffect(() => {
         console.log(filteredComponents)
@@ -134,9 +153,12 @@ function ComponentList({ components, id = null }) {
                 <table className="table">
                     <thead>
                         <tr id="trnoclick">
-                            <th style={{ width: "35%" }}>Naam</th>
-                            <th style={{ width: "15%" }}>Beschrijving</th>
+                            <th style={{ width: "25%" }}>Naam</th>
+                            <th style={{ width: "12%" }}>Beschrijving</th>
                             <th style={{ width: "15%" }}>Handelingen</th>
+                            <th style={{ width: "15%" }}>onderhoud bij</th>
+                            <th style={{ width: "5%" }}>percentage</th>
+                            <th style={{ width: "25%" }}></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -146,19 +168,23 @@ function ComponentList({ components, id = null }) {
                                     <td>{component.name}</td>
                                     <td>{component.description}</td>
                                     <td>{component.actions}</td>
+                                    {component.maxActions === 0 ? <td>niet ingepland</td> : <td>{component.maxActions}</td>}
+                                    {component.percentage === -1 ? <td>-</td> : component.percentage > 100 ? <th style={{ color: "#ff0026" }}>{component.percentage}%</th> : component.percentage > 90 ? <th style={{ textDecoration: "bold", color: "#ffb70f" }}>{component.percentage}%</th> : <td>{component.percentage}%</td>}
                                     <td>
-                                        <button className="btn-dark" style={{ display: "none", borderRadius: '5px' }} id={"editicon" + component.id} onClick={(e) => EnableMaintenancePopup(e, component.id)} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                        <button className="btn-dark" style={{ display: "none", borderRadius: '5px' }} id={"editicon" + component.id} onClick={(e) => EnableMaintenancePopup(e, component.id)} >
                                             Onderhoud inplannen
                                         </button>
                                     </td>
                                 </tr>
-                            )) : components.sort(OrderByAssending).map((component) => (
+                            )) : components.sort(OrderByAssendingName).sort(OrderByAssending).map((component) => (
                                 <tr onMouseEnter={() => HoverEnter(component.id)} onMouseLeave={() => HoverLeave(component.id)} onClick={() => ShowPopup(component)} key={component.id}>
                                     <td>{component.name}</td>
                                     <td>{component.description}</td>
                                     <td>{component.actions}</td>
+                                    {component.maxActions === 0 ? <td>niet ingepland</td> : <td>{component.maxActions}</td>}
+                                    {component.percentage === -1 ? <td>-</td> : component.percentage > 100 ? <th style={{ color: "#ff0026" }}>{component.percentage}%</th> : component.percentage > 90 ? <th style={{ textDecoration: "bold", color: "#ffb70f" }}>{component.percentage}%</th> : <td>{component.percentage}%</td>}
                                     <td>
-                                        <button className="btn-dark" style={{ display: "none", borderRadius: '5px' }} id={"editicon" + component.id} onClick={(e) => EnableMaintenancePopup(e, component.id)} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                        <button className="btn-dark" style={{ display: "none", borderRadius: '5px' }} id={"editicon" + component.id} onClick={(e) => EnableMaintenancePopup(e, component.id)} >
                                             Onderhoud inplannen
                                         </button>
                                     </td>

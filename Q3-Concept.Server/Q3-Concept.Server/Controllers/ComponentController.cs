@@ -79,20 +79,29 @@ namespace Q3_Concept.Server.Controllers
 
             foreach (ComponentDataModel component in componentDalList)
             {
-                componentList.Add(
-                    new Component()
-                    {
-                        Name = component.Name,
-                        Id = component.ID,
-                        Description = component.Description,
-                        Actions = _dalComponenet.GetActions(component.ID),
-                        MachineHistory = _dalComponenet.GetComHistory(component.ID),
-                        MaintenanceNeeded = _mainLogic.CheckWarning(component.ID),
-                        MaintenanceNote = _dalMaintenance.GetMaintenance(component.ID).Notes,
-                        MaxActions = _dalMaintenance.GetMaintenance(component.ID).Warning,
-                        MaintenanceHistory = _dalMaintenanceHistory.GetmaintenancehistoryFromComponent(component.ID)
-                    }
-                );
+                Component comp = new Component()
+                {
+                    Name = component.Name,
+                    Id = component.ID,
+                    Description = component.Description,
+                    Actions = _dalComponenet.GetActions(component.ID),
+                    MachineHistory = _dalComponenet.GetComHistory(component.ID),
+                    MaintenanceNeeded = _mainLogic.CheckWarning(component.ID),
+                    MaintenanceNote = _dalMaintenance.GetMaintenance(component.ID).Notes,
+                    MaxActions = _dalMaintenance.GetMaintenance(component.ID).Warning,
+                    MaintenanceHistory = _dalMaintenanceHistory.GetmaintenancehistoryFromComponent(component.ID)
+                };
+
+                try
+                {
+                    comp.Percentage = Math.Round(Decimal.Divide((decimal)comp.Actions , (decimal)comp.MaxActions) * 100, 2);
+                }
+                catch
+                {
+                    comp.Percentage = -1;
+                }
+
+                componentList.Add(comp);
             }
 
             return componentList;
