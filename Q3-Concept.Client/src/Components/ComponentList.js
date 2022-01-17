@@ -171,7 +171,7 @@ function ComponentList({ components, id = null }) {
                                     {component.maxActions === 0 ? <td>niet ingepland</td> : <td>{component.maxActions}</td>}
                                     {component.percentage === -1 ? <td>-</td> : component.percentage > 100 ? <th style={{ color: "#ff0026" }}>{component.percentage}%</th> : component.percentage > 90 ? <th style={{ textDecoration: "bold", color: "#ffb70f" }}>{component.percentage}%</th> : <td>{component.percentage}%</td>}
                                     <td>
-                                        <button className="btn-dark" style={{ display: "none", borderRadius: '5px' }} id={"editicon" + component.id} onClick={(e) => EnableMaintenancePopup(e, component.id)} >
+                                        <button className="btn-dark" style={{ width:"10vw", display: "none", borderRadius: '5px' }} id={"editicon" + component.id} onClick={(e) => EnableMaintenancePopup(e, component.id)} >
                                             Onderhoud inplannen
                                         </button>
                                     </td>
@@ -184,7 +184,7 @@ function ComponentList({ components, id = null }) {
                                     {component.maxActions === 0 ? <td>niet ingepland</td> : <td>{component.maxActions}</td>}
                                     {component.percentage === -1 ? <td>-</td> : component.percentage > 100 ? <th style={{ color: "#ff0026" }}>{component.percentage}%</th> : component.percentage > 90 ? <th style={{ textDecoration: "bold", color: "#ffb70f" }}>{component.percentage}%</th> : <td>{component.percentage}%</td>}
                                     <td>
-                                        <button className="btn-dark" style={{ display: "none", borderRadius: '5px' }} id={"editicon" + component.id} onClick={(e) => EnableMaintenancePopup(e, component.id)} >
+                                        <button className="btn-dark" style={{ width:"10vw", display: "none", borderRadius: '5px' }} id={"editicon" + component.id} onClick={(e) => EnableMaintenancePopup(e, component.id)} >
                                             Onderhoud inplannen
                                         </button>
                                     </td>
