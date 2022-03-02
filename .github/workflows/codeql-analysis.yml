@@ -1,9 +1,15 @@
 name: "CodeQL Security"
 
- on:
-   schedule:
-   # Every Tue and Thu at 11:00
-    # - cron: 0 11 * * 2,4
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+    
+ # on:
+   # schedule:
+   # # Every Tue and Thu at 11:00
+     # - cron: '00 11 * * 2,4'
     
 jobs:
   analyze:
