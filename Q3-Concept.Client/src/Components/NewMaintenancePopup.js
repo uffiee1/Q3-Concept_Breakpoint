@@ -1,20 +1,17 @@
+import "../css/NewMaintenancePopup.css"
+
 import { Form } from 'react-bootstrap';
 import React from 'react'
 import { Variables } from "../Components/ApiUrls";
 import axios from "axios";
 
-
-import "../css/NewMaintenancePopup.css"
-
 function NewMaintenancePopup({ componentId }) {
-    console.log(componentId);
-
 
     async function AddNewMaintenance(componentId) {
         try {
             let maxActions = document.getElementById('maxActions').value;
             let description = document.getElementById('description').value;
-            if (maxActions == null || description == "") {
+            if (maxActions == null || description === "") {
                 alert("vul alle velden in.")
             } else {//api call werkt nog niet
                 const apirequest = await axios.patch(Variables.PatchPlanOnderhoud + "treeviewId=" + componentId + "&warning=" + maxActions + "&text=" + description)

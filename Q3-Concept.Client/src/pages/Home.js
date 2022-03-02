@@ -1,8 +1,11 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+
 import './Home.css'
 
 import { useEffect, useState } from 'react';
-import LoadingPopup from "../Components/LoadingPopup";
+
 import GraphCardList from '../Components/GraphCardList';
+import LoadingPopup from "../Components/LoadingPopup";
 import Sidebar from '../Components/Sidebar';
 import { Variables } from '../Components/ApiUrls';
 import axios from "axios";
@@ -37,9 +40,7 @@ function Home() {
         getLines()
         WaitForProductionLines()
     })
-
     return (
-
         showLoadingPopUp ? <LoadingPopup /> :
             <>
                 <Sidebar productionlinearray={productionlines} />
@@ -47,7 +48,6 @@ function Home() {
                     {productionlines != null ? <GraphCardList Cards={productionlines} /> : <a>No pruductionlines found</a>}
                 </div>
             </>
-
     )
 }
 

@@ -1,10 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
-import { select, scaleBand, axisBottom, axisLeft, call, scaleLinear, stack, selectAll, scalePoint } from 'd3';
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import '../css/ActivityGraph.scss'
+
+import React, { useEffect, useRef, useState } from "react";
+import { axisBottom, axisLeft, scaleBand, scaleLinear, scalePoint, select, stack } from 'd3';
+
 import { event } from "jquery";
 
 function ActivityGraph({ statusarray }) {
-    const [ran, setRan] = useState(false)
+    const [ran] = useState(false)
 
     const sgvRef = useRef()
     const wrapperRef = useRef()
@@ -13,7 +17,6 @@ function ActivityGraph({ statusarray }) {
 
     let keys = []
     let colors = []
-    let XAxisItems = []
 
     function GetTitle(statusarray) {
         if (statusarray.length >= 1) {
@@ -107,8 +110,6 @@ function ActivityGraph({ statusarray }) {
             //final date
             DateArray.push(FormatDate(endTime))
 
-            XAxisItems = DateArray
-
             return DateArray;
         }
     }
@@ -196,7 +197,7 @@ function ActivityGraph({ statusarray }) {
                 .attr("display", "none")
                 .call(yAxis)
         }
-    }, [ran])
+    }, [GetStack, MakeXAxisItems, colors, keys, ran, statusarray.length])
 
     return (
         <React.Fragment>

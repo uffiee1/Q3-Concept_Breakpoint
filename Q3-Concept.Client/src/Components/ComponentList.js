@@ -1,13 +1,14 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+
 import "../css/ComponentList.scss"
+
 import { useEffect, useState } from "react"
-import { Button } from "react-bootstrap"
 
 import ComponentDetails from "./ComponentDetails";
+import NewMaintenancePopup from "./NewMaintenancePopup";
 import { Variables } from "../Components/ApiUrls";
 import axios from "axios";
-import NewMaintenancePopup from "./NewMaintenancePopup";
-import { filter } from "d3";
-
 
 function ComponentList({ components, id = null }) {
     const [showDetailPopUp, setShowDetailPopUp] = useState(false);
@@ -17,8 +18,6 @@ function ComponentList({ components, id = null }) {
     const [notFound, setNotFound] = useState(false);
     const [showMaintenancePopup, setShowMaintenancePopup] = useState(false);
     const [componentId, setComponentId] = useState(-1)
-
-
 
     async function GetComponentById(id) {
         try {
@@ -67,10 +66,6 @@ function ComponentList({ components, id = null }) {
 
     function HoverEnter(componentId) {
         document.getElementById("editicon" + componentId).style.display = "inline"
-    }
-
-    function DoNotPropagate(event) {
-        event.stopPropagation();
     }
 
     let searchInput = ""
@@ -141,7 +136,7 @@ function ComponentList({ components, id = null }) {
             SetPopupComponent(id);
             setPopupRendered(true);
         }
-    })
+    }, [popupRendered, id, SetPopupComponent])
 
     return (
         <div className="background">
@@ -171,7 +166,7 @@ function ComponentList({ components, id = null }) {
                                     {component.maxActions === 0 ? <td>niet ingepland</td> : <td>{component.maxActions}</td>}
                                     {component.percentage === -1 ? <td>-</td> : component.percentage > 100 ? <th style={{ color: "#ff0026" }}>{component.percentage}%</th> : component.percentage > 90 ? <th style={{ textDecoration: "bold", color: "#ffb70f" }}>{component.percentage}%</th> : <td>{component.percentage}%</td>}
                                     <td>
-                                        <button className="btn-dark" style={{ width:"10vw", display: "none", borderRadius: '5px' }} id={"editicon" + component.id} onClick={(e) => EnableMaintenancePopup(e, component.id)} >
+                                        <button className="btn-dark" style={{ width: "10vw", display: "none", borderRadius: '5px' }} id={"editicon" + component.id} onClick={(e) => EnableMaintenancePopup(e, component.id)} >
                                             Onderhoud inplannen
                                         </button>
                                     </td>
@@ -184,7 +179,7 @@ function ComponentList({ components, id = null }) {
                                     {component.maxActions === 0 ? <td>niet ingepland</td> : <td>{component.maxActions}</td>}
                                     {component.percentage === -1 ? <td>-</td> : component.percentage > 100 ? <th style={{ color: "#ff0026" }}>{component.percentage}%</th> : component.percentage > 90 ? <th style={{ textDecoration: "bold", color: "#ffb70f" }}>{component.percentage}%</th> : <td>{component.percentage}%</td>}
                                     <td>
-                                        <button className="btn-dark" style={{ width:"10vw", display: "none", borderRadius: '5px' }} id={"editicon" + component.id} onClick={(e) => EnableMaintenancePopup(e, component.id)} >
+                                        <button className="btn-dark" style={{ width: "10vw", display: "none", borderRadius: '5px' }} id={"editicon" + component.id} onClick={(e) => EnableMaintenancePopup(e, component.id)} >
                                             Onderhoud inplannen
                                         </button>
                                     </td>

@@ -60,7 +60,6 @@ function ProductionLineDetails({ productionline }) {
                                     <Link hidden id={"com" + component.id} to={{ pathname: "/ComponentPage", state: { id: component.id } }} ></Link>
                                 </tr>
                         ))
-
                         }
                     </tbody>
                 </table> : <div>Geen componenten gevonden</div>

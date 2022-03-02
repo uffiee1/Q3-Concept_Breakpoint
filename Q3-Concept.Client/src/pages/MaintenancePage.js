@@ -8,9 +8,7 @@ import axios from "axios";
 function MaintenancePage() {
     const [AllMaintenance, SetAllMaintenance] = useState([])
     const [showLoadingPopUp, setShowLoadingPopup] = useState([])
-    const [components, SetComponents] = useState([])
-
-
+    const [components] = useState([])
 
     var compIdarr = [];
     var compNameArr = [];
@@ -39,12 +37,6 @@ function MaintenancePage() {
         } catch (error) {
             console.error(error);
         }
-
-    }
-
-    async function getComponentNames() {
-        SetComponents(await GetComponentById())
-        return;
     }
 
     function WaitForMaintenance() {
@@ -53,15 +45,13 @@ function MaintenancePage() {
             AllMaintenance.forEach(maintenance => {
                 compIdarr.push(maintenance.treeviewId)
             });
-
             compIdarr.forEach(id => {
                 compNameArr.push(GetComponentById(id))
             });
-
         }
         return;
-
     }
+
     function WaitForComponentNames() {
         if (components !== 0) {
             setShowLoadingPopup(false);
@@ -75,7 +65,6 @@ function MaintenancePage() {
         WaitForComponentNames()
 
     })
-
     return (
         <div>
             <div>
@@ -84,7 +73,5 @@ function MaintenancePage() {
             </div>
         </div>
     )
-
-
 }
 export default MaintenancePage

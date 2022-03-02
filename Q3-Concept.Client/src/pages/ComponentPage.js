@@ -16,7 +16,6 @@ function ComponentPage(props) {
         componentId = -1
     }
 
-
     async function GetAllComponents() {
         try {
             const apirequest = await axios.get(Variables.GetAllComponentsUrl);

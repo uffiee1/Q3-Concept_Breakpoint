@@ -1,8 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import { useEffect, useState } from 'react';
+
 import SidebarMachineItem from './SidebarMachineItem'
 
 function SidebarMachineList({ Machines }) {
-  const [filteredMachines, setFilteredMachines] = useState([])
+  const [filteredMachines] = useState([])
   const [filtered, setFiltered] = useState(true)
 
   function FilterMachines(machines) {
@@ -20,7 +23,7 @@ function SidebarMachineList({ Machines }) {
       setFiltered(false);
       FilterMachines(Machines)
     }
-  })
+  }, [filtered, FilterMachines, Machines])
 
   return (
     <>

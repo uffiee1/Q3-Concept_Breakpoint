@@ -1,12 +1,4 @@
-import { Variables } from "../Components/ApiUrls";
-import axios from "axios";
-
 function MaintenanceList(maintenance) {
-
-
-
-
-
     return (
         <div className="background">
             <div className="page">
